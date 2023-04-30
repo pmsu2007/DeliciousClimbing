@@ -1,12 +1,13 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_MATE_File")
@@ -22,4 +23,10 @@ public class TbMateFile extends TbDateEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private TbMate mate;
+
+    @Builder
+    public TbMateFile(String fileName, TbMate mate) {
+        this.fileName = fileName;
+        this.mate = mate;
+    }
 }

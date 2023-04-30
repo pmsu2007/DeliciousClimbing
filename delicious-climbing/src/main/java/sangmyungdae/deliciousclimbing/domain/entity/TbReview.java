@@ -1,15 +1,16 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.ReviewType;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_REVIEW")
@@ -27,4 +28,10 @@ public class TbReview extends TbDateEntity {
 
     @OneToMany(mappedBy = "review")
     private List<TbUserReview> userReviews = new ArrayList<>();
+
+    @Builder
+    public TbReview(ReviewType type, String content) {
+        this.type = type;
+        this.content = content;
+    }
 }

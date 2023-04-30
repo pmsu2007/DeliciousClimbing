@@ -1,12 +1,13 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_COMMENT")
@@ -26,4 +27,11 @@ public class TbComment extends TbDateEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private TbUser user;
+
+    @Builder
+    public TbComment(String content, TbPost post, TbUser user) {
+        this.content = content;
+        this.post = post;
+        this.user = user;
+    }
 }

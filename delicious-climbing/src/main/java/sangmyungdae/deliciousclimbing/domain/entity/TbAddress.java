@@ -1,14 +1,15 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sangmyungdae.deliciousclimbing.domain.enums.Region;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_ADDRESS")
@@ -17,13 +18,19 @@ public class TbAddress {
     @Id
     private Long code; // 행정 코드
 
-    private String reason;
+    private String sido;
 
-    private String season;
+    private String sigungu;
 
-    @Enumerated(EnumType.STRING)
-    private Region region;
+    @OneToMany(mappedBy = "address")
+    private List<TbMountainAddress> mountainAddresses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "famousMountain")
-    private List<TbFamousMountainAddress> famousMountainAdresses = new ArrayList<>();
+    @OneToMany(mappedBy = "address")
+    private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
+    @Builder
+    public TbAddress(Long code, String sido, String sigungu) {
+        this.code = code;
+        this.sido = sido;
+        this.sigungu = sigungu;
+    }
 }

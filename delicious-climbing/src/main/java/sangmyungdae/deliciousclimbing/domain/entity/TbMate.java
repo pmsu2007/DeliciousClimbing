@@ -1,5 +1,7 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_MATE")
@@ -50,4 +52,17 @@ public class TbMate extends TbDateEntity {
     @OneToMany(mappedBy = "mate")
     private List<TbMateFile> mateFiles = new ArrayList<>();
 
+    @Builder
+    public TbMate(String title, String content, Integer hits, Integer count, Boolean recruit, LocalDateTime date,
+                  TbPost post, TbUser user, TbMountain mountain) {
+        this.title = title;
+        this.content = content;
+        this.hits = hits;
+        this.count = count;
+        this.recruit = recruit;
+        this.date = date;
+        this.post = post;
+        this.user = user;
+        this.mountain = mountain;
+    }
 }

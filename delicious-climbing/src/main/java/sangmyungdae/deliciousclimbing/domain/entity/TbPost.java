@@ -1,15 +1,16 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_POST")
@@ -40,4 +41,14 @@ public class TbPost extends TbDateEntity{
 
     @OneToMany(mappedBy = "post")
     private List<TbFile> files = new ArrayList<>();
+
+    @Builder
+    public TbPost(BoardType type, String title, String content, Integer likes, Integer hits, TbUser user) {
+        this.type = type;
+        this.title = title;
+        this.content = content;
+        this.likes = likes;
+        this.hits = hits;
+        this.user = user;
+    }
 }

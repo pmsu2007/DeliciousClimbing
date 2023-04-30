@@ -1,5 +1,7 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
@@ -9,7 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_FAMOUSMOUNTAIN")
@@ -45,5 +47,20 @@ public class TbFamousMountain {
     private Region region;
 
     @OneToMany(mappedBy = "famousMountain")
-    private List<TbFamousMountainAddress> famousMountainAdresses = new ArrayList<>();
+    private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
+
+    @Builder
+    public TbFamousMountain(String name, Integer height, String info, Difficulty difficulty, Integer period,
+                            Integer likes, String imageUrl, String reason, String season, Region region) {
+        this.name = name;
+        this.height = height;
+        this.info = info;
+        this.difficulty = difficulty;
+        this.period = period;
+        this.likes = likes;
+        this.imageUrl = imageUrl;
+        this.reason = reason;
+        this.season = season;
+        this.region = region;
+    }
 }

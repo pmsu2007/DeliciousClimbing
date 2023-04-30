@@ -1,11 +1,13 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_FAMOUSMOUNTAIN_ADDRESS")
@@ -21,4 +23,10 @@ public class TbFamousMountainAddress {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private TbAddress address;
+
+    @Builder
+    public TbFamousMountainAddress(TbFamousMountain famousMountain, TbAddress address) {
+        this.famousMountain = famousMountain;
+        this.address = address;
+    }
 }

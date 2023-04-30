@@ -1,5 +1,7 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_USER")
@@ -61,4 +63,21 @@ public class TbUser extends TbDateEntity {
     @OneToMany(mappedBy = "user")
     private List<TbUserReview> userReviews = new ArrayList<>();
 
+    @Builder
+    public TbUser(LoginType type, String email, String password, String nickname, String imageUrl, String introduction,
+                  Difficulty difficulty, String sns, Gender gender, LocalDateTime birthday,
+                  TbFamousMountain famousMountain, TbAddress address) {
+        this.type = type;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
+        this.introduction = introduction;
+        this.difficulty = difficulty;
+        this.sns = sns;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.famousMountain = famousMountain;
+        this.address = address;
+    }
 }

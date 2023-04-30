@@ -1,12 +1,13 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "TB_MATE_COMMENT")
@@ -27,4 +28,10 @@ public class TbMateComment extends TbDateEntity {
     @JoinColumn(name = "user_id")
     private TbUser user;
 
+    @Builder
+    public TbMateComment(String content, TbMate mate, TbUser user) {
+        this.content = content;
+        this.mate = mate;
+        this.user = user;
+    }
 }

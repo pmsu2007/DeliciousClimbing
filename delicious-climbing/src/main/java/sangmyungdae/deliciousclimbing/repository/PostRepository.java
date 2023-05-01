@@ -1,5 +1,12 @@
 package sangmyungdae.deliciousclimbing.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
+import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+
 public interface PostRepository extends JpaRepository<TbPost, Long> {
 
     // 게시판 종류로 조회

@@ -1,5 +1,11 @@
 package sangmyungdae.deliciousclimbing.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
+import sangmyungdae.deliciousclimbing.domain.entity.TbMountain;
+
 public interface MateRepository extends JpaRepository<TbMate, Long> {
 
     // Page<Mate> findPageAll(Pageable pageable);

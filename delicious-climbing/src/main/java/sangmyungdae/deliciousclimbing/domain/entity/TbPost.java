@@ -19,6 +19,7 @@ public class TbPost extends TbDateEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private BoardType type;
 
@@ -28,8 +29,10 @@ public class TbPost extends TbDateEntity{
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer likes;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer hits;
 
     @ManyToOne(fetch = FetchType.LAZY)

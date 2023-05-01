@@ -19,6 +19,7 @@ public class TbMountain extends TbDateEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "mountain")

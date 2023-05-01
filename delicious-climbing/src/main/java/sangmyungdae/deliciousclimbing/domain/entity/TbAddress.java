@@ -18,8 +18,10 @@ public class TbAddress {
     @Id
     private Long code; // 행정 코드
 
+    @Column(nullable = false)
     private String sido;
 
+    @Column(nullable = false)
     private String sigungu;
 
     @OneToMany(mappedBy = "address")

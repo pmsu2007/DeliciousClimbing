@@ -46,10 +46,10 @@ public class TbUser extends TbDateEntity {
     private String sns;
 
     @Enumerated(EnumType.STRING)
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private Gender gender;
 
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private LocalDateTime birthday;
 
     @OneToOne(fetch = FetchType.LAZY)

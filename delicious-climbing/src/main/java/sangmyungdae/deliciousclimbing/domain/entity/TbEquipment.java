@@ -19,18 +19,24 @@ public class TbEquipment extends TbDateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer hits;
 
-    private Integer cost;
+    @Column(name = "trade_cost", nullable = false)
+    private Integer tradeCost;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentType type;
 
-    private Boolean trade;
+    @Column(name = "trade_status", nullable = false)
+    private Boolean tradeStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
@@ -43,14 +49,14 @@ public class TbEquipment extends TbDateEntity {
     private List<TbEquipmentFile> equipmentFiles = new ArrayList<>();
 
     @Builder
-    public TbEquipment(String title, String content, Integer hits, Integer cost, EquipmentType type, Boolean trade,
-                       TbUser user, TbAddress address) {
+    public TbEquipment(String title, String content, Integer hits, Integer tradeCost, EquipmentType type,
+                       Boolean tradeStatus, TbUser user, TbAddress address) {
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.cost = cost;
+        this.tradeCost = tradeCost;
         this.type = type;
-        this.trade = trade;
+        this.tradeStatus = tradeStatus;
         this.user = user;
         this.address = address;
     }

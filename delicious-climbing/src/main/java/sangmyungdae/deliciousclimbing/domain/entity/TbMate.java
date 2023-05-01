@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,15 +26,17 @@ public class TbMate extends TbDateEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer hits;
 
-    private Integer count;
+    @Column(name = "recruit_count", nullable = false)
+    private Integer recruitCount;
 
-    @Column(nullable = false)
-    private Boolean recruit;
+    @Column(name = "recruit_status", nullable = false)
+    private Boolean recruitStatus;
 
-    @Column(nullable = false)
-    private LocalDateTime date;
+    @Column(name = "recruit_date", nullable = false)
+    private LocalDateTime recruitDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -53,14 +56,15 @@ public class TbMate extends TbDateEntity {
     private List<TbMateFile> mateFiles = new ArrayList<>();
 
     @Builder
-    public TbMate(String title, String content, Integer hits, Integer count, Boolean recruit, LocalDateTime date,
-                  TbPost post, TbUser user, TbMountain mountain) {
+
+    public TbMate(String title, String content, Integer hits, Integer recruitCount, Boolean recruitStatus,
+                  LocalDateTime recruitDate, TbPost post, TbUser user, TbMountain mountain) {
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.count = count;
-        this.recruit = recruit;
-        this.date = date;
+        this.recruitCount = recruitCount;
+        this.recruitStatus = recruitStatus;
+        this.recruitDate = recruitDate;
         this.post = post;
         this.user = user;
         this.mountain = mountain;

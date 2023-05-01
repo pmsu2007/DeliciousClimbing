@@ -20,13 +20,13 @@ public class TbFamousMountain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // not null
+    @Column(nullable = false)
     private String name;
 
-    // not null
+    @Column(nullable = false)
     private Integer height;
 
-    // not null
+    @Column(nullable = false)
     private String info;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +34,7 @@ public class TbFamousMountain {
 
     private Integer period;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer likes;
 
     @Column(name = "image_url")
@@ -43,6 +44,7 @@ public class TbFamousMountain {
 
     private String season;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Region region;
 

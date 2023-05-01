@@ -1,4 +1,6 @@
 package sangmyungdae.deliciousclimbing.repository;
 
-public class UserRepository {
+public interface UserRepository extends JpaRepository<TbUser, Long> {
+
+    Optional<TbUser> findByEmail(String email);
 }

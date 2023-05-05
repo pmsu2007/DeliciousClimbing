@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<TbPost, Long> {
     Page<TbPost> findPageByTypeAndTitleContaining(BoardType type, String searchKeyword, Pageable pageable);
 
     // 내가쓴글 페이징
-    Page<TbPost> findPageByUserId(Long userId, Pageable pageable);
+    Page<TbPost> findPageByUser_Id(Long userId, Pageable pageable);
 
-    Page<TbPost> findPageByTbUser(TbUser user, Pageable pageable);
+    Page<TbPost> findPageByUser(TbUser user, Pageable pageable);
 }

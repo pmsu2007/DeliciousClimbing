@@ -8,12 +8,12 @@ import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 
 public interface EquipmentRepository extends JpaRepository<TbEquipment, Long> {
 
-    Page<TbEquipment> findPageByAddressId(Long id, Pageable pageable);
+    Page<TbEquipment> findPageByAddress_Code(Long code, Pageable pageable);
 
-    Page<TbEquipment> findPageByAddressIdAndType(Long id, EquipmentType type, Pageable pageable);
+    Page<TbEquipment> findPageByAddress_CodeAndType(Long code, EquipmentType type, Pageable pageable);
 
-    Page<TbEquipment> findPageByAddressIdAndTypeAndTrade(Long id, EquipmentType type, Boolean trade, Pageable pageable);
+    Page<TbEquipment> findPageByAddress_CodeAndTypeAndTradeStatus(Long code, EquipmentType type, Boolean tradeStatus, Pageable pageable);
 
-    Page<TbEquipment> findPageByTrade(Boolean trade, Pageable pageable);
+    Page<TbEquipment> findPageByTradeStatus(Boolean tradeStatus, Pageable pageable);
 
 }

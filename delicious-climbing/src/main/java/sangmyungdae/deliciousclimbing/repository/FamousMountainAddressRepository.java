@@ -13,7 +13,7 @@ public interface FamousMountainAddressRepository extends JpaRepository<TbFamousM
 
     List<TbFamousMountainAddress> findByFamousMountain(TbFamousMountain famousMountain);
 
-    TbFamousMountain findByAddress_Code(Long addressCode);
+    TbFamousMountainAddress findByAddress_Code(Long addressCode);
 
-    TbFamousMountain findByAddress(TbAddress address);
+    TbFamousMountainAddress findByAddress(TbAddress address);
 }

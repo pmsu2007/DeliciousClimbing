@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.entity.TbEquipmentFile;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
 
@@ -9,11 +10,11 @@ import java.util.Optional;
 
 public interface EquipmentFileRepository extends JpaRepository<TbEquipmentFile, Long> {
 
-    Optional<TbEquipmentFile> findFirstByPostId(Long postId);
+    Optional<TbEquipmentFile> findFirstByEquipment_Id(Long equipmentId);
 
-    Optional<TbEquipmentFile> findFirstByTbPost(TbPost post);
+    Optional<TbEquipmentFile> findFirstByEquipment(TbEquipment equipment);
 
-    List<TbEquipmentFile> findByPostId(Long postId);
+    List<TbEquipmentFile> findByEquipment_Id(Long equipmentId);
 
-    List<TbEquipmentFile> findByTbPost(TbPost post);
+    List<TbEquipmentFile> findByEquipment(TbEquipment equipment);
 }

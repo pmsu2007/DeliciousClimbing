@@ -10,11 +10,11 @@ import java.util.Optional;
 public interface FileRepository extends JpaRepository<TbFile, Long> {
 
     // 미리보기 이미지
-    Optional<TbFile> findFirstByPostId(Long postId);
+    Optional<TbFile> findFirstByPost_Id(Long postId);
 
-    Optional<TbFile> findFirstByTbPost(TbPost post);
+    Optional<TbFile> findFirstByPost(TbPost post);
 
-    List<TbFile> findByPostId(Long postId);
+    List<TbFile> findByPost_Id(Long postId);
 
-    List<TbFile> findByTbPost(TbPost post);
+    List<TbFile> findByPost(TbPost post);
 }

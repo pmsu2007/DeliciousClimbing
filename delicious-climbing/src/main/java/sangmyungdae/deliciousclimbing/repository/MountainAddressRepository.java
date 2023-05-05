@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface MountainAddressRepository extends JpaRepository<TbMountainAddress, Long> {
 
-    List<TbAddress> findByMountainId(Long mountainId);
+    List<TbMountainAddress> findByMountain_Id(Long mountainId);
 
-    List<TbAddress> findByTbMountain(TbMountain mountain);
+    List<TbMountainAddress> findByMountain(TbMountain mountain);
 
-    TbMountain findByAdrressId(Long addressId);
+    TbMountainAddress findByAddress_Code(Long addressCode);
 
-    TbMountain findByTbAddress(TbAddress address);
+    TbMountainAddress findByAddress(TbAddress address);
 }

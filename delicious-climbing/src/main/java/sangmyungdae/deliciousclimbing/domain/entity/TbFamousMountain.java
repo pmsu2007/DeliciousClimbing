@@ -24,7 +24,7 @@ public class TbFamousMountain {
     private String name;
 
     @Column(nullable = false)
-    private Integer height;
+    private int height;
 
     @Column(nullable = false)
     private String info;

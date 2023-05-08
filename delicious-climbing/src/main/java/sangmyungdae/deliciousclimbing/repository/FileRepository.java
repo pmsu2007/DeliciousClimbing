@@ -17,4 +17,6 @@ public interface FileRepository extends JpaRepository<TbFile, Long> {
     List<TbFile> findByPost_Id(Long postId);
 
     List<TbFile> findByPost(TbPost post);
+
+    void deleteByPostId(Long postId);
 }

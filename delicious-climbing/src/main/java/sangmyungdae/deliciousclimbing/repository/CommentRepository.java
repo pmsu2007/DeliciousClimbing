@@ -12,4 +12,6 @@ public interface CommentRepository extends JpaRepository<TbComment, Long> {
     List<TbComment> findByPost_IdOrderByCreatedAt(Long PostId);
 
     List<TbComment> findByPostOrderByCreatedAt(TbPost post);
+
+    void deleteByPostId(Long postId);
 }

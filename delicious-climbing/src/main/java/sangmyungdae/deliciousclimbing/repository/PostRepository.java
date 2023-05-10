@@ -17,6 +17,5 @@ public interface PostRepository extends JpaRepository<TbPost, Long> {
 
     // 내가쓴글 페이징
     Page<TbPost> findPageByUser_Id(Long userId, Pageable pageable);
-
     Page<TbPost> findPageByUser(TbUser user, Pageable pageable);
 }

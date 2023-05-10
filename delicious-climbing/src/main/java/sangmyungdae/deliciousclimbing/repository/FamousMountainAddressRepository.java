@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface FamousMountainAddressRepository extends JpaRepository<TbFamousMountainAddress, Long> {
 
+    // famousMountain_id로 주소 조회
     List<TbFamousMountainAddress> findByFamousMountain_Id(Long famousMountainId);
-
     List<TbFamousMountainAddress> findByFamousMountain(TbFamousMountain famousMountain);
 
-    TbFamousMountainAddress findByAddress_Code(Long addressCode);
-
-    TbFamousMountainAddress findByAddress(TbAddress address);
+    // 주소로 산 조회
+    List<TbFamousMountainAddress> findByAddress_Code(Long addressCode);
+    List<TbFamousMountainAddress> findByAddress(TbAddress address);
 }

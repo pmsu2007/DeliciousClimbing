@@ -29,4 +29,8 @@ public class TbMateFile extends TbDateEntity{
         this.fileName = fileName;
         this.mate = mate;
     }
+
+    public void update(String fileName) {
+        this.fileName = fileName;
+    }
 }

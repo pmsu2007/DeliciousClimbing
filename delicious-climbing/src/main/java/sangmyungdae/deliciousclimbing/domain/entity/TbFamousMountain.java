@@ -23,7 +23,8 @@ public class TbFamousMountain {
     @Column(nullable = false)
     private String name;
 
-    private int height;
+    @Column(nullable = false)
+    private Integer height;
 
     @Column(nullable = false)
     private String info;
@@ -31,7 +32,10 @@ public class TbFamousMountain {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    private int period;
+    private Integer period;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer likes;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -47,16 +51,15 @@ public class TbFamousMountain {
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "famousMountain")
-    private List<TbFamousMountainLike> famousMountainLikes = new ArrayList<>();
     @Builder
-    public TbFamousMountain(String name, int height, String info, Difficulty difficulty, int period,
-                            String imageUrl, String reason, String season, Region region) {
+    public TbFamousMountain(String name, Integer height, String info, Difficulty difficulty, Integer period,
+                            Integer likes, String imageUrl, String reason, String season, Region region) {
         this.name = name;
         this.height = height;
         this.info = info;
         this.difficulty = difficulty;
         this.period = period;
+        this.likes = likes;
         this.imageUrl = imageUrl;
         this.reason = reason;
         this.season = season;

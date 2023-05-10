@@ -34,8 +34,4 @@ public class TbMateComment extends TbDateEntity {
         this.mate = mate;
         this.user = user;
     }
-
-    public void update(String content) {
-        this.content = content;
-    }
 }

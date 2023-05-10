@@ -29,8 +29,4 @@ public class TbEquipmentFile extends TbDateEntity {
         this.fileName = fileName;
         this.equipment = equipment;
     }
-
-    public void update(String fileName) {
-        this.fileName = fileName;
-    }
 }

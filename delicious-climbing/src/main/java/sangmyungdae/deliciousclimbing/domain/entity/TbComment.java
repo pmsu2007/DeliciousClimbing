@@ -34,8 +34,4 @@ public class TbComment extends TbDateEntity {
         this.post = post;
         this.user = user;
     }
-
-    public void update(String content) {
-        this.content = content;
-    }
 }

@@ -61,16 +61,7 @@ public class TbUser extends TbDateEntity {
     private TbAddress address;
 
     @OneToMany(mappedBy = "user")
-    private List<TbCommunityLike> communityLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<TbFamousMountainLike> famousMountainLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<TbMateReview> mateReviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
+    private List<TbUserReview> userReviews = new ArrayList<>();
 
     @Builder
     public TbUser(LoginType type, String email, String password, String nickname, String imageUrl, String introduction,
@@ -88,20 +79,5 @@ public class TbUser extends TbDateEntity {
         this.birthday = birthday;
         this.famousMountain = famousMountain;
         this.address = address;
-    }
-
-    public void updateInfo(String nickname, String imageUrl, String introduction, Difficulty difficulty,
-                           String sns, TbFamousMountain famousMountain, TbAddress address) {
-        this.nickname = nickname;
-        this.imageUrl = imageUrl;
-        this.introduction = introduction;
-        this.difficulty = difficulty;
-        this.sns = sns;
-        this.famousMountain = famousMountain;
-        this.address = address;
-    }
-
-    public void updatePassword(String password) {
-        this.password = password;
     }
 }

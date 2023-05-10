@@ -30,7 +30,10 @@ public class TbPost extends TbDateEntity{
     private String content;
 
     @Column(columnDefinition = "integer default 0")
-    private int hits;
+    private Integer likes;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer hits;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -42,20 +45,13 @@ public class TbPost extends TbDateEntity{
     @OneToMany(mappedBy = "post")
     private List<TbFile> files = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    private List<TbCommunityLike> likes = new ArrayList<>();
-
     @Builder
-    public TbPost(BoardType type, String title, String content, int hits, TbUser user) {
+    public TbPost(BoardType type, String title, String content, Integer likes, Integer hits, TbUser user) {
         this.type = type;
         this.title = title;
         this.content = content;
+        this.likes = likes;
         this.hits = hits;
         this.user = user;
-    }
-
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
     }
 }

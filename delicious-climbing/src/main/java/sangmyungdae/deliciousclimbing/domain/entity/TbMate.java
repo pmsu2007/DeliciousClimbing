@@ -51,6 +51,9 @@ public class TbMate extends TbDateEntity {
     @OneToMany(mappedBy = "mate")
     private List<TbMateFile> mateFiles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "mate")
+    private List<TbMateReview> mateReviews = new ArrayList<>();
+
     @Builder
     public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
                   LocalDateTime recruitDate, TbUser user, TbMountain mountain) {

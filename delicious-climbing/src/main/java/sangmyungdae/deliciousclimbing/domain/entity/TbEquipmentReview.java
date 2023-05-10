@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "TB_EQUIPMENT_REVIEW")
-public class TbEquipmentReview {
+public class TbEquipmentReview extends TbDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

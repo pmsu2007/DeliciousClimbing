@@ -11,10 +11,8 @@ import java.util.Optional;
 public interface MateFileRepository extends JpaRepository<TbMateFile, Long> {
 
     Optional<TbMateFile> findFirstByMate_Id(Long mateId);
-
     Optional<TbMateFile> findFirstByMate(TbMate mate);
 
     List<TbMateFile> findByMate_Id(Long mateId);
-
     List<TbMateFile> findByMate(TbMate mate);
 }

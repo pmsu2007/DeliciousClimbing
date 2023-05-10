@@ -69,4 +69,13 @@ public class TbMate extends TbDateEntity {
         this.user = user;
         this.mountain = mountain;
     }
+
+    public void update(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDateTime recruitDate, TbMountain mountain) {
+        this.title = title;
+        this.content = content;
+        this.recruitCount = recruitCount;
+        this.recruitStatus = recruitStatus;
+        this.recruitDate = recruitDate;
+        this.mountain = mountain;
+    }
 }

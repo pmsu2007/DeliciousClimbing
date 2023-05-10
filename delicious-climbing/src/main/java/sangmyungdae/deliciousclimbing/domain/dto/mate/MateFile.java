@@ -1,9 +1,10 @@
-package sangmyungdae.deliciousclimbing.domain.dto;
+package sangmyungdae.deliciousclimbing.domain.dto.mate;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sangmyungdae.deliciousclimbing.domain.entity.TbMateFile;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +20,9 @@ public class MateFile {
     private LocalDateTime updatedAt;
 
     @Builder
-    public MateFile(Long id, String fileName, LocalDateTime updatedAt) {
-        this.id = id;
-        this.fileName = fileName;
-        this.updatedAt = updatedAt;
+    public MateFile(TbMateFile entity) {
+        this.id = entity.getId();
+        this.fileName = entity.getFileName();
+        this.updatedAt = entity.getUpdatedAt();
     }
 }

@@ -1,4 +1,4 @@
-package sangmyungdae.deliciousclimbing.domain.dto;
+package sangmyungdae.deliciousclimbing.domain.dto.mate;
 
 import lombok.AccessLevel;
 import lombok.Builder;

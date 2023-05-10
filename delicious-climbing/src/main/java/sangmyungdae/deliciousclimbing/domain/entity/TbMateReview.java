@@ -10,28 +10,27 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_COMMENT")
-public class TbComment extends TbDateEntity {
+@Table(name = "TB_MATE_REVIEW")
+public class TbMateReview extends TbDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    private TbPost post;
+    private TbMate mate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private TbUser user;
 
     @Builder
-    public TbComment(String content, TbPost post, TbUser user) {
+    public TbMateReview(String content, TbMate mate, TbUser user) {
         this.content = content;
-        this.post = post;
+        this.mate = mate;
         this.user = user;
     }
 

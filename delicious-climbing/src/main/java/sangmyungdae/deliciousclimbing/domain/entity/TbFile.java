@@ -30,4 +30,8 @@ public class TbFile extends TbDateEntity {
         this.fileName = fileName;
         this.post = post;
     }
+
+    public void update(String fileName) {
+        this.fileName = fileName;
+    }
 }

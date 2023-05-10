@@ -10,27 +10,30 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_EQUIPMENT_FILE")
-public class TbEquipmentFile extends TbDateEntity {
-
+@Table(name = "TB_EQUIPMENT_REVIEW")
+public class TbEquipmentReview extends TbDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "file_name", nullable = false)
-    private String fileName;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private TbEquipment equipment;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private TbUser user;
+
     @Builder
-    public TbEquipmentFile(String fileName, TbEquipment equipment) {
-        this.fileName = fileName;
+    public TbEquipmentReview(String content, TbEquipment equipment, TbUser user) {
+        this.content = content;
         this.equipment = equipment;
+        this.user = user;
     }
 
-    public void update(String fileName) {
-        this.fileName = fileName;
+    public void update(String content) {
+        this.content = content;
     }
 }

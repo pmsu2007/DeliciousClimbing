@@ -26,17 +26,17 @@ public class TbEquipment extends TbDateEntity {
     private String content;
 
     @Column(columnDefinition = "integer default 0")
-    private Integer hits;
+    private int hits;
 
-    @Column(name = "trade_cost", nullable = false)
-    private Integer tradeCost;
+    @Column(name = "trade_cost")
+    private int tradeCost;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentType type;
 
-    @Column(name = "trade_status", nullable = false)
-    private Boolean tradeStatus;
+    @Column(name = "trade_status")
+    private boolean tradeStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
@@ -48,9 +48,12 @@ public class TbEquipment extends TbDateEntity {
     @OneToMany(mappedBy = "equipment")
     private List<TbEquipmentFile> equipmentFiles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "equipment")
+    private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
+
     @Builder
-    public TbEquipment(String title, String content, Integer hits, Integer tradeCost, EquipmentType type,
-                       Boolean tradeStatus, TbUser user, TbAddress address) {
+    public TbEquipment(String title, String content, int hits, int tradeCost, EquipmentType type,
+                       boolean tradeStatus, TbUser user, TbAddress address) {
         this.title = title;
         this.content = content;
         this.hits = hits;
@@ -58,6 +61,14 @@ public class TbEquipment extends TbDateEntity {
         this.type = type;
         this.tradeStatus = tradeStatus;
         this.user = user;
+        this.address = address;
+    }
+
+    public void update(String title, String content, int tradeCost, boolean tradeStatus, TbAddress address) {
+        this.title = title;
+        this.content = content;
+        this.tradeCost = tradeCost;
+        this.tradeStatus = tradeStatus;
         this.address = address;
     }
 }

@@ -27,20 +27,16 @@ public class TbMate extends TbDateEntity {
     private String content;
 
     @Column(columnDefinition = "integer default 0")
-    private Integer hits;
+    private int hits;
 
-    @Column(name = "recruit_count", nullable = false)
-    private Integer recruitCount;
+    @Column(name = "recruit_count")
+    private int recruitCount;
 
-    @Column(name = "recruit_status", nullable = false)
-    private Boolean recruitStatus;
+    @Column(name = "recruit_status")
+    private boolean recruitStatus;
 
     @Column(name = "recruit_date", nullable = false)
     private LocalDateTime recruitDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private TbPost post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
@@ -55,18 +51,27 @@ public class TbMate extends TbDateEntity {
     @OneToMany(mappedBy = "mate")
     private List<TbMateFile> mateFiles = new ArrayList<>();
 
-    @Builder
+    @OneToMany(mappedBy = "mate")
+    private List<TbMateReview> mateReviews = new ArrayList<>();
 
-    public TbMate(String title, String content, Integer hits, Integer recruitCount, Boolean recruitStatus,
-                  LocalDateTime recruitDate, TbPost post, TbUser user, TbMountain mountain) {
+    @Builder
+    public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
+                  LocalDateTime recruitDate, TbUser user, TbMountain mountain) {
         this.title = title;
         this.content = content;
         this.hits = hits;
         this.recruitCount = recruitCount;
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
-        this.post = post;
         this.user = user;
         this.mountain = mountain;
+    }
+
+    public TbMate(String title, String content, int recruitCount, boolean recruitStatus, LocalDateTime recruitDate) {
+        this.title = title;
+        this.content = content;
+        this.recruitCount = recruitCount;
+        this.recruitStatus = recruitStatus;
+        this.recruitDate = recruitDate;
     }
 }

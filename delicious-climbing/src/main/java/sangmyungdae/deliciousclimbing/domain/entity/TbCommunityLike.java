@@ -10,24 +10,24 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_USER_REVIEW")
-public class TbUserReview {
+@Table(name = "TB_COMMUNITY_LIKE")
+public class TbCommunityLike extends TbDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private TbUser user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
-    private TbReview review;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private TbPost post;
 
     @Builder
-    public TbUserReview(TbUser user, TbReview review) {
+    public TbCommunityLike(TbUser user, TbPost post) {
         this.user = user;
-        this.review = review;
+        this.post = post;
     }
 }

@@ -31,8 +31,7 @@ public class TbPost extends TbDateEntity{
     private String content;
 
     @Column(columnDefinition = "integer default 0")
-    private int likes;
-
+  
     @Column(columnDefinition = "integer default 0")
     private int hits;
 
@@ -46,12 +45,14 @@ public class TbPost extends TbDateEntity{
     @OneToMany(mappedBy = "post")
     private List<TbFile> files = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post")
+    private List<TbCommunityLike> likes = new ArrayList<>();
+
     @Builder
-    public TbPost(BoardType type, String title, String content, int likes, int hits, TbUser user) {
+    public TbPost(BoardType type, String title, String content, int hits, TbUser user) {
         this.type = type;
         this.title = title;
         this.content = content;
-        this.likes = likes;
         this.hits = hits;
         this.user = user;
     }

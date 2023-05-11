@@ -10,14 +10,13 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_MATE_COMMENT")
-public class TbMateComment extends TbDateEntity {
+@Table(name = "TB_MATE_REVIEW")
+public class TbMateReview extends TbDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +28,7 @@ public class TbMateComment extends TbDateEntity {
     private TbUser user;
 
     @Builder
-    public TbMateComment(String content, TbMate mate, TbUser user) {
+    public TbMateReview(String content, TbMate mate, TbUser user) {
         this.content = content;
         this.mate = mate;
         this.user = user;

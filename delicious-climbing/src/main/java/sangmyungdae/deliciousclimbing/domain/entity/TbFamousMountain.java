@@ -49,6 +49,7 @@ public class TbFamousMountain {
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainLike> famousMountainLikes = new ArrayList<>();
+  
     @Builder
     public TbFamousMountain(String name, int height, String info, Difficulty difficulty, int period,
                             String imageUrl, String reason, String season, Region region) {

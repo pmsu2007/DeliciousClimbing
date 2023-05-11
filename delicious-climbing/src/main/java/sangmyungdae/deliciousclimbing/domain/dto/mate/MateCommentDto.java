@@ -13,14 +13,10 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 public class MateCommentDto {
 
     private String content;
-    private Long mateId;
-    private Long userId;
 
     @Builder
-    public MateCommentDto(String content, Long mateId, Long userId) {
+    public MateCommentDto(String content) {
         this.content = content;
-        this.mateId = mateId;
-        this.userId = userId;
     }
 
     public TbMateComment toEntity(TbMate mate, TbUser user) {

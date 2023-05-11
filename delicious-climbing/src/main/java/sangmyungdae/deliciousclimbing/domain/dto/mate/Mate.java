@@ -38,7 +38,7 @@ public class Mate {
         this.content = entity.getContent();
         this.hits = entity.getHits();
         this.recruitCount = entity.getRecruitCount();
-        this.recruitStatus = entity.getRecruitStatus();
+        this.recruitStatus = entity.isRecruitStatus();
         this.recruitDate = entity.getRecruitDate();
         this.updatedAt = entity.getUpdatedAt();
         this.userId = entity.getUser().getId();

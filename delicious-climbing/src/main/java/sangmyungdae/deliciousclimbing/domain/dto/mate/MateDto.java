@@ -21,17 +21,15 @@ public class MateDto {
     private Boolean recruitStatus;
     private LocalDateTime recruitDate;
 
-    private Long userId;
     private Long mountainId;
 
     @Builder
-    public MateDto(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDateTime recruitDate, Long userId, Long mountainId) {
+    public MateDto(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDateTime recruitDate,  Long mountainId) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
-        this.userId = userId;
         this.mountainId = mountainId;
     }
 

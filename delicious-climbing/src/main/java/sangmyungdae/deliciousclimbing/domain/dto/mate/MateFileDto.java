@@ -11,13 +11,11 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbMateFile;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MateFileDto {
 
-    private Long mateId;
     private String fileName;
 
     @Builder
-    public MateFileDto(String fileName, Long mateId) {
+    public MateFileDto(String fileName) {
         this.fileName = fileName;
-        this.mateId = mateId;
     }
 
 

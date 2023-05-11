@@ -17,8 +17,6 @@ public class MateService {
     private final MateCommentRepository commentRepository;
     private final MateFileRepository fileRepository;
     private final MountainRepository mountainRepository;
-    private final MountainAddressRepository mountainAddressRepository;
-    private final AddressRepository addressRepository;
     private final UserRepository userRepository;
 
     // 게시글 목록 조회 → Pagination 구현
@@ -28,14 +26,15 @@ public class MateService {
         if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == false) {
             // 모든 글 반환
             Page<TbMate> findMates = mateRepository.findAll(pageable);
-
+            return MatePost.toDtoList(findMates);
         } else if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == true) {
             // 산 필터링 X, 모집중인 게시글만 보기 O
             Page<TbMate> findMates = mateRepository.findPageByRecruitStatus(dto.getRecruitStatusFiltering(), pageable);
-
+            return MatePost.toDtoList(findMates);
         } else if (dto.getMountainId() != null && dto.getRecruitStatusFiltering() == false) {
             // 산 필터링 O, 모집중인 게시글만 보기 X
             Page<TbMate> findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
+            return MatePost.toDtoList(findMates);
 
         } else {
             // 산 필터링 O, 모집중인 게시글만 보기 O
@@ -43,15 +42,13 @@ public class MateService {
 
             return MatePost.toDtoList(findMates);
         }
-
-        return null;
     }
 
     // 게시글 상세 조회
     @Transactional
-    public MatePost getPostDetail(Long postId) {
+    public MatePost getPostDetail(Long mateId) {
 
-        TbMate tbMate = mateRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. postId=" + postId));
+        TbMate tbMate = mateRepository.findById(mateId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. mateId=" + mateId));
 
         return MatePost.builder()
                 .entity(tbMate)
@@ -60,10 +57,10 @@ public class MateService {
 
     // 게시글 생성
     @Transactional
-    public Mate createPost(MateDto dto) {
+    public Mate createPost(Long userId, MateDto dto) {
 
         TbMountain findMountain = mountainRepository.getReferenceById(dto.getMountainId());
-        TbUser findUser = userRepository.getReferenceById(dto.getUserId());
+        TbUser findUser = userRepository.getReferenceById(userId);
 
         TbMate entity = mateRepository.save(dto.toEntity(findUser, findMountain));
 
@@ -76,9 +73,8 @@ public class MateService {
     @Transactional
     public Mate updatePost(Long mateId, MateDto dto) {
 
-        TbMountain findMountain = mountainRepository.findById(dto.getMountainId()).orElseThrow(() -> new IllegalArgumentException("tbMountain doesn't exist. mountainId=" + dto.getMountainId()));
         TbMate tbMate = mateRepository.findById(mateId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. mateId=" + mateId));
-        tbMate.update(dto.getTitle(), dto.getContent(), dto.getRecruitCount(), dto.getRecruitStatus(), dto.getRecruitDate(), findMountain);
+        tbMate.update(dto.getTitle(), dto.getContent(), dto.getRecruitCount(), dto.getRecruitStatus(), dto.getRecruitDate());
 
         return Mate.builder()
                 .entity(tbMate)
@@ -94,11 +90,11 @@ public class MateService {
 
     // 댓글 생성
     @Transactional
-    public MateComment createComment(MateCommentDto dto) {
+    public MateComment createComment(Long mateId, Long userId, MateCommentDto dto) {
 
         // Request DTO to Entity
-        TbMate findMate = mateRepository.getReferenceById(dto.getMateId());
-        TbUser findUser = userRepository.getReferenceById(dto.getUserId());
+        TbMate findMate = mateRepository.getReferenceById(mateId);
+        TbUser findUser = userRepository.getReferenceById(userId);
 
 
         TbMateComment entity = commentRepository.save(dto.toEntity(findMate, findUser));
@@ -131,12 +127,13 @@ public class MateService {
 
     // 파일 생성
     @Transactional
-    public MateFile createFile(Long postId, MateFileDto dto) {
+    public MateFile createFile(Long mateId, MateFileDto dto) {
 
-        TbMate findMate = mateRepository.getReferenceById(postId);
+        TbMate findMate = mateRepository.getReferenceById(mateId);
 
         // Request Dto to Entity
         TbMateFile entity = fileRepository.save(dto.toEntity(findMate));
+
 
         // Entity to Response DTO
         return MateFile.builder()
@@ -158,7 +155,9 @@ public class MateService {
 
     // 파일 삭제
     @Transactional
-    public void deleteFile(Long postId, Long fileId) {
+    public void deleteFile(Long fileId) {
+
+
 
         fileRepository.deleteById(fileId);
     }

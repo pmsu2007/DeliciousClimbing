@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.Post;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class TbPost extends TbDateEntity{
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0")
+  
     @Column(columnDefinition = "integer default 0")
     private int hits;
 

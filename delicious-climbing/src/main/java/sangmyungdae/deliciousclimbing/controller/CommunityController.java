@@ -1,0 +1,150 @@
+package sangmyungdae.deliciousclimbing.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sangmyungdae.deliciousclimbing.domain.converter.BoardTypeConverter;
+import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.*;
+import sangmyungdae.deliciousclimbing.service.CommunityService;
+
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/posts")
+public class CommunityController {
+    private final CommunityService communityService;
+    private final BoardTypeConverter boardTypeConverter;
+
+    @GetMapping("/{type}")
+    public String communityListPage(@PathVariable String type,
+                                    @RequestParam(required = false) String title,
+                                    @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+                                    Model model) {
+        PostSearchDto dto = PostSearchDto.builder()
+                .title(title)
+                .type(boardTypeConverter.convert(type))
+                .build();
+
+        Page<Post> posts = communityService.getPostList(dto, pageable);
+        model.addAttribute("posts", posts);
+        return "commList";
+    }
+
+    @GetMapping("/my")
+    public String communityMyPostPage(@PageableDefault(size = 10) Pageable pageable,
+                                      Model model) {
+        // Page<Post> posts = communityService.getMyPostList(userId, pageable);
+        // model.addAttribute(posts);
+        return "commList";
+    }
+
+    @GetMapping("/{type}/{postId}")
+    public String communityDetailPage(@PathVariable Long postId,
+                                      Model model) {
+        Post post = communityService.getPostDetail(postId);
+        model.addAttribute(post);
+        return "commDetail";
+    }
+
+    @GetMapping("/create")
+    public String communityCreatePage() {
+        return "commCreate";
+    }
+
+    @GetMapping("/update/{postId}")
+    public String communityUpdatePage(@PathVariable Long postId, Model model) {
+        Post post = communityService.getPostDetail(postId);
+        model.addAttribute(post);
+
+        return "commUpdate";
+    }
+
+    @PostMapping("/create")
+    public String createPost(@ModelAttribute PostDto dto,
+                             RedirectAttributes redirectAttributes) {
+        // user_id DTO에 추가
+        communityService.createPost(dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/update/{postId}")
+    public String updatePost(@ModelAttribute PostDto dto,
+                             @PathVariable Long postId,
+                             RedirectAttributes redirectAttributes) {
+        // 사용자 auth 확인
+        // user_id DTO에 추가
+        communityService.updatePost(postId, dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/delete/{postId}")
+    public String deletePost(@PathVariable Long postId,
+                             RedirectAttributes redirectAttributes) {
+        return "redirect:/posts/{type}";
+    }
+
+    @PostMapping("/create/{postId}/comment")
+    public String createComment(@PathVariable Long postId,
+                                @ModelAttribute CommentDto dto,
+                                RedirectAttributes redirectAttributes) {
+        // user_id DTO에 추가
+        dto.setPostId(postId);
+        communityService.createComment(dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/update/{postId}/comment/{commentId}")
+    public String updateComment(@PathVariable Long postId,
+                                @PathVariable Long commentId,
+                                @ModelAttribute CommentDto dto,
+                                RedirectAttributes redirectAttributes) {
+        // 사용자 auth 확인
+        // user_id DTO에 추가
+        dto.setPostId(postId);
+        communityService.updateComment(commentId, dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/delete/{postId}/comment/{commentId}")
+    public String deleteComment(@PathVariable Long commentId,
+                                RedirectAttributes redirectAttributes) {
+        communityService.deleteComment(commentId);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/create/{postId}/file")
+    public String createFile(@PathVariable Long postId,
+                             @ModelAttribute FileDto dto,
+                             RedirectAttributes redirectAttributes) {
+
+        dto.setPostId(postId);
+        communityService.createFile(dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/update/{postId}/file/{fileId}")
+    public String updateFile(@PathVariable Long postId,
+                             @PathVariable Long fileId,
+                             @ModelAttribute FileDto dto,
+                             RedirectAttributes redirectAttributes) {
+
+        dto.setPostId(postId);
+        communityService.updateFile(fileId, dto);
+        return "redirect:/posts/{type}/{postId}";
+    }
+
+    @PostMapping("/delete/{postId}/file/{fileId}")
+    public String deleteFile(@PathVariable Long fileId,
+                             RedirectAttributes redirectAttributes) {
+        communityService.deleteFile(fileId);
+        return "redirect:/posts/{type}/{postId}";
+    }
+}

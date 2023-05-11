@@ -48,6 +48,9 @@ public class TbEquipment extends TbDateEntity {
     @OneToMany(mappedBy = "equipment")
     private List<TbEquipmentFile> equipmentFiles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "equipment")
+    private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
+
     @Builder
     public TbEquipment(String title, String content, int hits, int tradeCost, EquipmentType type,
                        boolean tradeStatus, TbUser user, TbAddress address) {

@@ -61,13 +61,16 @@ public class TbUser extends TbDateEntity {
     private TbAddress address;
 
     @OneToMany(mappedBy = "user")
-    private List<TbUserReview> userReviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
     private List<TbCommunityLike> communityLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<TbFamousMountainLike> famousMountainLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<TbMateReview> mateReviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
 
     @Builder
     public TbUser(LoginType type, String email, String password, String nickname, String imageUrl, String introduction,

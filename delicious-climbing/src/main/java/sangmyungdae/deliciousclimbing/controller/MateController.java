@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.dto.mate.*;
+import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.service.MateService;
 
 //TODO: 그 조회할때나 글 작성할때 주소코드 날라오면 산 목록 반환해주는 부분 해야합니다.

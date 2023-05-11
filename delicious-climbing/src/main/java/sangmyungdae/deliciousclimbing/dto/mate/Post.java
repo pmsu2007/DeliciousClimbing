@@ -1,14 +1,13 @@
-package sangmyungdae.deliciousclimbing.dto;
+package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
-import sangmyungdae.deliciousclimbing.domain.entity.TbComment;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.community.File;
+import sangmyungdae.deliciousclimbing.dto.community.Comment;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class Post {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.createdAt = entity.getCreatedAt();
-        this.likes = entity.getLikes();
+        this.likes = entity.getLikes().size();
         this.hits = entity.getHits();
         this.author = entity.getUser().getNickname();
         this.authorImgUrl = entity.getUser().getImageUrl();

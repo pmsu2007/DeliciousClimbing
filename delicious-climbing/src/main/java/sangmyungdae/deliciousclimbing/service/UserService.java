@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
-import sangmyungdae.deliciousclimbing.dto.*;
+import sangmyungdae.deliciousclimbing.dto.user.*;
 import sangmyungdae.deliciousclimbing.repository.AddressRepository;
 import sangmyungdae.deliciousclimbing.repository.FamousMountainRepository;
 import sangmyungdae.deliciousclimbing.repository.UserRepository;

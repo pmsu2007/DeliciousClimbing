@@ -1,4 +1,4 @@
-package sangmyungdae.deliciousclimbing.dto;
+package sangmyungdae.deliciousclimbing.dto.user;
 
 import lombok.Builder;
 import lombok.Getter;

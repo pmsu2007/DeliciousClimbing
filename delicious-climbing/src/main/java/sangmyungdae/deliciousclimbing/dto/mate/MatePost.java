@@ -1,4 +1,4 @@
-package sangmyungdae.deliciousclimbing.domain.dto.mate;
+package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
 import org.springframework.data.domain.Page;

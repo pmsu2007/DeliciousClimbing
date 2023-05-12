@@ -25,7 +25,6 @@ public class CommunityService {
     private final CommentRepository commentRepository;
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
-
     // 추천 레포지토리 추가 예상...
 
     @Transactional

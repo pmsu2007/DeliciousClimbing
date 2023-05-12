@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 @DataJpaTest
 class CommunityServiceTest {
 
@@ -89,6 +90,7 @@ class CommunityServiceTest {
         // when
         userRepository.save(user);
         // communityService.createPost(post1);
+
         Post result = communityService.getPostDetail(1L);
         // then
         System.out.println("result = " + result);
@@ -115,6 +117,7 @@ class CommunityServiceTest {
         
         userRepository.save(user);
         // Post newPost = communityService.createPost(post1);
+
         communityService.deletePost(1L);
 
         Post findPost = communityService.getPostDetail(1L);
@@ -129,6 +132,7 @@ class CommunityServiceTest {
         // given
         userRepository.save(user);
         //  communityService.createPost(post1);
+
 
         // DTO에 Entity를 담아도 되나 ?
         CommentDto comment1 = CommentDto.builder()

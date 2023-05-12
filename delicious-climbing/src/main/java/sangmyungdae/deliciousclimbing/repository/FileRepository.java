@@ -11,10 +11,11 @@ public interface FileRepository extends JpaRepository<TbFile, Long> {
 
     // 미리보기 이미지
     Optional<TbFile> findFirstByPost_Id(Long postId);
-
     Optional<TbFile> findFirstByPost(TbPost post);
 
+    // post_id로 조회
     List<TbFile> findByPost_Id(Long postId);
-
     List<TbFile> findByPost(TbPost post);
+
+    void deleteByPostId(Long postId);
 }

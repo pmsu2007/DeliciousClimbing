@@ -31,6 +31,8 @@ public class TbPost extends TbDateEntity{
     private String content;
 
     @Column(columnDefinition = "integer default 0")
+  
+    @Column(columnDefinition = "integer default 0")
     private int hits;
 
     @ManyToOne(fetch = FetchType.LAZY)

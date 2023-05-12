@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.Post;
 
 import javax.persistence.*;
 import java.util.ArrayList;

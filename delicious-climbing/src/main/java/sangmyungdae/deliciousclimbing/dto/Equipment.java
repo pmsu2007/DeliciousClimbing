@@ -6,12 +6,8 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.address.Address;
-import sangmyungdae.deliciousclimbing.dto.user.User;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @ToString //출력할때이쁘게해줌
@@ -25,9 +21,9 @@ public class Equipment {
     private EquipmentType type;
     private Boolean tradeStatus;
     private String author;
+
     private Address address;
 
-    private Long addressCode;
     private User user;
     private List<EquipmentFile> equipmentFiles = new ArrayList<>();
     private String createdAt;
@@ -49,6 +45,7 @@ public class Equipment {
         this.imageUrl = user.getStoreFileName();
     }
 }
+
     @Builder
     public Equipment (TbEquipment entity) {
         this.id = entity.getId();

@@ -34,10 +34,11 @@ public class EquipmentService {
             Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_Code(dto.getAdressCode(), pageable);
             return Equipment.toDtoList(findEquipments);
         } else if (dto.getEquipmentType() != null && dto.getAdressCode() == null) {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByType(dto.getEquipmentType(), pageable);
+
+            Page<TbEquipment> findEquipments = equipmentRepository.findPageByEquipment_Type(dto.getEquipmentType(), pageable);
             return Equipment.toDtoList(findEquipments);
         } else {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndType(dto.getAdressCode(), dto.getEquipmentType(), pageable);
+            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndEquipment_Type(dto.getAdressCode(), dto.getEquipmentType(), pageable);
             return Equipment.toDtoList(findEquipments);
         }
     }
@@ -55,7 +56,7 @@ public class EquipmentService {
     public Equipment createPost(EquipmentDto dto){
 
         TbUser user = userRepository.findById(dto.getUserId()).orElse(null);
-        TbAddress address = addressRepository.findByCode(dto.getAddressCode());
+        TbAddress address = addressRepository.findByCode(dto.getAddressCode()).orElse(null);
         TbEquipment entity = equipmentRepository.save(dto.toEntity(user,address));
         return Equipment.builder()
                 .entity(entity)
@@ -65,7 +66,7 @@ public class EquipmentService {
     @Transactional  //게시글 수정
     public Equipment updatePost(Long postId, EquipmentDto dto){
         TbEquipment entity = equipmentRepository.findById(postId).orElseThrow();
-        TbAddress adress = addressRepository.findByCode(dto.getAddressCode());
+        TbAddress adress = addressRepository.findByCode(dto.getAddressCode()).orElse(null);
         entity.update(dto.getTitle(),dto.getContent(),dto.getTradeCost(),dto.getTradeStatus(),adress);
         return Equipment.builder()
                 .entity(entity)

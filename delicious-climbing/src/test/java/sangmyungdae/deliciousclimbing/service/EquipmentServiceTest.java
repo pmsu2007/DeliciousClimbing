@@ -19,10 +19,15 @@ import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.Equipment;
 import sangmyungdae.deliciousclimbing.dto.EquipmentDto;
 import sangmyungdae.deliciousclimbing.dto.EquipmentFileDto;
+<<<<<<< HEAD
 import sangmyungdae.deliciousclimbing.repository.AddressRepository;
 import sangmyungdae.deliciousclimbing.repository.EquipmentFileRepository;
 import sangmyungdae.deliciousclimbing.repository.EquipmentRepository;
 import sangmyungdae.deliciousclimbing.repository.UserRepository;
+=======
+import sangmyungdae.deliciousclimbing.repository.EquipmentFileRepository;
+import sangmyungdae.deliciousclimbing.repository.EquipmentRepository;
+>>>>>>> 51cfcb8 (수정)
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +42,7 @@ class EquipmentServiceTest {
     @Autowired
     private EquipmentFileRepository equipmentFileRepository;
 
+<<<<<<< HEAD
     @Autowired
     private UserRepository userRepository;
 
@@ -72,6 +78,15 @@ class EquipmentServiceTest {
     }
     @Test
     @DisplayName(value="글 1페이지 조회")
+=======
+    @BeforeEach
+    void clean(){
+        equipmentRepository.deleteAll();
+        equipmentFileRepository.deleteAll();
+    }
+    @Test
+    @DisplayName("글 1페이지 조회")
+>>>>>>> 51cfcb8 (수정)
     void getPostList() {
         //given
 //        Page<TbEquipment>
@@ -105,6 +120,35 @@ class EquipmentServiceTest {
 
     }
 
+<<<<<<< HEAD
+=======
+    @Test
+    @DisplayName("글생성")
+    void createPost() {
+        //given
+        EquipmentDto dto = EquipmentDto.builder()
+                .type(EquipmentType.CLOTHES)
+                .title("제목1")
+                .content("내용1")
+                .tradeCost(1000)
+                .tradeStatus(true)
+                .addressCode(1L)
+                .userId(1L)
+                .build();
+        //when
+        equipmentService.createPost(dto);
+
+        //then
+        assertEquals(1L,equipmentRepository.count());
+
+        TbEquipment equipment = equipmentRepository.findAll().get(0);
+        assertEquals("제목1",equipment.getTitle());
+        assertEquals("내용1",equipment.getContent());
+        assertEquals(1000,equipment.getTradeCost());
+        assertEquals(true,equipment.isTradeStatus());
+
+    }
+>>>>>>> 51cfcb8 (수정)
 
     @Test
     @DisplayName("글수정")

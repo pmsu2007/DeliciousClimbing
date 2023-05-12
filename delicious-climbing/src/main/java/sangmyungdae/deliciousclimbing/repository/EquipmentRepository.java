@@ -10,9 +10,9 @@ public interface EquipmentRepository extends JpaRepository<TbEquipment, Long> {
 
     Page<TbEquipment> findPageByAddress_Code(Long code, Pageable pageable);
 
-    Page<TbEquipment> findPageByAddress_CodeAndType(Long code, EquipmentType type, Pageable pageable);
+    Page<TbEquipment> findPageByEquipment_Type(EquipmentType type, Pageable pageable);
 
-    Page<TbEquipment> findPageByAddress_CodeAndTypeAndTradeStatus(Long code, EquipmentType type, Boolean tradeStatus, Pageable pageable);
+    Page<TbEquipment> findPageByAddress_CodeAndEquipment_Type(Long code, EquipmentType type, Pageable pageable);
 
     Page<TbEquipment> findPageByTradeStatus(Boolean tradeStatus, Pageable pageable);
 

@@ -18,13 +18,15 @@ public class UserService {
     private final FamousMountainRepository famousMountainRepository;
     private final AddressRepository addressRepository;
 
+    // private final PassworodEncoder passworodEncoder;
+
     @Transactional
-    public String signIn (UserSign dto) {
+    public String login (UserSign dto) {
         TbUser entity = userRepository.findByEmail(dto.getEmail()).orElseThrow();
 
-        if(entity.getPassword() != dto.getPassword()) {
+//        if(!passwordEncoder.matches(dto.getPassword(), entity.getPassword())) {
             // throw exception;
-        }
+//        }
         // return apiKey;
         return null;
     }
@@ -40,9 +42,8 @@ public class UserService {
 
     @Transactional
     public User createUser(UserRegister dto) {
-
         // password Encoder 처리
-
+        //dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         // Request DTO to Entity
         TbUser entity = userRepository.save(dto.toEntity());
 
@@ -69,8 +70,21 @@ public class UserService {
     }
 
     @Transactional
-    public void changePassword(UserPassword dto) {
+    public void changePassword(Long id, UserPassword dto) {
+        TbUser entity = userRepository.findById(id).orElseThrow();
 
+        // 기존 패스워드 확인
+        //if(!passwordEncoder.matches(dto.getOldPassword(), entity.getPassword())) {
+            // 예외 처리
+        //}
+
+        // 확인 후, 새로운 패스워드 변경
+        //entity.updatePassword(passwordEncoder.encode(dto.getNewPassword()));
+    }
+
+    @Transactional
+    public boolean existEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 }

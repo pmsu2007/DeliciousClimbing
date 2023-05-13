@@ -2,6 +2,7 @@ package sangmyungdae.deliciousclimbing.dto.user;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
@@ -9,6 +10,7 @@ import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class UserRegister {
     private String email;
     private String password;

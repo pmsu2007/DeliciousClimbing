@@ -1,13 +1,10 @@
-package sangmyungdae.deliciousclimbing.dto;
+package sangmyungdae.deliciousclimbing.dto.community;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
-import sangmyungdae.deliciousclimbing.domain.entity.TbComment;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 
 import java.time.LocalDateTime;

@@ -5,15 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.converter.BoardTypeConverter;
-import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
-import sangmyungdae.deliciousclimbing.dto.*;
+import sangmyungdae.deliciousclimbing.dto.community.Post;
+import sangmyungdae.deliciousclimbing.dto.community.PostDto;
+import sangmyungdae.deliciousclimbing.dto.community.PostSearchDto;
+import sangmyungdae.deliciousclimbing.dto.community.CommentDto;
+import sangmyungdae.deliciousclimbing.dto.community.FileDto;
 import sangmyungdae.deliciousclimbing.service.CommunityService;
 
 @RequiredArgsConstructor

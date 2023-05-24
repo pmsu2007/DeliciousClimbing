@@ -11,6 +11,7 @@ import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 @Getter
 @Setter
 public class UserDto {
+    private Long id;
     private String nickname;
     private String imageUrl;
     private String introduction;
@@ -20,8 +21,9 @@ public class UserDto {
     private Long addressCode;
 
     @Builder
-    public UserDto(String nickname, String imageUrl, String introduction, Difficulty difficulty,
+    public UserDto(Long id, String nickname, String imageUrl, String introduction, Difficulty difficulty,
                    String sns, Long famousMountainId, Long addressCode) {
+        this.id = id;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.introduction = introduction;

@@ -1,10 +1,6 @@
 package sangmyungdae.deliciousclimbing.dto.user;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
@@ -26,8 +22,25 @@ public class User {
     private String sns;
     private Gender gender;
     private LocalDateTime birthday;
-    private String famousMountain;
-    private Long address;
+    private FamousMountain famousMountain;
+    private Address address;
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter @Setter
+    public static class FamousMountain {
+        private Long id;
+        private String mountainName;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter @Setter
+    public static class Address {
+        private Long code;
+        private String sido;
+        private String sigungu;
+    }
 
     @Builder
     public User(TbUser entity) {
@@ -42,7 +55,13 @@ public class User {
         this.sns = entity.getSns();
         this.gender = entity.getGender();
         this.birthday = entity.getBirthday();
-        this.famousMountain = entity.getFamousMountain().getName();
-        this.address = entity.getAddress().getCode();
+   }
+
+    public void addFamousMountain(Long id, String moutainName) {
+        this.famousMountain = new FamousMountain(id, moutainName);
+    }
+
+    public void addAddress(Long code, String sido, String sigungu) {
+        this.address = new Address(code, sido, sigungu);
     }
 }

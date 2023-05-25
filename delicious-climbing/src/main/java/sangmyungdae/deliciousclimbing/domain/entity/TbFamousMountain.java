@@ -40,9 +40,8 @@ public class TbFamousMountain {
 
     private String season;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Region region;
+    @OneToMany(mappedBy = "famousMountain")
+    private List<TbFamousMountainRegion> famousMountainRegions = new ArrayList<>();
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
@@ -52,7 +51,7 @@ public class TbFamousMountain {
   
     @Builder
     public TbFamousMountain(String name, int height, String info, Difficulty difficulty, int period,
-                            String imageUrl, String reason, String season, Region region) {
+                            String imageUrl, String reason, String season) {
         this.name = name;
         this.height = height;
         this.info = info;
@@ -61,6 +60,5 @@ public class TbFamousMountain {
         this.imageUrl = imageUrl;
         this.reason = reason;
         this.season = season;
-        this.region = region;
     }
 }

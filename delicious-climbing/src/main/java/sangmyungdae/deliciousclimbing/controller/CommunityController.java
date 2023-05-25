@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sangmyungdae.deliciousclimbing.domain.converter.BoardTypeConverter;
+import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 import sangmyungdae.deliciousclimbing.dto.community.Post;
 import sangmyungdae.deliciousclimbing.dto.community.PostDto;
 import sangmyungdae.deliciousclimbing.dto.community.PostSearchDto;
@@ -22,16 +22,15 @@ import sangmyungdae.deliciousclimbing.service.CommunityService;
 @RequestMapping("/posts")
 public class CommunityController {
     private final CommunityService communityService;
-    private final BoardTypeConverter boardTypeConverter;
 
     @GetMapping("/{type}")
-    public String communityListPage(@PathVariable String type,
+    public String communityListPage(@PathVariable BoardType type,
                                     @RequestParam(required = false) String title,
                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                     Model model) {
         PostSearchDto dto = PostSearchDto.builder()
                 .title(title)
-                .type(boardTypeConverter.convert(type))
+                .type(type)
                 .build();
 
         Page<Post> posts = communityService.getPostList(dto, pageable);

@@ -5,15 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sangmyungdae.deliciousclimbing.domain.entity.TbComment;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
-import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.dto.community.*;
-import sangmyungdae.deliciousclimbing.repository.CommentRepository;
-import sangmyungdae.deliciousclimbing.repository.FileRepository;
-import sangmyungdae.deliciousclimbing.repository.PostRepository;
-import sangmyungdae.deliciousclimbing.repository.UserRepository;
+import sangmyungdae.deliciousclimbing.dto.like.CommunityLikeDto;
+import sangmyungdae.deliciousclimbing.repository.*;
 
 
 @Service
@@ -24,7 +19,8 @@ public class CommunityService {
     private final CommentRepository commentRepository;
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
-    // 추천 레포지토리 추가 예상...
+
+    private final CommunityLikeRepository communityLikeRepository;
 
     @Transactional
     public Page<Post> getPostList(PostSearchDto dto, Pageable pageable) {
@@ -80,6 +76,22 @@ public class CommunityService {
     @Transactional
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void postLike(CommunityLikeDto dto) {
+        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
+        TbPost post = postRepository.findById(dto.getPostId()).orElseThrow();
+        TbCommunityLike like = communityLikeRepository.findByUserAndPost(user, post).orElse(null);
+
+        // 이미 추천을 눌렀다면
+        if (like != null) {
+            communityLikeRepository.delete(like);
+            post.updateLike(post.getLikes() - 1);
+        } else {
+            communityLikeRepository.save(TbCommunityLike.builder().post(post).user(user).build());
+            post.updateLike(post.getLikes() + 1);
+        }
     }
 
     @Transactional

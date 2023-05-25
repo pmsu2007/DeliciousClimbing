@@ -1,10 +1,9 @@
 package sangmyungdae.deliciousclimbing.dto.community;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.domain.Page;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
+import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 
 import java.time.LocalDateTime;
@@ -19,15 +18,27 @@ public class Post {
     private BoardType type;
     private String title;
     private String content;
-    private String author;
-    private String authorImgUrl;
-
     private int likes;
     private int hits;
     private LocalDateTime createdAt;
+    private User user;
     private List<Comment> comments = new ArrayList<>();
     private List<File> files = new ArrayList<>();
 
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter @Setter
+    public static class User {
+        private Long id;
+        private String author;
+        private String imageUrl;
+
+        public User(TbUser user) {
+            this.id = user.getId();
+            this.author = user.getNickname();
+            this.imageUrl = user.getImageUrl();
+        }
+    }
     @Builder
     public Post(TbPost entity) {
         this.id = entity.getId();
@@ -35,18 +46,16 @@ public class Post {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.createdAt = entity.getCreatedAt();
-        this.likes = entity.getLikes().size();
+        this.likes = entity.getLikes();
         this.hits = entity.getHits();
-        this.author = entity.getUser().getNickname();
-        this.authorImgUrl = entity.getUser().getImageUrl();
+        this.user = new User(entity.getUser());
         this.comments = entity.getComments().stream().map(Comment::new).collect(Collectors.toList());
         this.files = entity.getFiles().stream().map(File::new).collect(Collectors.toList());
     }
 
     public static Page<Post> toDtoList(Page<TbPost> entities) {
-        Page<Post> posts = entities.map(entity ->
+        return entities.map(entity ->
                 Post.builder().entity(entity).build());
-
-        return posts;
     }
+
 }

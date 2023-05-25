@@ -58,7 +58,7 @@ public class UserServiceTest {
                 .build();
 
         // when
-        User updateUser = userService.updateUser(2L, userDto);
+        User updateUser = userService.updateUser(1L, userDto);
         // then
         System.out.println("updateUser = " + updateUser);
     }

@@ -1,4 +1,7 @@
 spring:
+  batch:
+    jdbc:
+      initialize-schema: always
   datasource:
     driver-class-name: org.h2.Driver
     username: sa
@@ -15,4 +18,4 @@ spring:
         show_sql: 'true'
     show-sql: 'true'
     hibernate:
-      ddl-auto: none
+      ddl-auto: create

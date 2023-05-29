@@ -24,14 +24,14 @@ import java.io.File;
 public class EquipmentController {
     private final EquipmentService equipmentService;
 
-    private final EquipmentTypeConverter equipmentTypeConverter;
+
     @GetMapping("/{type}")
-    public String equipmentListPage(@PathVariable String type,
+    public String equipmentListPage(@PathVariable EquipmentType type,
                                     @RequestParam(required = false) Long code,
                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                     Model model) {
         EquipmentSearchDto dto = EquipmentSearchDto.builder()
-                .equipmentType(equipmentTypeConverter.convert(type))
+                .equipmentType(type)
                 .adressCode(code)
                 .build();
 

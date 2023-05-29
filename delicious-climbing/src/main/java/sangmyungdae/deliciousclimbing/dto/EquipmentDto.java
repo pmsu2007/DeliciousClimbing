@@ -18,7 +18,8 @@ public class EquipmentDto {
     private Long addressCode;
 
     @Builder
-    public EquipmentDto(EquipmentType type, String title, String content, Long userId,int tradeCost, Boolean tradeStatus,Long addressCode) {
+    public EquipmentDto(EquipmentType type, String title, String content,
+                        Long userId,int tradeCost, Boolean tradeStatus,Long addressCode) {
         this.type = type;
         this.title = title;
         this.content = content;

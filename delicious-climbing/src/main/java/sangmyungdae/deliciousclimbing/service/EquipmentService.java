@@ -53,7 +53,6 @@ public class EquipmentService {
 
     @Transactional  //게시글 생성
     public Equipment createPost(EquipmentDto dto){
-
         TbUser user = userRepository.findById(dto.getUserId()).orElse(null);
         TbAddress address = addressRepository.findByCode(dto.getAddressCode());
         TbEquipment entity = equipmentRepository.save(dto.toEntity(user,address));

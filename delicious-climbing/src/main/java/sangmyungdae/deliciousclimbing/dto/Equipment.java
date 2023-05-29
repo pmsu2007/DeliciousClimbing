@@ -25,7 +25,6 @@ public class Equipment {
     private Boolean tradeStatus;
     private String author;
     private Address address;
-
     private Long addressCode;
     private User user;
     private List<EquipmentFile> equipmentFiles = new ArrayList<>();
@@ -64,6 +63,7 @@ public class Equipment {
         this.createdAt = entity.getCreatedAt();
     //    this.user = new User(entity.getUser());
         //this.author = entity.getUser().getNickName()은 selectQuery 두번 호출
+
     }
 
     public static Page<Equipment> toDtoList(Page<TbEquipment>entities){

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sangmyungdae.deliciousclimbing.domain.converter.EquipmentTypeConverter;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.*;
 import sangmyungdae.deliciousclimbing.service.EquipmentService;
@@ -23,7 +22,6 @@ import java.io.File;
 @RequestMapping("/equipment")
 public class EquipmentController {
     private final EquipmentService equipmentService;
-
 
     @GetMapping("/{type}")
     public String equipmentListPage(@PathVariable EquipmentType type,
@@ -57,6 +55,7 @@ public class EquipmentController {
     @GetMapping("/update/{postId}")
     public String equipmentUpdatePage(@PathVariable Long postId, Model model) {
         Equipment equipment =equipmentService.getPostDetail(postId);
+
         model.addAttribute(equipment);
 
         return "equipUpdate";
@@ -115,5 +114,3 @@ public class EquipmentController {
         return "redirect:/equipments/{type}/{postId}";
     }
 }
-
-

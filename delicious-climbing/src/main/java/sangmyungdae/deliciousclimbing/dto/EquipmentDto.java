@@ -19,7 +19,7 @@ public class EquipmentDto {
 
     @Builder
     public EquipmentDto(EquipmentType type, String title, String content,
-                        Long userId,int tradeCost, Boolean tradeStatus,Long addressCode) {
+                        Long userId, int tradeCost, Boolean tradeStatus,Long addressCode) {
         this.type = type;
         this.title = title;
         this.content = content;
@@ -27,7 +27,7 @@ public class EquipmentDto {
         this.tradeCost = tradeCost;
         this.tradeStatus = tradeStatus;
         //address는?
-        this.addressCode =addressCode;
+        this.addressCode = addressCode;
     }
 
     public TbEquipment toEntity(TbUser user, TbAddress address){

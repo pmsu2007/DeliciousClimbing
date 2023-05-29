@@ -34,10 +34,10 @@ public class EquipmentService {
             Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_Code(dto.getAdressCode(), pageable);
             return Equipment.toDtoList(findEquipments);
         } else if (dto.getEquipmentType() != null && dto.getAdressCode() == null) {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByEquipment_Type(dto.getEquipmentType(), pageable);
+            Page<TbEquipment> findEquipments = equipmentRepository.findPageByType(dto.getEquipmentType(), pageable);
             return Equipment.toDtoList(findEquipments);
         } else {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndEquipment_Type(dto.getAdressCode(), dto.getEquipmentType(), pageable);
+            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndType(dto.getAdressCode(), dto.getEquipmentType(), pageable);
             return Equipment.toDtoList(findEquipments);
         }
     }
@@ -54,7 +54,7 @@ public class EquipmentService {
     @Transactional  //게시글 생성
     public Equipment createPost(EquipmentDto dto){
 
-        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
+        TbUser user = userRepository.findById(dto.getUserId()).orElse(null);
         TbAddress address = addressRepository.findByCode(dto.getAddressCode());
         TbEquipment entity = equipmentRepository.save(dto.toEntity(user,address));
         return Equipment.builder()
@@ -74,7 +74,7 @@ public class EquipmentService {
 
     @Transactional  //게시글 삭제
     public void deletePost(Long postId){
-        equipmentFileRepository.deleteByPostId(postId);
+        equipmentFileRepository.deleteByEquipment_Id(postId);
         equipmentRepository.deleteById(postId);
     }
 
@@ -102,7 +102,7 @@ public class EquipmentService {
 
     @Transactional //파일 삭제
     public void deleteFile(Long id){
-        equipmentFileRepository.deleteByPostId(id);
+        equipmentFileRepository.deleteByEquipment_Id(id);
     }
 
 }

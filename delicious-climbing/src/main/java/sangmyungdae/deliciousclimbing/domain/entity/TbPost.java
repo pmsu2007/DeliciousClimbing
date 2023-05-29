@@ -30,7 +30,6 @@ public class TbPost extends TbDateEntity{
     @Column(nullable = false)
     private String content;
 
-    @Column(columnDefinition = "integer default 0")
   
     @Column(columnDefinition = "integer default 0")
     private int hits;

@@ -26,7 +26,6 @@ public class FamousMountain {
         this.info = entity.getInfo();
         this.difficulty = entity.getDifficulty();
         this.period = entity.getPeriod();
-        this.likes = entity.getLikes();
         this.imageUrl = entity.getImageUrl();
         this.reason = entity.getReason();
         this.season = entity.getSeason();

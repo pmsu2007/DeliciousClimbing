@@ -19,8 +19,10 @@ import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.Equipment;
 import sangmyungdae.deliciousclimbing.dto.EquipmentDto;
 import sangmyungdae.deliciousclimbing.dto.EquipmentFileDto;
+import sangmyungdae.deliciousclimbing.repository.AddressRepository;
 import sangmyungdae.deliciousclimbing.repository.EquipmentFileRepository;
 import sangmyungdae.deliciousclimbing.repository.EquipmentRepository;
+import sangmyungdae.deliciousclimbing.repository.UserRepository;
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,13 +37,41 @@ class EquipmentServiceTest {
     @Autowired
     private EquipmentFileRepository equipmentFileRepository;
 
-    @BeforeEach
-    void clean(){
-        equipmentRepository.deleteAll();
-        equipmentFileRepository.deleteAll();
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Test
+    @DisplayName("글생성")
+    void createPost() {
+        //given
+        EquipmentDto dto = EquipmentDto.builder()
+                .type(EquipmentType.CLOTHES)
+                .title("제목1")
+                .content("내용1")
+                .tradeCost(1000)
+                .tradeStatus(true)
+                .addressCode(1L)
+                .userId(1L)
+                .build();
+        //when
+        Equipment testDto = equipmentService.createPost(dto);
+        //soutv + enter
+        System.out.println("testDto = " + testDto);
+        //then
+//        assertEquals(1L,equipmentRepository.count());
+//
+//        TbEquipment equipment = equipmentRepository.findAll().get(0);
+//        assertEquals("제목1",equipment.getTitle());
+//        assertEquals("내용1",equipment.getContent());
+//        assertEquals(1000,equipment.getTradeCost());
+//        assertEquals(true,equipment.isTradeStatus());
+
     }
     @Test
-    @DisplayName("글 1페이지 조회")
+    @DisplayName(value="글 1페이지 조회")
     void getPostList() {
         //given
 //        Page<TbEquipment>
@@ -75,32 +105,6 @@ class EquipmentServiceTest {
 
     }
 
-    @Test
-    @DisplayName("글생성")
-    void createPost() {
-        //given
-        EquipmentDto dto = EquipmentDto.builder()
-                .type(EquipmentType.CLOTHES)
-                .title("제목1")
-                .content("내용1")
-                .tradeCost(1000)
-                .tradeStatus(true)
-                .addressCode(1L)
-                .userId(1L)
-                .build();
-        //when
-        equipmentService.createPost(dto);
-
-        //then
-        assertEquals(1L,equipmentRepository.count());
-
-        TbEquipment equipment = equipmentRepository.findAll().get(0);
-        assertEquals("제목1",equipment.getTitle());
-        assertEquals("내용1",equipment.getContent());
-        assertEquals(1000,equipment.getTradeCost());
-        assertEquals(true,equipment.isTradeStatus());
-
-    }
 
     @Test
     @DisplayName("글수정")

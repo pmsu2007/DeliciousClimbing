@@ -103,7 +103,6 @@ public class MateService {
 
 
         TbMateComment entity = commentRepository.save(dto.toEntity(findMate, findUser));
-        findMate.getMateComments().add(entity);
 
         // Entity to Response DTO
         return MateComment.builder()
@@ -127,10 +126,6 @@ public class MateService {
     @Transactional
     public void deleteComment(Long mateId, Long commentId) {
 
-        mateRepository.getReferenceById(mateId)
-                .getMateComments()
-                .remove(commentRepository.getReferenceById(commentId));
-
         commentRepository.deleteById(commentId);
     }
 
@@ -143,8 +138,6 @@ public class MateService {
 
         // Request Dto to Entity
         TbMateFile entity = fileRepository.save(dto.toEntity(findMate));
-        findMate.getMateFiles().add(entity);
-
 
         // Entity to Response DTO
         return MateFile.builder()
@@ -167,10 +160,6 @@ public class MateService {
     // 파일 삭제
     @Transactional
     public void deleteFile(Long mateId, Long fileId) {
-
-        mateRepository.getReferenceById(mateId)
-                .getMateFiles()
-                .remove(fileRepository.getReferenceById(fileId));
 
         fileRepository.deleteById(fileId);
     }

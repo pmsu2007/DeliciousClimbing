@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
@@ -15,6 +18,8 @@ import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.dto.mate.MateSearchDto;
+import sangmyungdae.deliciousclimbing.dto.user.User;
+import sangmyungdae.deliciousclimbing.dto.user.UserRegister;
 import sangmyungdae.deliciousclimbing.repository.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +28,6 @@ import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
-@Transactional
 class MateServiceTest {
 
     @Autowired
@@ -38,6 +42,17 @@ class MateServiceTest {
     MateCommentRepository mateCommentRepository;
     @Autowired
     MateFileRepository mateFileRepository;
+    @Autowired
+    UserService userService;
+
+    @AfterEach
+    void deleteRepository() {
+        mateCommentRepository.deleteAll();
+        mateFileRepository.deleteAll();
+        mateRepository.deleteAll();
+        mountainRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
     @Test
     void getMateList() {
@@ -180,42 +195,36 @@ class MateServiceTest {
     @Test
     void getPostDetail() {
         //given
-        TbUser user1 = TbUser.builder()
-                .type(LoginType.SINGIN)
-                .email("user1@test.com")
-                .password("1234")
+        User user1 = userService.createUser(UserRegister.builder()
                 .role(Role.USER)
+                .email("user1")
+                .password("1234")
+                .type(LoginType.SINGIN)
                 .nickname("user1")
                 .gender(Gender.MALE)
-                .birthday(LocalDateTime.now())
-                .build();
-        TbUser user2 = TbUser.builder()
-                .type(LoginType.SINGIN)
-                .email("user2@test.com")
-                .password("1234")
+                .birthday(LocalDateTime.now()).build());
+        User user2 = userService.createUser(UserRegister.builder()
                 .role(Role.USER)
+                .email("user2")
+                .password("1234")
+                .type(LoginType.SINGIN)
                 .nickname("user2")
                 .gender(Gender.MALE)
-                .birthday(LocalDateTime.now())
-                .build();
-        userRepository.save(user1);
-        userRepository.save(user2);
+                .birthday(LocalDateTime.now()).build());
 
         TbMountain mountain = TbMountain.builder()
                 .name("testMountain")
                 .build();
         mountainRepository.save(mountain);
 
-        TbMate mate = TbMate.builder()
-                .title("mate")
-                .content("test")
+        Mate mate = mateService.createPost(user1.getId(), MateDto.builder()
+                .content("testContent")
+                .title("testTitle")
+                .recruitDate(LocalDateTime.now())
                 .recruitCount(3)
                 .recruitStatus(true)
-                .recruitDate(LocalDateTime.now())
-                .user(user1)
-                .mountain(mountain)
-                .build();
-        mateRepository.save(mate);
+                .mountainId(mountain.getId())
+                .build());
 
         MateFile file1 = mateService.createFile(mate.getId(), MateFileDto.builder().fileName("testFile1").build());
         MateFile file2 = mateService.createFile(mate.getId(), MateFileDto.builder().fileName("testFile2").build());
@@ -225,6 +234,7 @@ class MateServiceTest {
 
         //when
         MatePost result = mateService.getPostDetail(mate.getId());
+//        TbMate tbMate = mateRepository.findById(mate.getId()).get();
 
         //then
         assertThat(2).isEqualTo(result.getFiles().size());
@@ -233,39 +243,36 @@ class MateServiceTest {
         assertThat(mate.getContent()).isEqualTo(result.getMate().getContent());
         assertThat(mate.getId()).isEqualTo(result.getMate().getId());
         assertThat(mate.getHits()).isEqualTo(result.getMate().getHits());
-        assertThat(mate.getMountain().getId()).isEqualTo(result.getMate().getMountainId());
+        assertThat(mate.getMountainId()).isEqualTo(result.getMate().getMountainId());
         assertThat(mate.getRecruitCount()).isEqualTo(result.getMate().getRecruitCount());
-        assertThat(mate.getRecruitDate()).isEqualTo(result.getMate().getRecruitDate());
-        assertThat(mate.getUser().getNickname()).isEqualTo(result.getMate().getNickName());
-        assertThat(mate.isRecruitStatus()).isEqualTo(result.getMate().getRecruitStatus());
-        assertThat(mate.getUpdatedAt()).isEqualTo(result.getMate().getUpdatedAt());
-        assertThat(mate.getUser().getId()).isEqualTo(result.getMate().getUserId());
-        assertThat(mate.getMountain().getName()).isEqualTo(result.getMate().getMountainName());
+        assertThat(mate.getRecruitDate()).isEqualToIgnoringNanos(result.getMate().getRecruitDate());
+        assertThat(mate.getNickName()).isEqualTo(result.getMate().getNickName());
+        assertThat(mate.getRecruitStatus()).isEqualTo(result.getMate().getRecruitStatus());
+        assertThat(mate.getUpdatedAt()).isEqualToIgnoringNanos(result.getMate().getUpdatedAt());
+        assertThat(mate.getUserId()).isEqualTo(result.getMate().getUserId());
+        assertThat(mate.getMountainName()).isEqualTo(result.getMate().getMountainName());
     }
 
     @Test
+    @Transactional
     void createPost() {
         //given
-        TbUser user1 = TbUser.builder()
-                .type(LoginType.SINGIN)
-                .email("user1@test.com")
-                .password("1234")
+        User user1 = userService.createUser(UserRegister.builder()
                 .role(Role.USER)
+                .email("user1")
+                .password("1234")
+                .type(LoginType.SINGIN)
                 .nickname("user1")
                 .gender(Gender.MALE)
-                .birthday(LocalDateTime.now())
-                .build();
-        TbUser user2 = TbUser.builder()
-                .type(LoginType.SINGIN)
-                .email("user2@test.com")
-                .password("1234")
+                .birthday(LocalDateTime.now()).build());
+        User user2 = userService.createUser(UserRegister.builder()
                 .role(Role.USER)
+                .email("user2")
+                .password("1234")
+                .type(LoginType.SINGIN)
                 .nickname("user2")
                 .gender(Gender.MALE)
-                .birthday(LocalDateTime.now())
-                .build();
-        userRepository.save(user1);
-        userRepository.save(user2);
+                .birthday(LocalDateTime.now()).build());
 
         TbMountain mountain = TbMountain.builder()
                 .name("testMountain")
@@ -401,6 +408,7 @@ class MateServiceTest {
     }
 
     @Test
+    @Transactional
     void createComment() {
         //given
         TbUser user1 = TbUser.builder()
@@ -445,12 +453,14 @@ class MateServiceTest {
                 .content("testComment")
                 .build());
         MateComment actual = MateComment.builder().entity(mateCommentRepository.findById(result.getId()).get()).build();
+        MatePost postDetail = mateService.getPostDetail(mate1.getId());
 
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(result);
     }
 
     @Test
+    @Transactional
     void updateComment() {
         //given
         TbUser user1 = TbUser.builder()
@@ -568,6 +578,7 @@ class MateServiceTest {
     }
 
     @Test
+    @Transactional
     void createFile() {
 
         //given

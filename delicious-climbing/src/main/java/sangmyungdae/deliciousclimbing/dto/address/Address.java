@@ -1,10 +1,13 @@
-package sangmyungdae.deliciousclimbing.dto;
+package sangmyungdae.deliciousclimbing.dto.address;
 
-import lombok.Builder;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
-
+@ToString
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
-    private long code;
+    private Long code;
     private String sido;
     private String sigungu;
 

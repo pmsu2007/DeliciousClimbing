@@ -5,21 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sangmyungdae.deliciousclimbing.domain.entity.TbComment;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
-import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
-import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
-import sangmyungdae.deliciousclimbing.dto.community.Comment;
-import sangmyungdae.deliciousclimbing.dto.community.CommentDto;
-import sangmyungdae.deliciousclimbing.dto.community.File;
-import sangmyungdae.deliciousclimbing.dto.community.FileDto;
-import sangmyungdae.deliciousclimbing.dto.mate.Post;
-import sangmyungdae.deliciousclimbing.dto.mate.PostDto;
-import sangmyungdae.deliciousclimbing.repository.CommentRepository;
-import sangmyungdae.deliciousclimbing.repository.FileRepository;
-import sangmyungdae.deliciousclimbing.repository.PostRepository;
-import sangmyungdae.deliciousclimbing.repository.UserRepository;
+import sangmyungdae.deliciousclimbing.domain.entity.*;
+import sangmyungdae.deliciousclimbing.dto.community.*;
+import sangmyungdae.deliciousclimbing.dto.like.CommunityLikeDto;
+import sangmyungdae.deliciousclimbing.repository.*;
 
 
 @Service
@@ -31,9 +20,25 @@ public class CommunityService {
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
 
+    private final CommunityLikeRepository communityLikeRepository;
+
     @Transactional
-    public Page<Post> getPostList(BoardType type, String title, Pageable pageable) {
-        Page<TbPost> entities = postRepository.findPageByTypeAndTitleContaining(type, title, pageable); // Page<TbPost>
+    public Page<Post> getPostList(PostSearchDto dto, Pageable pageable) {
+
+        if (dto.getType() == null && dto.getTitle() == null) {
+            return Post.toDtoList(postRepository.findAll(pageable));
+        } else if (dto.getType() != null && dto.getTitle() == null) {
+            return Post.toDtoList(postRepository.findPageByType(dto.getType(), pageable));
+        } else if (dto.getType() != null && dto.getTitle() != null) {
+            return Post.toDtoList(postRepository.findPageByTypeAndTitleContaining(dto.getType(), dto.getTitle(), pageable));
+        }
+
+        return null;
+    }
+
+    @Transactional
+    public Page<Post> getMyPostList(Long userId, Pageable pageable) {
+        Page<TbPost> entities = postRepository.findPageByUser_Id(userId, pageable);
         return Post.toDtoList(entities);
     }
 
@@ -70,9 +75,23 @@ public class CommunityService {
 
     @Transactional
     public void deletePost(Long id) {
-        commentRepository.deleteByPostId(id);
-        fileRepository.deleteByPostId(id);
         postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void postLike(CommunityLikeDto dto) {
+        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
+        TbPost post = postRepository.findById(dto.getPostId()).orElseThrow();
+        TbCommunityLike like = communityLikeRepository.findByUserAndPost(user, post).orElse(null);
+
+        // 이미 추천을 눌렀다면
+        if (like != null) {
+            communityLikeRepository.delete(like);
+            post.updateLike(post.getLikes() - 1);
+        } else {
+            communityLikeRepository.save(TbCommunityLike.builder().post(post).user(user).build());
+            post.updateLike(post.getLikes() + 1);
+        }
     }
 
     @Transactional

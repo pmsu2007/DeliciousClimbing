@@ -6,6 +6,7 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommunityLikeRepository extends JpaRepository<TbCommunityLike, Long> {
     List<TbCommunityLike> findByPost_Id(Long postId);
@@ -13,5 +14,6 @@ public interface CommunityLikeRepository extends JpaRepository<TbCommunityLike, 
 
     List<TbCommunityLike> findByUser_Id(Long userId);
     List<TbCommunityLike> findByUser(TbUser user);
+    Optional<TbCommunityLike> findByUserAndPost(TbUser user, TbPost post);
 
 }

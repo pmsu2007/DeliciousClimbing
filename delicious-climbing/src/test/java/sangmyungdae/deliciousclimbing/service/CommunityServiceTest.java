@@ -1,31 +1,22 @@
 package sangmyungdae.deliciousclimbing.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
-import sangmyungdae.deliciousclimbing.domain.enums.Gender;
-import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
-import sangmyungdae.deliciousclimbing.dto.community.Comment;
-import sangmyungdae.deliciousclimbing.dto.community.CommentDto;
-import sangmyungdae.deliciousclimbing.dto.mate.Post;
-import sangmyungdae.deliciousclimbing.dto.mate.PostDto;
-import sangmyungdae.deliciousclimbing.repository.CommentRepository;
-import sangmyungdae.deliciousclimbing.repository.FileRepository;
-import sangmyungdae.deliciousclimbing.repository.PostRepository;
-import sangmyungdae.deliciousclimbing.repository.UserRepository;
+import sangmyungdae.deliciousclimbing.dto.community.*;
+import sangmyungdae.deliciousclimbing.dto.like.CommunityLikeDto;
+import sangmyungdae.deliciousclimbing.repository.*;
 
-import java.time.LocalDateTime;
+@SpringBootTest
+public class CommunityServiceTest {
 
-@DataJpaTest
-class CommunityServiceTest {
-
+    @Autowired
+    private CommunityService communityService;
     @Autowired
     private PostRepository postRepository;
     @Autowired
@@ -34,137 +25,121 @@ class CommunityServiceTest {
     private FileRepository fileRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommunityLikeRepository communityLikeRepository;
 
-    CommunityService communityService;
-
-    @BeforeEach
-    public void beforeEach() {
-        communityService = new CommunityService(postRepository
-                , commentRepository
-                , fileRepository
-                , userRepository);
-    }
-
-    private TbUser user = TbUser.builder()
-            .type(LoginType.SINGIN)
-            .email("테스트")
-            .password("1234")
-            .nickname("민스님")
-            .gender(Gender.MALE)
-            .birthday(LocalDateTime.now())
-            .build();
-
-    private  PostDto post1 = PostDto.builder()
-            .title("테스트1")
-            .type(BoardType.FREE)
-            .content("테스트1")
-            .userId(1L)
-            .build();
-
-    private  PostDto post2 = PostDto.builder()
-            .title("테스트2")
-            .type(BoardType.FREE)
-            .content("테스트2")
-            .userId(1L)
-            .build();
-
-    private PostDto post3 = PostDto.builder()
-            .title("테스트3")
-            .type(BoardType.AGE)
-            .content("테스트3")
-            .userId(1L)
-            .build();
-
-    
     @Test
+    @DisplayName(value = "게시글 등록")
     void createPost() {
-
         // given
-        userRepository.save(user);
+        PostDto requestPost = PostDto.builder()
+                .type(BoardType.FREE)
+                .title("제목4")
+                .content("내용4")
+                .userId(1L)
+                .build();
 
         // when
-        Post response = communityService.createPost(post1);
+        Post post = communityService.createPost(requestPost);
 
         // then
-        assertThat(response.getTitle()).isEqualTo("테스트1");
-        System.out.println("response = " + response);
-
+        System.out.println("post = " + post);
     }
 
     @Test
-    void getListPost() {
-        Pageable pageable = PageRequest.of(0, 10);
+    @DisplayName(value = "게시글 수정")
+    void updatePost() {
         // given
+        PostDto requestPost = PostDto.builder()
+                .type(BoardType.FREE)
+                .title("변경된 제목1")
+                .content("변경된 내용1")
+                .userId(1L)
+                .build();
         // when
-        userRepository.save(user);
-        communityService.createPost(post1);
-        communityService.createPost(post2);
-        communityService.createPost(post3);
-        Page<Post> lists = communityService.getPostList(BoardType.FREE, "테스트", pageable);
+        Post post = communityService.updatePost(1L, requestPost);
+        // then
+        System.out.println("post = " + post);
+    }
+
+    @Test
+    @DisplayName(value = "댓글 등록")
+    void createComment() {
+        // given
+        CommentDto requestComment = CommentDto.builder()
+                .postId(1L)
+                .userId(1L)
+                .content("댓글")
+                .build();
+
+        // when
+        Comment comment = communityService.createComment(requestComment);
 
         // then
-        for (Post post : lists.getContent()) {
+        System.out.println("comment = " + comment);
+    }
+
+    @Test
+    @DisplayName(value = "댓글 수정")
+    void updateComment() {
+        // given
+        CommentDto requestComment = CommentDto.builder()
+                .postId(1L)
+                .userId(1L)
+                .content("변경된 댓글")
+                .build();
+
+        // when
+        Comment comment = communityService.updateComment(1L, requestComment);
+
+        // then
+        System.out.println("comment = " + comment);
+    }
+
+    @Test
+    @DisplayName(value = "게시글 상세 조회")
+    void getPostDetail() {
+        // given
+        
+        // when
+        Post post = communityService.getPostDetail(1L);
+        // then
+        System.out.println("post = " + post);
+    }
+
+    @Test
+    @DisplayName(value = "게시글 목록 조회")
+    void getPostList() {
+        // given
+        PostSearchDto all = PostSearchDto.builder().build();
+        PostSearchDto type = PostSearchDto.builder().type(BoardType.FREE).build();
+        PostSearchDto titleAndType = PostSearchDto.builder().type(BoardType.FREE).title("제목").build();
+        Pageable pageable = PageRequest.of(0, 5);
+        // when
+
+        Page<Post> posts = communityService.getPostList(titleAndType, pageable);
+
+        // then
+        for (Post post : posts) {
             System.out.println("post = " + post);
         }
     }
 
     @Test
-    void getPostDetail() {
+    @DisplayName(value = "게시글 추천")
+    void likePost() {
         // given
-        
-        // when
-        userRepository.save(user);
-        communityService.createPost(post1);
-        Post result = communityService.getPostDetail(1L);
-        // then
-        System.out.println("result = " + result);
-    }
-
-    @Test
-    void updatePost() {
-
-        // given
-
-        // when
-        userRepository.save(user);
-        Post newPost = communityService.createPost(post1);
-        Post changePost = communityService.updatePost(1L, post2);
-        Post findPost = communityService.getPostDetail(1L);
-        // then
-        System.out.println("newPost = " + newPost);
-        System.out.println("changePost = " + changePost);
-        System.out.println("findPost = " + findPost);
-    }
-
-    @Test
-    void deletePost() {
-        
-        userRepository.save(user);
-        Post newPost = communityService.createPost(post1);
-        communityService.deletePost(1L);
-
-        Post findPost = communityService.getPostDetail(1L);
-        // 오류 발생하면 제대로 지워진 것.
-        System.out.println("findPost = " + findPost);
-        
-    }
-
-    @Test
-    void createComment() {
-        
-        // given
-        userRepository.save(user);
-        communityService.createPost(post1);
-
-        // DTO에 Entity를 담아도 되나 ?
-        CommentDto comment1 = CommentDto.builder()
-                .content("댓글1")
+        CommunityLikeDto requestLike = CommunityLikeDto.builder()
+                .postId(1L)
+                .userId(1L)
                 .build();
-        
         // when
-        Comment comment = communityService.createComment(comment1);
+
+        communityService.postLike(requestLike);
 
         // then
-        System.out.println("comment = " + comment);
+
+        Post post = communityService.getPostDetail(1L);
+        System.out.println("post = " + post);
     }
 }

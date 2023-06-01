@@ -1,4 +1,4 @@
-package sangmyungdae.deliciousclimbing.dto.mate;
+package sangmyungdae.deliciousclimbing.dto.community;
 
 import lombok.Builder;
 import lombok.Getter;

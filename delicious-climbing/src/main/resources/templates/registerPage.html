@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicous Mountain</title>
+
+  <!--로고-->
+  <link rel="icon" href="/img/Logo.png" />
+   <!--브라우저 스타일 초기화-->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
+  <!--Google Fonts - 나눔고딕-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+  <!--Google Material Icons-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+ 
+  <link rel="stylesheet" href="/css/signin.css" />
+
+  <script defer src="/js/signin.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+ <header>
+  <div class="inner">
+    
+    
+    <a href="startPage.html" class="logo">
+      <img src="/img/grayLogo.png" alt="LOGO">
+    </a>
+    </div>
+  </div>
+ </header>
+ <!-- 회원가입 -->
+ <section>
+    <div class="inner">
+      
+        <div class="signin">
+          <a class="title">회 원 가 입</a>
+          <form th:action="@{/register}" th:object="${userRegister}" method="post">
+              <input type="text" class="email" placeholder="이메일" th:field="*{email}"/>
+              <button class="check">중복확인</button>
+              <br> <br>
+              <input type="password" class="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)" th:field="*{password}"/>
+              <br> <br>
+              <input class="nickname" placeholder="닉네임" th:field="*{nickname}"/>
+              <br> <br>
+              <select class="sex" th:field="*{gender}">
+                  <option value="MALE">남성</option>
+                  <option value="FEMALE">여성</option>
+              </select>
+              <br> <br>
+              <input type="date" class="birthday" placeholder="생년월일 예&#41;20230101" th:field="*{birthday}"/>
+              <br> <br>
+              <button type="submit" class="ok">가 입 하 기</button>
+          </form>
+          
+        </div>
+      
+    </div>
+ </section>
+  
+</body>
+</html>

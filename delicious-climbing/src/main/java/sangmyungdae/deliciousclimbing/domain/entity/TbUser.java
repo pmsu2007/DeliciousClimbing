@@ -10,7 +10,7 @@ import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class TbUser extends TbDateEntity {
     private Gender gender;
 
     @Column(nullable = false)
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mountain_id")
@@ -79,7 +79,7 @@ public class TbUser extends TbDateEntity {
 
     @Builder
     public TbUser(String email, String password, Role role, LoginType type, String nickname, String imageUrl, String introduction,
-                  Difficulty difficulty, String sns, Gender gender, LocalDateTime birthday,
+                  Difficulty difficulty, String sns, Gender gender, LocalDate birthday,
                   TbFamousMountain famousMountain, TbAddress address) {
 
         this.email = email;

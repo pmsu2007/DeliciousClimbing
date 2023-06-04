@@ -36,7 +36,7 @@ public class CommunityServiceTest {
                 .type(BoardType.FREE)
                 .title("제목4")
                 .content("내용4")
-                .userId(1L)
+                .userId(35L)
                 .build();
 
         // when
@@ -63,12 +63,18 @@ public class CommunityServiceTest {
     }
 
     @Test
+    @DisplayName(value = "게시글 삭제")
+    void deletePost() {
+        communityService.deletePost(1L);
+    }
+
+    @Test
     @DisplayName(value = "댓글 등록")
     void createComment() {
         // given
         CommentDto requestComment = CommentDto.builder()
                 .postId(1L)
-                .userId(1L)
+                .userId(35L)
                 .content("댓글")
                 .build();
 
@@ -95,6 +101,13 @@ public class CommunityServiceTest {
         // then
         System.out.println("comment = " + comment);
     }
+
+    @Test
+    @DisplayName(value = "댓글 삭제")
+    void deleteComment() {
+        communityService.deleteComment(1L);
+    }
+
 
     @Test
     @DisplayName(value = "게시글 상세 조회")

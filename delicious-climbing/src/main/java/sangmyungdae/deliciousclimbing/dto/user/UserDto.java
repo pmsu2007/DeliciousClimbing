@@ -1,15 +1,13 @@
 package sangmyungdae.deliciousclimbing.dto.user;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
 public class UserDto {
     private Long id;
     private String nickname;

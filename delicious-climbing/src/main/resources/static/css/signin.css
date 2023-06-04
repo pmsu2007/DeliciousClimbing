@@ -1,0 +1,149 @@
+/* COMMON */
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+hr {
+  
+}
+/* HEADER */
+header {
+  /* background-color: royalblue; */
+}
+
+header .inner {
+  width:1200px;
+  height: 150px;
+  margin: 0 auto;
+  /* background-color: orange;  */
+  position: relative;
+}
+
+
+header .logo {
+  /* height: 100px; */
+  transform:scale(0.9,0.9);
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  left: -30px;
+  margin: auto ;
+  /* display:none; */
+}
+
+
+
+header .top-menu {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  display: flex;
+}
+
+
+
+/*작대기*/
+/* header .top-menu ul.account li::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 12px;
+  background-color: #e5e5e5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  display: none;
+} */
+
+
+
+section {
+
+}
+
+
+/*회원가입 section*/
+section .inner {
+  width:1200px;
+  height: 880px;
+  margin: 0 auto;
+  /* background-color: royalblue;  */
+  position: relative;
+}
+
+section .inner .signin {
+  
+  width: 380px;
+  height: 625px;
+  /* background-color: darkgoldenrod;  */
+  position: absolute;
+  z-index: 1;
+  margin: 100px 400px 100px 400px;
+  border: solid 0.2em;
+  border-color: #86DFA0;
+  border-radius: 20px;
+  text-align: center;
+}
+
+section .inner .signin .title {
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 40px;
+  
+}
+/*이메일만 사이즈 때문에*/
+section .inner .signin .email {
+  margin-left: -17px;
+  width:240px;
+  height: 45px;
+  border-radius: 10px;
+  border-color: #B2B2B2;
+  font-size: 14px;
+}
+/*중복버튼*/
+section .inner .signin .check {
+  font-size: 14px;
+  width:110px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #11D700;
+  border: #11D700;
+  color:#FFF;
+  /* padding: 5px 5px 0 5px; */
+  margin-right: -15px;
+}
+section .inner .signin input {
+  width:360px;
+  height: 45px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #B2B2B2;
+  font-size: 14px;
+  
+}
+
+
+
+section .inner .signin .ok {
+  font-size: 20px;
+  width:360px;
+  height: 45px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #11D700;
+  border: #11D700;
+  color:#FFF;
+}

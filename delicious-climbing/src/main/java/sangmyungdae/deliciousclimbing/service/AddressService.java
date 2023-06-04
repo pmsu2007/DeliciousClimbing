@@ -19,18 +19,4 @@ public class AddressService {
                 .entity(entity)
                 .build();
     }
-
-    @Transactional
-    public Address createAddress(TbAddress dto) {
-        sangmyungdae.deliciousclimbing.domain.entity.TbAddress entity = addressRepository.save(dto.toEnity());
-
-        return Address.builder()
-                .entity(entity)
-                .build();
-    }
-
-    @Transactional
-    public void deleteAddress(Long code) {
-        addressRepository.deleteById(code);
-    }
 }

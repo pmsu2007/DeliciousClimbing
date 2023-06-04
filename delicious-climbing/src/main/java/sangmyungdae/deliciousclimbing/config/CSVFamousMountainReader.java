@@ -8,31 +8,30 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
+import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 
 @Configuration
 @RequiredArgsConstructor
-public class CSVReader {
-
+public class CSVFamousMountainReader {
     @Bean
-    public FlatFileItemReader<TbAddress> csvAddressFileReader() {
+    public FlatFileItemReader<TbFamousMountain> csvFamousMountainFileReader() {
         // File Read
-        FlatFileItemReader<TbAddress> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new ClassPathResource("/csv/address.csv"));
+        FlatFileItemReader<TbFamousMountain> flatFileItemReader = new FlatFileItemReader<>();
+        flatFileItemReader.setResource(new ClassPathResource("/csv/famousMountain.csv"));
         flatFileItemReader.setLinesToSkip(1);
         flatFileItemReader.setEncoding("UTF-8");
 
         // Read할 데이터를 LineMapper를 통해 Mapping
-        DefaultLineMapper<TbAddress> defaultLineMapper = new DefaultLineMapper<>();
+        DefaultLineMapper<TbFamousMountain> defaultLineMapper = new DefaultLineMapper<>();
 
         // setNames를 통해 데이터의 key 이름을 설정
         DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer(",");
-        delimitedLineTokenizer.setNames("code", "sido", "sigungu");
+        delimitedLineTokenizer.setNames("id", "name", "height");
         defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
 
-        // Tokenizer에서 가져온 데이터들을 AddressDto에 바인딩
-        BeanWrapperFieldSetMapper<TbAddress> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        beanWrapperFieldSetMapper.setTargetType(TbAddress.class);
+        // Tokenizer에서 가져온 데이터들을 TbFamousMountain에 바인딩
+        BeanWrapperFieldSetMapper<TbFamousMountain> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        beanWrapperFieldSetMapper.setTargetType(TbFamousMountain.class);
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
 
         // lineMapper 설정

@@ -1,9 +1,6 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 import sangmyungdae.deliciousclimbing.domain.enums.Region;
 
@@ -11,21 +8,19 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter @Setter
 @Entity
 @Table(name = "TB_FAMOUSMOUNTAIN")
 public class TbFamousMountain {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 산 id
 
     @Column(nullable = false)
     private String name;
 
     private int height;
 
-    @Column(nullable = false)
     private String info;
 
     @Enumerated(EnumType.STRING)
@@ -40,19 +35,19 @@ public class TbFamousMountain {
 
     private String season;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "integer default 0")
+    private int likes;
+
     @Enumerated(EnumType.STRING)
     private Region region;
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
-
-    @OneToMany(mappedBy = "famousMountain")
-    private List<TbFamousMountainLike> likes = new ArrayList<>();
   
     @Builder
-    public TbFamousMountain(String name, int height, String info, Difficulty difficulty, int period,
+    public TbFamousMountain(Long id, String name, int height, String info, Difficulty difficulty, int period,
                             String imageUrl, String reason, String season, Region region) {
+        this.id = id;
         this.name = name;
         this.height = height;
         this.info = info;
@@ -62,5 +57,9 @@ public class TbFamousMountain {
         this.reason = reason;
         this.season = season;
         this.region = region;
+    }
+
+    public void updateLike(int likes) {
+        this.likes = likes;
     }
 }

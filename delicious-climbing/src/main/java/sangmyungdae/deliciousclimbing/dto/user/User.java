@@ -1,12 +1,15 @@
 package sangmyungdae.deliciousclimbing.dto.user;
 
 import lombok.*;
+import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
+import sangmyungdae.deliciousclimbing.dto.address.Address;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @ToString
@@ -21,7 +24,8 @@ public class User {
     private Difficulty difficulty;
     private String sns;
     private Gender gender;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
+    private String createdAt;
     private FamousMountain famousMountain;
     private Address address;
 
@@ -31,15 +35,16 @@ public class User {
     public static class FamousMountain {
         private Long id;
         private String mountainName;
-    }
 
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter @Setter
-    public static class Address {
-        private Long code;
-        private String sido;
-        private String sigungu;
+        public FamousMountain(TbFamousMountain entity) {
+            if (entity != null) {
+                this.id = entity.getId();
+                this.mountainName = entity.getName();
+            } else {
+                this.id = null;
+                this.mountainName = null;
+            }
+        }
     }
 
     @Builder
@@ -55,13 +60,9 @@ public class User {
         this.sns = entity.getSns();
         this.gender = entity.getGender();
         this.birthday = entity.getBirthday();
+        this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.famousMountain = new FamousMountain(entity.getFamousMountain());
+        this.address = new Address(entity.getAddress());
    }
 
-    public void addFamousMountain(Long id, String moutainName) {
-        this.famousMountain = new FamousMountain(id, moutainName);
-    }
-
-    public void addAddress(Long code, String sido, String sigungu) {
-        this.address = new Address(code, sido, sigungu);
-    }
 }

@@ -18,4 +18,8 @@ spring:
         show_sql: 'true'
     show-sql: 'true'
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html

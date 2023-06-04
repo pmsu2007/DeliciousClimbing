@@ -1,17 +1,17 @@
 package sangmyungdae.deliciousclimbing.dto.user;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRegister {
     private String email;
     private String password;
@@ -19,18 +19,18 @@ public class UserRegister {
     private LoginType type;
     private String nickname;
     private Gender gender;
-    private LocalDateTime birthday;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
+    
     @Builder
-    public UserRegister(String email, String password, Role role, LoginType type, String nickname,
-                        Gender gender, LocalDateTime birthday) {
-        this.email = email;
-        this.password = password;
-        this.type = type;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.role = role;
+    public UserRegister(TbUser entity) {
+        this.email = entity.getEmail();
+        this.password = entity.getPassword();
+        this.type = entity.getType();
+        this.nickname = entity.getNickname();
+        this.gender = entity.getGender();
+        this.birthday = entity.getBirthday();
+        this.role = entity.getRole();
     }
 
     public TbUser toEntity() {

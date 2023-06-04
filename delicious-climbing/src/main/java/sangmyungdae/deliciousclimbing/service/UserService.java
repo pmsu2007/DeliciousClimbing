@@ -23,13 +23,14 @@ public class UserService {
     // private final PassworodEncoder passworodEncoder;
 
     @Transactional
-    public String login (UserSign dto) {
+    public User login (UserSign dto) {
         TbUser entity = userRepository.findByEmail(dto.getEmail()).orElseThrow();
-
         if(!entity.getPassword().equals(dto.getPassword())) {
-            return "로그인 실패";
+            return null;
         }
-        return "로그인 성공";
+        return User.builder()
+                .entity(entity)
+                .build();
     }
 
     @Transactional
@@ -42,10 +43,10 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(UserRegister dto) {
+    public UserRegister createUser(UserRegister dto) {
         TbUser entity = userRepository.save(dto.toEntity());
         // Entity to Response DTO
-        return User.builder()
+        return UserRegister.builder()
                 .entity(entity)
                 .build();
     }
@@ -63,7 +64,14 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id, UserPassword dto) {
+        TbUser entity = userRepository.findById(id).orElseThrow();
+
+        // 기존 패스워드 확인
+        if(!entity.getPassword().equals(dto.getOldPassword())) {
+            // 예외 처리
+        }
+
         userRepository.deleteById(id);
     }
 

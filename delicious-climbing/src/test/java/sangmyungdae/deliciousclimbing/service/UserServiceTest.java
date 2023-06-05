@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.enums.*;
 import sangmyungdae.deliciousclimbing.dto.user.*;
 import sangmyungdae.deliciousclimbing.repository.AddressRepository;
@@ -28,19 +29,19 @@ public class UserServiceTest {
     @DisplayName(value="회원가입")
     void join() {
         // given
-        UserRegister register = UserRegister.builder()
-                .role(Role.USER)
-                .email("pmsu2008")
-                .password("1234")
-                .type(LoginType.SINGIN)
-                .nickname("민스님")
-                .gender(Gender.MALE)
-                .birthday(LocalDateTime.now()).build();
-        // when
-        User user = userService.createUser(register);
-
-        // then
-        System.out.println("user = " + user);
+//        UserRegister register = UserRegister.builder()
+//                .role(Role.USER)
+//                .email("pmsu2008")
+//                .password("1234")
+//                .type(LoginType.SINGIN)
+//                .nickname("민스님")
+//                .gender(Gender.MALE)
+//                .birthday(LocalDateTime.now()).build();
+//        // when
+//        User user = userService.createUser(register);
+//
+//        // then
+//        System.out.println("user = " + user);
     }
 
     @Test

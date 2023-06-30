@@ -5,16 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-<<<<<<< HEAD
-import sangmyungdae.deliciousclimbing.domain.converter.EquipmentTypeConverter;
-=======
->>>>>>> 51cfcb8 (수정)
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.*;
 import sangmyungdae.deliciousclimbing.service.EquipmentService;
@@ -27,24 +21,13 @@ import java.io.File;
 public class EquipmentController {
     private final EquipmentService equipmentService;
 
-<<<<<<< HEAD
-
     @GetMapping("/{type}")
     public String equipmentListPage(@PathVariable EquipmentType type,
-=======
-    private final EquipmentTypeConverter equipmentTypeConverter;
-    @GetMapping("/{type}")
-    public String equipmentListPage(@PathVariable String type,
->>>>>>> 51cfcb8 (수정)
                                     @RequestParam(required = false) Long code,
                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                     Model model) {
         EquipmentSearchDto dto = EquipmentSearchDto.builder()
-<<<<<<< HEAD
                 .equipmentType(type)
-=======
-                .equipmentType(equipmentTypeConverter.convert(type))
->>>>>>> 51cfcb8 (수정)
                 .adressCode(code)
                 .build();
 
@@ -69,11 +52,7 @@ public class EquipmentController {
 
     @GetMapping("/update/{postId}")
     public String equipmentUpdatePage(@PathVariable Long postId, Model model) {
-<<<<<<< HEAD
         Equipment equipment =equipmentService.getPostDetail(postId);
-=======
-        Equipment equipment =EquipmentService.getPostDetail(postId);
->>>>>>> 51cfcb8 (수정)
         model.addAttribute(equipment);
 
         return "equipUpdate";
@@ -133,8 +112,3 @@ public class EquipmentController {
     }
 }
 
-
-<<<<<<< HEAD
-=======
-}
->>>>>>> 51cfcb8 (수정)

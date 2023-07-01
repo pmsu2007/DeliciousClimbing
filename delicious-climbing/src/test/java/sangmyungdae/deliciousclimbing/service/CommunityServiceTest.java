@@ -34,9 +34,9 @@ public class CommunityServiceTest {
         // given
         PostDto requestPost = PostDto.builder()
                 .type(BoardType.FREE)
-                .title("제목4")
-                .content("내용4")
-                .userId(35L)
+                .title("제목6")
+                .content("내용6")
+                .userId(33L)
                 .build();
 
         // when

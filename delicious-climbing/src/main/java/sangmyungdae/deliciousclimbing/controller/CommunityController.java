@@ -26,7 +26,7 @@ public class CommunityController {
     @GetMapping("/{type}")
     public String communityListPage(@PathVariable BoardType type,
                                     @RequestParam(required = false) String title,
-                                    @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+                                    @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                     Model model) {
         PostSearchDto dto = PostSearchDto.builder()
                 .title(title)
@@ -34,8 +34,9 @@ public class CommunityController {
                 .build();
 
         Page<Post> posts = communityService.getPostList(dto, pageable);
+        model.addAttribute("type", type);
         model.addAttribute("posts", posts);
-        return "commList";
+        return "communityList";
     }
 
     @GetMapping("/my")
@@ -48,15 +49,21 @@ public class CommunityController {
 
     @GetMapping("/{type}/{postId}")
     public String communityDetailPage(@PathVariable Long postId,
+                                      CommentDto commentDto,
                                       Model model) {
         Post post = communityService.getPostDetail(postId);
-        model.addAttribute(post);
-        return "commDetail";
+        model.addAttribute("commentDto", commentDto);
+        model.addAttribute("post", post);
+        return "communityDetail";
     }
 
     @GetMapping("/create")
-    public String communityCreatePage() {
-        return "commCreate";
+    public String communityCreatePage(PostDto postDto,
+                                      FileDto fileDto,
+                                      Model model) {
+        model.addAttribute("postDto", postDto);
+        model.addAttribute("fileDto", fileDto);
+        return "communityCreate";
     }
 
     @GetMapping("/update/{postId}")
@@ -64,7 +71,7 @@ public class CommunityController {
         Post post = communityService.getPostDetail(postId);
         model.addAttribute(post);
 
-        return "commUpdate";
+        return "communityUpdate";
     }
 
     @PostMapping("/create")
@@ -88,6 +95,7 @@ public class CommunityController {
     @PostMapping("/delete/{postId}")
     public String deletePost(@PathVariable Long postId,
                              RedirectAttributes redirectAttributes) {
+        communityService.deletePost(postId);
         return "redirect:/posts/{type}";
     }
 

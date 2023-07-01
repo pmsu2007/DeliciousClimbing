@@ -7,6 +7,7 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class Post {
     private String content;
     private int likes;
     private int hits;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private User user;
     private List<Comment> comments = new ArrayList<>();
     private List<File> files = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Post {
         this.type = entity.getType();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.createdAt = entity.getCreatedAt();
+        this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.likes = entity.getLikes();
         this.hits = entity.getHits();
         this.user = new User(entity.getUser());

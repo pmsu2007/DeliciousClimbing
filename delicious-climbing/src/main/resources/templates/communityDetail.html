@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>커뮤니티 게시글보기</title>
+    <link rel="stylesheet" href="/css/communityDetail.css" />
+  </head>
+  <body>
+    <div class="board_wrap">
+      <div class="board_view_wrap">
+        <div class="board_view">
+          <div class="category" th:text="${post.type}">게시판 종류</div>
+          <div class="board_view_top">
+            <div class="title" th:text="${post.title}">글 제목이 들어갑니다.</div>
+            <div class="view_btn">
+              <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
+              <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
+              <a href="#">삭제</a>
+            </div>
+          </div>
+          <div class="cont" th:text="${post.content}">
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다<br />
+            글 내용이 들어갑니다
+          </div>
+
+          <div class="info">
+            <dl>
+              <dt>작성일</dt>
+              <dd th:text="${post.createdAt}" >2023 02 17</dd>
+            </dl>
+            <dl>
+              <dt>조회</dt>
+              <dd th:text="${post.hits}">33</dd>
+            </dl>
+            <dl class="borad_view_date" style="float: right">
+              <dt th:text="${post.user.author}">김상명</dt>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="board_wrap">
+      <div class="board_view_wrap">
+        <div class="board_view">
+<!--          <div class="comment">-->
+<!--            <div class="comment_write">-->
+<!--              <form th:action="@{/posts/create/{id}/comment(id=${post.id})}" th:object="*{commentDto}" method="post">-->
+<!--                <dd class="comment_write_detail">-->
+<!--                  <input type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>-->
+<!--                </dd>-->
+<!--                <dt class="comment_btn">-->
+<!--                  <button type="submit" class="on">댓글 달기</button>-->
+<!--                </dt>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

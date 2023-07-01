@@ -1480,7 +1480,7 @@ changePasswordForm.addEventListener("submit", (e) => {
     alert("새로운 비밀번호를 규칙에 맞게 입력해주세요")
     return false;
   } else if (newPassword.match(checkNewPassword)) {
-    alert("새로운 비밀번호를 제대로 입력 했는지 확인해주세요")
+    alert("새로운 비밀번호와 일치하지 않습니다.")
     return false;
   }
   return true;

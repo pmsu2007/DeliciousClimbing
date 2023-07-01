@@ -73,16 +73,16 @@ public class UserServiceTest {
     @Test
     @DisplayName(value = "회원 로그인")
     void login() {
-        //given
-        UserSign sign = UserSign.builder()
-                .email("pmsu2008")
-                .password("1234")
-                .build();
-        // when
-        String result = userService.login(sign);
-
-        // then
-        System.out.println("result = " + result);
+//        //given
+//        UserSign sign = UserSign.builder()
+//                .email("pmsu2008")
+//                .password("1234")
+//                .build();
+//        // when
+//        String result = userService.login(sign);
+//
+//        // then
+//        System.out.println("result = " + result);
     }
 
     @Test

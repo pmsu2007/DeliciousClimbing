@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글쓰기</title>
+    <link rel="stylesheet" href="/css/communityCreate.css" />
+  </head>
+  <body>
+    <div class="board_wrap">
+      <div class="board_title">
+        <strong>글쓰기</strong>
+      </div>
+      <div class="board_write_wrap">
+        <div class="board_write">
+          <div class="title">
+            <form th:action="@{/posts/create}" th:object="${postDto}" method="post">
+                <dl>
+                  <dt>게시판</dt>
+                  <dd>
+
+                  <!--<input type="text" placeholder="게시판을 선택해주세요" />-->
+                    <details>
+                    <summary>게시판을 선택해주세요</summary>
+                    <select th:field="*{type}">
+                      <option value="FREE">자유 게시판</option>
+                      <option value="AGE">연령별 게시판</option>
+                      <option value="REGION">지역별 게시판</option>
+                    </select>
+                  </details>
+                  </dd>
+                </dl>
+                <dl>
+                <dt>제목</dt>
+                <dd><input type="text" placeholder="제목 입력" th:field="*{title}" /></dd>
+                </dl>
+            <div class="cont">
+            <textarea placeholder="내용 입력" th:field="*{content}"></textarea>
+            </div>
+
+              <button class="on" type="submit">등록</button>
+            <div class="bt_wrap">
+              <a th:href="@{/posts/{type}(type=free)}">취소</a>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

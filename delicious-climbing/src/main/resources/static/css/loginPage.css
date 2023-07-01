@@ -1,0 +1,189 @@
+.Logo {
+    position: absolute;
+    width: 211px;
+    height: 93px;
+    left: 0px;
+    top: 15px;
+    
+}
+
+.loginImage {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 18%;
+    bottom: 0%;
+}
+
+.loginBox{
+    position: absolute;
+    width: 350px;
+    height: 527px;
+    left: 913px;
+    top: 253px;
+    
+
+}
+
+.loginMsg {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    color: #1A202C;
+}
+
+h2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4A5568;
+}
+
+#email {
+    height: 50px;
+    width: 347px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid #E8E8E8;
+}
+
+#password {
+    height: 50px;
+    width: 347px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid #E8E8E8;
+}
+
+#checkbox{
+    box-sizing: border-box;
+    background: #F7FAFC;
+    border: 1px solid #E8E8E8;
+}
+
+input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+
+.passwordBtn{
+    border:none;
+    position: absolute;
+    color : #2C5282;
+    background-color: rgba(0,0,0,0);
+    right:0%;
+}
+
+.passwordBtn:hover {
+    cursor : pointer;
+    filter : brightness(30%);
+}
+
+.basisLogin {
+    height: 50px;
+    width: 347px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    background-color: #04C35C;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
+    border:none;
+
+    margin-top:10px;
+}
+
+.basisLogin:hover {
+    cursor : pointer;
+    filter : brightness(85%);
+}
+
+.kakaoLogin{
+    height: 50px;
+    width: 347px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    background-color: #FEE500;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    border:none;
+
+    margin-top:10px;
+}
+
+.kakaoLogin:hover {
+    cursor : pointer;
+    filter : brightness(85%);
+}
+
+.naverLogin{
+    height: 50px;
+    width: 347px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    background-color: #1DC800;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
+    border:none;
+
+    margin-top:10px;
+}
+
+.naverLogin:hover {
+    cursor : pointer;
+    filter : brightness(85%);
+}
+
+.signUp {
+    position:absolute;
+    left : 71%;
+    top: 103.2%;
+    color : #2C5282;
+    background-color: rgba(0,0,0,0);
+    border:none;
+}
+
+
+.signUp:hover {
+    cursor : pointer;
+    filter : brightness(30%);
+}
+
+h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+}
+
+
+.naverImage {
+    position : absolute; 
+    left:8%;  
+    width:10%;
+}

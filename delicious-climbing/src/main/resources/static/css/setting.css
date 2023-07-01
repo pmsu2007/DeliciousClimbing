@@ -1,0 +1,217 @@
+#my_modal {
+    display: none;
+    width: 1035px;
+    padding: 20px 60px;
+    background-color: #F3FEF4;
+    border: 2px solid #27733d;
+    border-radius: 5px;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    border-color: transparent;
+    background-color: #F3FEF4;
+}
+
+#my_modal .modal_close_btn:hover {
+    cursor: pointer;
+}
+
+
+@font-face {
+    font-family: 'Gluten';
+    src: url("/font/Gluten-VariableFont_slnt,wght.ttf");
+}
+
+#password {
+    position: relative;
+    width: 900px;
+    height: 50px;
+    margin-top: 2%;
+    margin-left:50px;
+    border-radius: 5px;
+    background: #D9D9D9;
+    border-color: transparent;
+}
+
+h1{ /* 상단에 위치한 문구 */
+    font-family: 'Gluten';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 40px;
+    line-height: 35px;
+    text-align: center;
+    color: #0fb900;
+}
+
+h2{ /* 중간에 들어가는 문구들 */
+    font-family: 'Gluten';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 18px;
+        margin-left:50px;
+    color: #000000;
+}
+
+.passwordCheck{
+    background: #CDF0CC;
+    border-radius: 25px;
+    border-color:transparent;
+
+    width: 400px;
+    height: 65px;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.passwordCheck:hover{
+    cursor : pointer;
+    filter : brightness(85%);
+}
+
+h3{ /* 버튼에 들어가는 문구 */
+    font-family: 'Gluten';
+    font-style: normal;
+    font-weight: 550;
+    font-size: 32px;
+    line-height: 28px;
+    text-align: center;
+    margin-top:5%;
+
+    color: #000000;
+}
+
+#text {
+    position: relative;
+    width: 900px;
+    height: 50px;
+    margin-top: 2%;
+    margin-left:50px;
+    border-radius: 5px;
+    background: #D9D9D9;
+    border-color: transparent;
+}
+
+.introduce { /* 소개글*/
+    position: relative;
+    width: 900px;
+    height: 50px;
+    margin-top: 2%;
+    margin-left:50px;
+    border-radius: 5px;
+    background: #D9D9D9;
+    border-color: transparent;
+}
+.introuduce_Count{
+    position :relative;
+    border-color: transparent;
+    background-color: #F3FEF4;  
+    margin-left:87%;
+}
+
+.close-button {
+    text-align: right;
+    padding-right:1%;
+    font-size: 30px;
+}
+
+
+#modal {
+    position: absolute;
+    display: flex;
+    visibility: hidden;
+    width: 1440px;
+    height: 800px;
+    padding: 10px;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 24px;
+    justify-content: space-evenly;
+    outline: 0;
+}
+
+.modal-menu {
+    width: 20%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #27733d;
+    border-radius: 10px;
+}
+
+.modal-menu-item {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    margin: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: 700;
+    color: #27733D;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    pointer-events: auto;
+    border: 2px solid #27733d;
+}
+
+.modal-input-wrap {
+    
+}
+
+.modal-profile-edit {
+    display: block;
+}
+
+.modal-update-img {
+    display: none;
+}
+
+.modal-update-password {
+    display: none;
+}
+
+.modal-delete-user {
+    display: none;
+}
+
+.request-button {
+    width: 195px;
+    height: 50px;
+    border:2px solid #27733d;
+    background-color: #ffffff;
+    color: #27733d;
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    font-size: 24px;
+}
+
+.modal-label {
+    color: #27733D;
+    font-size: 18px;
+}
+
+.modal-input {
+    border: 2px solid #27733D;
+    border-radius: 8px;
+    height: 40px;
+    width: 25%;
+}
+
+.modal-select {
+    border: 2px solid #27733D;
+    border-radius: 8px;
+    height: 40px;
+    width: 15%;
+}

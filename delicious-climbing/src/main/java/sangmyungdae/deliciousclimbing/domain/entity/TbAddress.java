@@ -1,16 +1,13 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // spring batch
+@Getter @Setter
 @Entity
 @Table(name = "TB_ADDRESS")
 public class TbAddress {

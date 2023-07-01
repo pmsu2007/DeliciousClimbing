@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
+import sangmyungdae.deliciousclimbing.domain.enums.Role;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +23,19 @@ public class TbUser extends TbDateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private LoginType type;
-
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private LoginType type;
 
     @Column(nullable = false)
     private String nickname;
@@ -50,7 +55,7 @@ public class TbUser extends TbDateEntity {
     private Gender gender;
 
     @Column(nullable = false)
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mountain_id")
@@ -73,12 +78,14 @@ public class TbUser extends TbDateEntity {
     private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
 
     @Builder
-    public TbUser(LoginType type, String email, String password, String nickname, String imageUrl, String introduction,
-                  Difficulty difficulty, String sns, Gender gender, LocalDateTime birthday,
+    public TbUser(String email, String password, Role role, LoginType type, String nickname, String imageUrl, String introduction,
+                  Difficulty difficulty, String sns, Gender gender, LocalDate birthday,
                   TbFamousMountain famousMountain, TbAddress address) {
-        this.type = type;
+
         this.email = email;
         this.password = password;
+        this.role = role;
+        this.type = type;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.introduction = introduction;

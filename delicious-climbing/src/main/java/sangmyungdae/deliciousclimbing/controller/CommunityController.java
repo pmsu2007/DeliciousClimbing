@@ -27,6 +27,7 @@ public class CommunityController {
     private final CommunityService communityService;
     private final FileStore fileStore;
 
+
     @GetMapping("/{type}")
     public String communityListPage(@PathVariable BoardType type,
                                     @RequestParam(required = false) String title,

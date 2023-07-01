@@ -20,17 +20,11 @@ public class Equipment {
     private int tradeCost;
     private EquipmentType type;
     private Boolean tradeStatus;
-    private String author;
-
     private Address address;
-
     private User user;
     private List<EquipmentFile> equipmentFiles = new ArrayList<>();
     private String createdAt;
 
-//    public Equipment(int tradeCost) {
-//        this.tradeCost = tradeCost;
-//    }
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter @Setter
@@ -55,11 +49,10 @@ public class Equipment {
         this.tradeCost = entity.getTradeCost();
         this.type = entity.getType();
         this.tradeStatus = entity.isTradeStatus();
-   //     this.addressCode = entity.getAddress().getCode();
-   //     this.equipmentFiles = entity.getEquipmentFiles().stream().map(EquipmentFile::new).collect(Collectors.toList());
         this.createdAt = entity.getCreatedAt();
-    //    this.user = new User(entity.getUser());
-        //this.author = entity.getUser().getNickName()은 selectQuery 두번 호출
+        this.address = new Address(entity.getAddress());
+        this.user = new User(entity.getUser());
+
     }
 
     public static Page<Equipment> toDtoList(Page<TbEquipment>entities){

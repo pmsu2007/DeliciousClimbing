@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.*;
+import sangmyungdae.deliciousclimbing.dto.address.Address;
 import sangmyungdae.deliciousclimbing.service.EquipmentService;
 
 import java.io.File;
@@ -25,15 +26,16 @@ public class EquipmentController {
 
     @GetMapping("/{type}")
     public String equipmentListPage(@PathVariable EquipmentType type,
-                                    @RequestParam(required = false) Long code,
+                                    @RequestParam(required = false)Address address,
                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                     Model model) {
         EquipmentSearchDto dto = EquipmentSearchDto.builder()
                 .equipmentType(type)
-                .adressCode(code)
+                .adressCode(address.getCode())
                 .build();
 
         Page<Equipment> equipments = equipmentService.getPostList(dto, pageable);
+        model.addAttribute("type",type);
         model.addAttribute("equipments", equipments);
         return "equipMain";
     }
@@ -43,18 +45,23 @@ public class EquipmentController {
     public String equipmentDetailPage(@PathVariable Long postId,
                                       Model model) {
         Equipment equipment = equipmentService.getPostDetail(postId);
-        model.addAttribute(equipment);
+        model.addAttribute("equipment",equipment);
         return "equipDetail";
     }
 
     @GetMapping("/create")
-    public String equipmentCreatePage() {
+    public String equipmentCreatePage(EquipmentDto equipmentDto,
+                                      EquipmentFileDto equipmentFileDto,
+                                      Model model) {
+        model.addAttribute("epquipmentDto",equipmentDto);
+        model.addAttribute("equipmentFileDto",equipmentFileDto);
         return "equipCreate";
     }
 
     @GetMapping("/update/{postId}")
     public String equipmentUpdatePage(@PathVariable Long postId, Model model) {
         Equipment equipment =equipmentService.getPostDetail(postId);
+        model.addAttribute(equipment);
 
         model.addAttribute(equipment);
 

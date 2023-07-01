@@ -22,6 +22,10 @@ import sangmyungdae.deliciousclimbing.service.CommunityService;
 @RequestMapping("/posts")
 public class CommunityController {
     private final CommunityService communityService;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature-equipment
 
     @GetMapping("/{type}")
     public String communityListPage(@PathVariable BoardType type,

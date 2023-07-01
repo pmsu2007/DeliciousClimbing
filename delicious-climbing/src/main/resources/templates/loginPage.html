@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link  rel="stylesheet" href="/css/loginPage.css">
+</head>
+<body>
+    <div class ="Logo" onclick="location.href= 'mainPage.html'" style=" cursor: pointer;"><img src="/img/grayLogo.png" alt="Logo"></div>
+        <div class ="loginImage"><img src="/img/Loginimage.png" style="position: absolute;
+            left: 0%;
+            right: 0%;
+            top: 0%;
+            bottom: 0%;" alt="Login">
+        </div>
+
+        <div class="loginBox">
+            <div class="loginMsg">로그인</div>
+            <form th:action="@{/login}" th:object="${userSign}" method="post">
+                <h2><br>이메일</h2>
+                <input type="text" th:field="*{email}" placeholder="이메일을 입력해주세요."/><br>
+                <h2><br>비밀번호</h2>
+                <input type="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요."/><br>
+                <button type ="submit" class="basisLogin">로그인</button>
+            </form>
+
+            <br>
+            <input id="checkbox" type="checkbox">로그인 상태 유지
+            <button type ='button' class="passwordBtn" onclick="location.href= 'checkpass.html'">비밀번호 찾기</button><br>
+            <br>
+
+            <button type ='button' class="kakaoLogin"><img src="/img/kakao.png" style="position : absolute; left:10%; " alt="kakao">카카오 로그인</button><br>
+            <button type ='button' class="naverLogin"><img class="naverImage" src="/img/naver.png"  alt="naver">네이버 로그인</button>
+            <br>
+            <h3><br>계정이 없으신가요?</h3>
+            <button type = 'button' class="signUp" onclick="location.href= 'signin.html'">회원가입</button>
+        </div>
+    </body>
+</html>

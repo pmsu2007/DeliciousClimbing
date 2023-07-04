@@ -33,7 +33,7 @@ public class FamousMountain {
         this.info = entity.getInfo();
         this.difficulty = entity.getDifficulty();
         this.period = entity.getPeriod();
-        this.likes = entity.getFamousMountainLikes().size();
+        this.likes = entity.getLikes();
         this.likeCheck = likeCheck;
         this.imageUrl = entity.getImageUrl();
         this.reason = entity.getReason();

@@ -67,7 +67,7 @@ public class FamousMountainService {
                 .build();
     }
 
-
+//TODO: like test
     @Transactional
     public void insertLike(Long famousMountainId, Long userId) {
 
@@ -82,15 +82,20 @@ public class FamousMountainService {
                 .famousMountain(tbFamousMountain)
                 .user(tbUser)
                 .build());
+        tbFamousMountain.updateLike(tbFamousMountain.getLikes() + 1);
     }
 
     @Transactional
     public void deleteLike(Long famousMountainId, Long userId) {
 
+        TbFamousMountain tbFamousMountain = famousMountainRepository.findById(famousMountainId).orElseThrow(() -> new IllegalArgumentException("tbFamousMountain doesn't exist. famousMountainId=" + famousMountainId));
+
+
         TbFamousMountainLike tbFamousMountainLike = famousMountainLikeRepository.findByUser_IdAndFamousMountain_Id(userId, famousMountainId)
                 .orElseThrow(() -> new IllegalArgumentException("tbFamousMountainLike doesn't exist. famousMountainId=" + famousMountainId + ", userId=" + userId));
 
         famousMountainLikeRepository.delete(tbFamousMountainLike);
+        tbFamousMountain.updateLike(tbFamousMountain.getLikes() - 1);
     }
 
     // 산 추천

@@ -1,9 +1,6 @@
 package sangmyungdae.deliciousclimbing.dto.famousMountain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 
 
@@ -12,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class FamousMountainList {
 
     private long id;

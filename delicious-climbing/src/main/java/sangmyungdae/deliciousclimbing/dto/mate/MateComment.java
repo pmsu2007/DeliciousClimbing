@@ -1,9 +1,6 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMateComment;
 
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class MateComment {
     private Long id;
     private String content;

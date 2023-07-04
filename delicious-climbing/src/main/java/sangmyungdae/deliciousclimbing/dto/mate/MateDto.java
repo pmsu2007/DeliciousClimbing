@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
  * 등산 메이트 생성, 수정 Request DTO
  */
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MateDto {
 

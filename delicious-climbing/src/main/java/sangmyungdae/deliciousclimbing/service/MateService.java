@@ -9,6 +9,9 @@ import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.repository.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MateService {
@@ -23,25 +26,22 @@ public class MateService {
     @Transactional
     public Page<MatePost> getMateList(MateSearchDto dto, Pageable pageable) {
 
+        Page<TbMate> findMates;
         if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == false) {
             // 모든 글 반환
-            Page<TbMate> findMates = mateRepository.findAll(pageable);
-            return MatePost.toDtoList(findMates);
+            findMates = mateRepository.findAll(pageable);
         } else if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == true) {
             // 산 필터링 X, 모집중인 게시글만 보기 O
-            Page<TbMate> findMates = mateRepository.findPageByRecruitStatus(dto.getRecruitStatusFiltering(), pageable);
-            return MatePost.toDtoList(findMates);
+            findMates = mateRepository.findPageByRecruitStatus(dto.getRecruitStatusFiltering(), pageable);
         } else if (dto.getMountainId() != null && dto.getRecruitStatusFiltering() == false) {
             // 산 필터링 O, 모집중인 게시글만 보기 X
-            Page<TbMate> findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
-            return MatePost.toDtoList(findMates);
-
+            findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
         } else {
             // 산 필터링 O, 모집중인 게시글만 보기 O
-            Page<TbMate> findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), dto.getRecruitStatusFiltering(), pageable);
-
-            return MatePost.toDtoList(findMates);
+            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), dto.getRecruitStatusFiltering(), pageable);
         }
+
+        return MatePost.toDtoList(findMates);
     }
 
     // 게시글 상세 조회
@@ -83,9 +83,14 @@ public class MateService {
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(Long MateId) {
+    public void deletePost(Long mateId) {
 
-        mateRepository.deleteById(MateId);
+        TbMate findMate = mateRepository.findById(mateId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. mateId=" + mateId));
+        List<Long> commentIds = findMate.getMateComments().stream().map(comment -> comment.getId()).collect(Collectors.toList());
+        commentIds.stream().forEach(id -> deleteComment(findMate.getId(), id));
+        List<Long> fileIds = findMate.getMateFiles().stream().map(file -> file.getId()).collect(Collectors.toList());
+        fileIds.stream().forEach(id -> deleteFile(findMate.getId(), id));
+        mateRepository.deleteById(mateId);
     }
 
     // 댓글 생성
@@ -119,7 +124,7 @@ public class MateService {
 
     // 댓글 삭제
     @Transactional
-    public void deleteComment(Long postId, Long commentId) {
+    public void deleteComment(Long mateId, Long commentId) {
 
         commentRepository.deleteById(commentId);
     }
@@ -133,7 +138,6 @@ public class MateService {
 
         // Request Dto to Entity
         TbMateFile entity = fileRepository.save(dto.toEntity(findMate));
-
 
         // Entity to Response DTO
         return MateFile.builder()
@@ -155,9 +159,7 @@ public class MateService {
 
     // 파일 삭제
     @Transactional
-    public void deleteFile(Long fileId) {
-
-
+    public void deleteFile(Long mateId, Long fileId) {
 
         fileRepository.deleteById(fileId);
     }

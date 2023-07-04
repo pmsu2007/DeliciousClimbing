@@ -125,7 +125,7 @@ public class MateController {
     @PostMapping(value = "/{mateId}/file/delete/{fileId}")
     public String deleteFile(@PathVariable Long mateId,
                            @PathVariable Long fileId) {
-        service.deleteFile(fileId);
+        service.deleteFile(mateId, fileId);
 
         return "redirect:/mate/{mateId}";
     }

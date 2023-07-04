@@ -6,6 +6,7 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountainLike;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FamousMountainLikeRepository extends JpaRepository<TbFamousMountainLike, Long> {
     List<TbFamousMountainLike> findByFamousMountain_Id(Long famousMountainId);
@@ -13,4 +14,6 @@ public interface FamousMountainLikeRepository extends JpaRepository<TbFamousMoun
 
     List<TbFamousMountainLike> findByUser_Id(Long userId);
     List<TbFamousMountainLike> findByUser(TbUser user);
+
+    Optional<TbFamousMountainLike> findByUser_IdAndFamousMountain_Id(Long userId, Long famousMountainId);
 }

@@ -60,7 +60,7 @@ public class User {
         this.sns = entity.getSns();
         this.gender = entity.getGender();
         this.birthday = entity.getBirthday();
-        this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.createdAt = entity.getCreatedAt();
         this.famousMountain = new FamousMountain(entity.getFamousMountain());
         this.address = new Address(entity.getAddress());
    }

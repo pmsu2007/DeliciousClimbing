@@ -9,11 +9,13 @@ import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 @Setter
 public class PostSearchDto {
     private String title;
+    private String sort;
     private BoardType type;
 
     @Builder
-    public PostSearchDto(String title, BoardType type) {
+    public PostSearchDto(String title, String sort, BoardType type) {
         this.title = title;
+        this.sort = sort;
         this.type = type;
     }
 

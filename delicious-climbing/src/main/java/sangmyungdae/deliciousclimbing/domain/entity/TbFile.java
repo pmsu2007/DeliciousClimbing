@@ -18,20 +18,24 @@ public class TbFile extends TbDateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "file_name", nullable = false)
-    private String fileName;
+    @Column(name = "upload_filename", nullable = false)
+    private String uploadFileName;
+
+    @Column(name = "store_filename", nullable = false)
+    private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private TbPost post;
 
     @Builder
-    public TbFile(String fileName, TbPost post) {
-        this.fileName = fileName;
+    public TbFile(TbPost post, String uploadFileName, String storeFileName) {
         this.post = post;
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
     }
 
-    public void update(String fileName) {
-        this.fileName = fileName;
+    public void addPost(TbPost post) {
+        this.post = post;
     }
 }

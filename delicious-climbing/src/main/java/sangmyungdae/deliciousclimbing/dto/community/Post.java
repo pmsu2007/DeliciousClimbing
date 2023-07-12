@@ -46,7 +46,7 @@ public class Post {
         this.type = entity.getType();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.createdAt = entity.getCreatedAt();
         this.likes = entity.getLikes();
         this.hits = entity.getHits();
         this.user = new User(entity.getUser());

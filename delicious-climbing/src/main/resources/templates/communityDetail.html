@@ -16,20 +16,19 @@
             <div class="view_btn">
               <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
               <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
-              <a href="#">삭제</a>
+              <form th:action="@{/posts/delete/{type}/{id}(type=${post.type}, id=${post.id})}" method="post">
+                <button type="submit">삭제</button>
+              </form>
             </div>
           </div>
-          <div class="cont" th:text="${post.content}">
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다<br />
-            글 내용이 들어갑니다
+          <form th:action="@{/posts/likes/{postId}/1 (postId=${post.id})}" method="post">
+            <button type="submit">좋아요</button>
+          </form>
+          <div class="cont" th:text="${post.content}">글 내용</div>
+          <!-- 이미지 정렬 부탁드려요 -->
+          <div th:each="file : ${post.files}">
+            <img th:src="@{/posts/files/{filename}(filename=${file.storeFileName})}" width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>
           </div>
-
           <div class="info">
             <dl>
               <dt>작성일</dt>
@@ -49,18 +48,27 @@
     <div class="board_wrap">
       <div class="board_view_wrap">
         <div class="board_view">
-<!--          <div class="comment">-->
-<!--            <div class="comment_write">-->
-<!--              <form th:action="@{/posts/create/{id}/comment(id=${post.id})}" th:object="*{commentDto}" method="post">-->
-<!--                <dd class="comment_write_detail">-->
-<!--                  <input type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>-->
-<!--                </dd>-->
-<!--                <dt class="comment_btn">-->
-<!--                  <button type="submit" class="on">댓글 달기</button>-->
-<!--                </dt>-->
-<!--              </form>-->
-<!--            </div>-->
-<!--          </div>-->
+          <div class="comment">
+            <div class="comment_write">
+              <form th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}" th:object="${commentDto}" method="post">
+                <dd class="comment_write_detail">
+                  <input type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>
+                  <input type="text" th:field="*{userId}"/>
+                </dd>
+                <dt class="comment_btn">
+                  <button type="submit" class="on">댓글 달기</button>
+                </dt>
+              </form>
+            </div>
+          </div>
+          <div class="comment" th:each="comment : ${post.comments}">
+            <div th:text="${comment.content}"></div>
+            <div th:text="${comment.author}"></div>
+            <form th:action="@{/posts/delete/{type}/{postId}/comment/{commentId}
+            (type=${post.type}, postId=${post.id}, commentId=${comment.id})}" method="post">
+              <button type="submit">삭제</button>
+            </form>
+            </div>
         </div>
       </div>
     </div>

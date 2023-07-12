@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class MateComment {
     private Long id;
     private String content;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     private Long userId;
     private String nickName;

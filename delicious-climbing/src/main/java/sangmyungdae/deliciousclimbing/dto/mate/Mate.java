@@ -22,7 +22,7 @@ public class Mate {
     private Integer recruitCount;
     private Boolean recruitStatus;
     private LocalDateTime recruitDate;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     private Long userId;
     private String nickName;

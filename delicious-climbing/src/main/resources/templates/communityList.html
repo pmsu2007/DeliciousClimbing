@@ -32,10 +32,10 @@
             <div class="title">
               <a th:href="@{/posts/{type}/{id}(type=${type}, id=${post.id})}" th:text="${post.title}">글 제목이 들어갑니다.</a>
             </div>
-            <div class="writer" th:text="${post.user.author}">추춘식</div>
-            <div class="date" th:text="${post.createdAt}">2021.1.15</div>
-            <div class="count" th:text="${post.hits}">33</div>
-            <div class="like" th:text="${post.likes}">44</div>
+            <div class="writer" th:text="${post.user.author}"></div>
+            <div class="date" th:text="${post.createdAt}"></div>
+            <div class="count" th:text="${post.hits}"></div>
+            <div class="like" th:text="${post.likes}"></div>
           </div>
         </div>
         <!-- 페이징 -->

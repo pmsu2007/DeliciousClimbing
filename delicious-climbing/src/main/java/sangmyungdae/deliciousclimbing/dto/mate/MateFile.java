@@ -17,7 +17,7 @@ public class MateFile {
 
     private Long id;
     private String fileName;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     @Builder
     public MateFile(TbMateFile entity) {

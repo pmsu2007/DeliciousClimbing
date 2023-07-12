@@ -10,11 +10,12 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
 public class File {
 
     private long id;
-    private String fileName;
-
+    private String uploadFileName;
+    private String storeFileName;
     @Builder
     public File(TbFile entity) {
         this.id = entity.getId();
-        this.fileName = entity.getFileName();
+        this.uploadFileName = entity.getUploadFileName();
+        this.storeFileName = entity.getStoreFileName();
     }
 }

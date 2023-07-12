@@ -2,9 +2,13 @@ package sangmyungdae.deliciousclimbing.dto.community;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
+import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+
+import java.util.List;
 
 
 @Getter

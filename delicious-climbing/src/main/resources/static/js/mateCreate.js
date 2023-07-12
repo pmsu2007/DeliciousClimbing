@@ -1,15 +1,19 @@
 // 버튼 클릭 시 호출되는 함수
-function fnCalCount(action, button) {
-    var input = button.parentNode.querySelector('input[name="pop_out"]');
-    var value = parseInt(input.value);
+function count(type) {
+    const resultElement = document.getElementById('result');
+    let number = resultElement.innerText;
 
-    if (action === 'p') {
-        value += 1;
-    } else if (action === 'm') {
-        value -= 1;
+    if (parseInt(number) >= 0) {
+        if (type === 'plus') {
+            number = parseInt(number) + 1;
+        } else if (type === 'minus') {
+            number = parseInt(number) - 1;
+        }
     }
 
-    input.value = value;
+    if (parseInt(number) >= 0) {
+        resultElement.innerText = number;
+    }
 }
 
 //오늘 이후 날짜 선택하는 함수
@@ -35,4 +39,11 @@ function validateForm() {
         alert("날짜를 모두 입력해주세요.");
         return false; // 폼 제출을 중단합니다.
     }
+}
+
+function submitData() {
+    const counterInput = document.getElementById('counterInput');
+    const resultElement = document.getElementById('result');
+    counterInput.value = resultElement.innerText;
+    document.forms[0].submit();
 }

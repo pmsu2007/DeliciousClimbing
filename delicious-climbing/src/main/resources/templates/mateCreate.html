@@ -26,9 +26,13 @@
             <br>
             <br>
             <h1>모집 인원</h1>
-            <button type ="button" class="minus" onclick="fnCalCount('p',this);">+</button>
-            <input type="text" name="pop_out" value="0" readonly="readonly" style="text-align:center;"/>
-            <button type="button" class="plus" onclick="fnCalCount('m', this);">-</button>
+
+
+            <button type="button" class="minus" onclick="count('minus')">-</button>
+            <div id="result">0</div>
+            <button type="button" class="plus" onclick="count('plus')">+</button>
+            <input type="hidden" id="counterInput" th:field="*{recruitCount}" th:v*alue="0">
+
         </div>    
         <div class="dateBox">
             <label for="date-input"><h1>날짜 선택</h1></label>
@@ -43,7 +47,7 @@
             <label for="content"><h2>글 내용</h2></label>
             <textarea id="content" name="content" rows="5" cols="50" required th:field="*{content}"></textarea><br><br>
             
-            <input type="submit" id="submit" value="등록하기">
+            <input type="submit" id="submit" onclick="submitData()" value="등록하기">
     </div>
 </form>
 </body>

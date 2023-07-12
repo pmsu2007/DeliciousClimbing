@@ -19,7 +19,7 @@ public class MateDto {
 
     private String title;
     private String content;
-    private Integer recruitCount;
+    private Integer recruitCount=0;
     private Boolean recruitStatus;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate recruitDate;
@@ -27,7 +27,7 @@ public class MateDto {
     private Long mountainId;
 
     @Builder
-    public MateDto(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDate recruitDate,  Long mountainId) {
+    public MateDto(String title, String content,Integer recruitCount, Boolean recruitStatus, LocalDate recruitDate,  Long mountainId) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;

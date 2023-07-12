@@ -1,8 +1,10 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -19,7 +21,9 @@ public class Mate {
     private Integer hits;
     private Integer recruitCount;
     private Boolean recruitStatus;
-    private LocalDateTime recruitDate;
+    @DateTimeFormat(pattern = "yyyy년 MM월 dd일 (E)")
+    private LocalDate recruitDate;
+    @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
     private LocalDateTime updatedAt;
 
     private Long userId;

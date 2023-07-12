@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등산 메이트 글쓰기화면</title>
+    <link  rel="stylesheet" href="/css/mateCreate.css">
+    <script defer src="/js/setting.js"></script>
+    <script defer src="/js/mateMain.js"></script>
+    <script defer src="/js/mateCreate.js"></script>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+</head>
+<body>
+    <form method="POST" action="#" th:action th:object="${mateInfo}" onsubmit="return validateForm();">
+    <div class="mainBox">
+        <div class ="selectBox">
+            <select name="sido1" id="sido1" required></select>
+            <select name="gugun1" id="gugun1" required></select>
+            <select name="mountain1" id="mountain1" required></select>
+        </div>
+
+        <div class="countBox">
+            <br>
+            <br>
+            <h1>모집 인원</h1>
+            <button type ="button" class="minus" onclick="fnCalCount('p',this);">+</button>
+            <input type="text" name="pop_out" value="0" readonly="readonly" style="text-align:center;"/>
+            <button type="button" class="plus" onclick="fnCalCount('m', this);">-</button>
+        </div>    
+        <div class="dateBox">
+            <label for="date-input"><h1>날짜 선택</h1></label>
+            <input type="date" id="date-input" name="date" max="2050-12-31" min="" required th:field="*{recruitDate}">
+        </div>
+    </div>
+    <div class="textBox">
+
+            <label for="title"><h2>글 제목</h2></label>
+            <input type="text" id="title" name="title" required th:field="*{title}"><br><br>
+            
+            <label for="content"><h2>글 내용</h2></label>
+            <textarea id="content" name="content" rows="5" cols="50" required th:field="*{content}"></textarea><br><br>
+            
+            <input type="submit" id="submit" value="등록하기">
+    </div>
+</form>
+</body>
+</html>

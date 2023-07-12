@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,8 @@ import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.service.MateService;
 
 //TODO: 그 조회할때나 글 작성할때 주소코드 날라오면 산 목록 반환해주는 부분 해야합니다.
+
+@Slf4j
 @Controller
 @RequestMapping("/mate")
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class MateController {
 
     @GetMapping
     public String mateListPage(@RequestParam(required = false) Long mountainId,
-                               @RequestParam(required = false) Boolean recruitStatusFiltering,
+                               @RequestParam(required = false) boolean recruitStatusFiltering,
                                @PageableDefault(size = 8, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                Model model) {
 
@@ -36,9 +39,12 @@ public class MateController {
     }
 
     @GetMapping(value = "/{mateId}")
-    public String mateDetailPage(@PathVariable Long mateId, Model model) {
+    public String mateDetailPage(@PathVariable Long mateId, @ModelAttribute("mateComment") MateCommentDto mateCommentDto, Model model) {
+
         MatePost matePost = service.getPostDetail(mateId);
         model.addAttribute("matePost", matePost);
+
+        log.info("recruitDate={}, updatedAt={}", matePost.getMate().getRecruitDate(), matePost.getMate().getUpdatedAt());
 
         return "mateDetail";
     }
@@ -52,15 +58,28 @@ public class MateController {
     }
 
     @GetMapping(value = "/write")
-    public String mateWritePage(@ModelAttribute("mate") MateDto mateDto) {
+    public String mateWritePage(@ModelAttribute("mateInfo") MateDto mateDto) {
         return "mateCreate";
     }
 
 
     @PostMapping(value = "/write")
-    public String createPost(@ModelAttribute MateDto dto, RedirectAttributes redirectAttributes) {
+    public String createPost(@ModelAttribute("mateInfo") MateDto dto, RedirectAttributes redirectAttributes) {
         //세션에서 사용자 정보를 갖고와야함, userId
         //Todo: 나머지 코드 작성
+        log.info("mateInfo={}", dto);
+
+        //임시 코드
+        MateDto mateDto = MateDto.builder().recruitCount(dto.getRecruitCount())
+                .mountainId(1L)
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .recruitStatus(dto.getRecruitStatus())
+                .recruitDate(dto.getRecruitDate())
+                .recruitCount(dto.getRecruitCount())
+                .build();
+
+        service.createPost(33L, mateDto);
 
         return "redirect:/mate/{mateId}";
     }
@@ -80,10 +99,11 @@ public class MateController {
     }
 
     @PostMapping(value = "/{mateId}/comment/write")
-    public String createComment(@PathVariable Long mateId, @ModelAttribute("comment") MateCommentDto dto) {
+    public String createComment(@PathVariable Long mateId, @ModelAttribute("mateComment") MateCommentDto dto) {
         //세션에서 사용자 정보를 갖고와야함, userId
         //Todo: 나머지 코드 작성
 //        service.createComment(mateId, userId, dto)
+        log.info("content={}", dto.getContent());
 
         return "redirect:/mate/{mateId}";
     }

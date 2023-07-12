@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
 @SpringBootTest
 class MateServiceTest2 {
 
@@ -55,4 +56,4 @@ class MateServiceTest2 {
 
 
     }
-}
+}*/

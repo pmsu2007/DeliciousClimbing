@@ -27,18 +27,18 @@ public class MateService {
     public Page<MatePost> getMateList(MateSearchDto dto, Pageable pageable) {
 
         Page<TbMate> findMates;
-        if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == false) {
+        if (dto.getMountainId() == null && dto.isRecruitStatusFiltering() == false) {
             // 모든 글 반환
             findMates = mateRepository.findAll(pageable);
-        } else if (dto.getMountainId() == null && dto.getRecruitStatusFiltering() == true) {
+        } else if (dto.getMountainId() == null && dto.isRecruitStatusFiltering() == true) {
             // 산 필터링 X, 모집중인 게시글만 보기 O
-            findMates = mateRepository.findPageByRecruitStatus(dto.getRecruitStatusFiltering(), pageable);
-        } else if (dto.getMountainId() != null && dto.getRecruitStatusFiltering() == false) {
+            findMates = mateRepository.findPageByRecruitStatus(dto.isRecruitStatusFiltering(), pageable);
+        } else if (dto.getMountainId() != null && dto.isRecruitStatusFiltering() == false) {
             // 산 필터링 O, 모집중인 게시글만 보기 X
             findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
         } else {
             // 산 필터링 O, 모집중인 게시글만 보기 O
-            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), dto.getRecruitStatusFiltering(), pageable);
+            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), dto.isRecruitStatusFiltering(), pageable);
         }
 
         return MatePost.toDtoList(findMates);

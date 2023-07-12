@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class TbMate extends TbDateEntity {
     private boolean recruitStatus;
 
     @Column(name = "recruit_date", nullable = false)
-    private LocalDateTime recruitDate;
+    private LocalDate recruitDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
@@ -56,7 +57,7 @@ public class TbMate extends TbDateEntity {
 
     @Builder
     public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
-                  LocalDateTime recruitDate, TbUser user, TbMountain mountain) {
+                  LocalDate recruitDate, TbUser user, TbMountain mountain) {
         this.title = title;
         this.content = content;
         this.hits = hits;
@@ -68,7 +69,7 @@ public class TbMate extends TbDateEntity {
     }
 
 
-    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDateTime recruitDate) {
+    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDate recruitDate) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;

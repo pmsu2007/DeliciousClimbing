@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMountain;
@@ -19,6 +20,7 @@ public class MateDto {
 
     private String title;
     private String content;
+    @Value("0")
     private Integer recruitCount;
     private Boolean recruitStatus;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

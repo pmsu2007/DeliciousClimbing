@@ -35,12 +35,11 @@ public class UserController {
         return "passwordFind";
     }
 
-    @GetMapping("/profile/{userId}")
-    public String userProfilePage(@PathVariable Long userId,
-                                  UserDto userDto,
+    @GetMapping("/profile")
+    public String userProfilePage(UserDto userDto,
                                   UserPassword userPassword,
                                   Model model) {
-        User user = userService.getUser(userId);
+        User user = userService.getUser();
         // 프로필 정보 전달
         model.addAttribute("user", user);
         // 프로필 수정 DTO 전달
@@ -57,9 +56,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserSign dto, RedirectAttributes redirect) {
+    public String login(@ModelAttribute UserSign dto) {
         User user = userService.login(dto);
-        return "redirect:/profile/" + user.getId();
+        return "redirect:/profile";
     }
 
     @PostMapping("/register")
@@ -73,27 +72,24 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PostMapping("/update/{userId}")
-    public String updateUser(@ModelAttribute UserDto dto,
-                             @PathVariable Long userId) {
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute UserDto dto) {
         // 사용자 Authentication 확인
-        User user = userService.updateUser(userId, dto);
+        User user = userService.updateUser(dto);
 
-        return "redirect:/profile/" + user.getId();
+        return "redirect:/profile";
     }
 
-    @PostMapping("/update/password/{userId}")
-    public String changePassword(@ModelAttribute UserPassword dto,
-                                 @PathVariable Long userId) {
+    @PostMapping("/update/password")
+    public String changePassword(@ModelAttribute UserPassword dto) {
         // 사용자 Authnetication 확인
-        userService.changePassword(userId, dto);
-        return "redirect:/profile/{userId}";
+        userService.changePassword(dto);
+        return "redirect:/profile";
     }
 
-    @PostMapping("/delete/{userId}")
-    public String deleteUser(@ModelAttribute UserPassword dto,
-                             @PathVariable Long userId) {
-        userService.deleteUser(userId, dto);
+    @PostMapping("/delete")
+    public String deleteUser(@ModelAttribute UserPassword dto) {
+        userService.deleteUser(dto.getOldPassword());
         return "redirect:/login";
     }
 }

@@ -14,20 +14,24 @@
           <div class="board_view_top">
             <div class="title" th:text="${post.title}">글 제목이 들어갑니다.</div>
             <div class="view_btn">
-              <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
-              <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
-              <form th:action="@{/posts/delete/{type}/{id}(type=${post.type}, id=${post.id})}" method="post">
-                <button type="submit">삭제</button>
-              </form>
+              <div class="box">
+                <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
+                <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
+                <form th:action="@{/posts/delete/{type}/{id}(type=${post.type}, id=${post.id})}" method="post">
+                  <button type="submit">삭제</button>
+                </form>
+              </div>
             </div>
           </div>
-          <form th:action="@{/posts/likes/{postId}/1 (postId=${post.id})}" method="post">
-            <button type="submit">좋아요</button>
-          </form>
+          <div style = "text-align: right; padding-right: 40px;">
+            <form th:action="@{/posts/likes/{postId}/1 (postId=${post.id})}" method="post">
+              <button type="submit">좋아요</button>
+            </form>
+          </div>
           <div class="cont" th:text="${post.content}">글 내용</div>
           <!-- 이미지 정렬 부탁드려요 -->
           <div th:each="file : ${post.files}">
-            <img th:src="@{/posts/files/{filename}(filename=${file.storeFileName})}" width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>
+            <img id = "content_img" th:src="@{/posts/files/{filename}(filename=${file.storeFileName})}" width="200px" height="200px" style="border-color: black; border-style: solid; border-width: thin; margin-left: 30px;"/>
           </div>
           <div class="info">
             <dl>
@@ -38,39 +42,55 @@
               <dt>조회</dt>
               <dd th:text="${post.hits}">33</dd>
             </dl>
+            <dl>
+              <dt>좋아요</dt>
+              <dd th:text="${post.likes}">11</dd>
+            </dl>
             <dl class="borad_view_date" style="float: right">
               <dt th:text="${post.user.author}">김상명</dt>
             </dl>
+
           </div>
         </div>
       </div>
     </div>
+    <form style = "margin-top:-80px;" th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}" th:object="${commentDto}" method="post">
+      <input style = "margin-bottom:-100px;" type="text" th:field="*{userId}"/>
     <div class="board_wrap">
       <div class="board_view_wrap">
         <div class="board_view">
           <div class="comment">
             <div class="comment_write">
-              <form th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}" th:object="${commentDto}" method="post">
                 <dd class="comment_write_detail">
-                  <input type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>
-                  <input type="text" th:field="*{userId}"/>
+                  <input style = "margin-left:15px;"type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>
                 </dd>
                 <dt class="comment_btn">
                   <button type="submit" class="on">댓글 달기</button>
                 </dt>
-              </form>
             </div>
           </div>
-          <div class="comment" th:each="comment : ${post.comments}">
-            <div th:text="${comment.content}"></div>
-            <div th:text="${comment.author}"></div>
-            <form th:action="@{/posts/delete/{type}/{postId}/comment/{commentId}
-            (type=${post.type}, postId=${post.id}, commentId=${comment.id})}" method="post">
-              <button type="submit">삭제</button>
-            </form>
-            </div>
         </div>
       </div>
     </div>
+      <div class="comment" th:each="comment : ${post.comments}">
+        <div class="board_wrap">
+          <div class="board_view_wrap">
+            <div class="board_view" style = "margin-top: -80px;">
+              <div class = "comment_writer" style="float:left; font-size: 15px; margin-top:15px; margin-left:10px">
+                <div th:text="${comment.author}"></div>
+              </div>
+              <div class = "comment_content" style="display: inline-block; max-width: 80%; margin-left:20px; margin-top:15px; margin-bottom:10px; font-size:15px;">
+                <div th:text="${comment.content}"></div>
+              </div>
+              <form style = "float: right; margin-right: 10px; margin-top: 15px;" th:action="@{/posts/delete/{type}/{postId}/comment/{commentId}
+              (type=${post.type}, postId=${post.id}, commentId=${comment.id})}" method="post">
+                <button type="submit">삭제</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
   </body>
 </html>

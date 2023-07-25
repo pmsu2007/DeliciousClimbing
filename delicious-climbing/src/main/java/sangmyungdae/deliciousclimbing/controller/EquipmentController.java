@@ -37,7 +37,7 @@ public class EquipmentController {
         Page<Equipment> equipments = equipmentService.getPostList(dto, pageable);
         model.addAttribute("type",type);
         model.addAttribute("equipments", equipments);
-        return "equipMain";
+        return "equipMain_Thyme";
     }
 
 
@@ -46,14 +46,14 @@ public class EquipmentController {
                                       Model model) {
         Equipment equipment = equipmentService.getPostDetail(postId);
         model.addAttribute("equipment",equipment);
-        return "equipDetail";
+        return "equipDetail_Thyme";
     }
-
+    // /equipment/create
     @GetMapping("/create")
     public String equipmentCreatePage(EquipmentDto equipmentDto,
                                       EquipmentFileDto equipmentFileDto,
                                       Model model) {
-        model.addAttribute("epquipmentDto",equipmentDto);
+        model.addAttribute("equipmentDto",equipmentDto);
         model.addAttribute("equipmentFileDto",equipmentFileDto);
         return "equipCreate";
     }

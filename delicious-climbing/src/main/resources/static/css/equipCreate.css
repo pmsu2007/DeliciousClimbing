@@ -1,0 +1,273 @@
+@import "communityCreate.css";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/font/Montserrat-Regular.ttf");
+}
+
+.mainBox {
+  position: relative;
+  flex-direction: column;
+
+  display: flex;
+  position: relative;
+
+  width: 1000px;
+  height: 220px;
+  margin: auto;
+  margin-bottom: -80px;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+.selectBox {
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 3%;
+}
+select {
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  width: 270px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 20px;
+  background: #ffffff;
+  color: #666666;
+  border-color: transparent;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+select:hover {
+  cursor: pointer;
+  filter: brightness(85%);
+}
+
+.countBox {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3%;
+}
+
+.plus {
+  width: 69px;
+  height: 51px;
+  background: #84b592;
+  border: 4px solid #84b592;
+  font-size: 22px;
+
+  box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 100px 100px 0px;
+  color: #ffffff;
+}
+
+.plus:hover {
+  cursor: pointer;
+  filter: brightness(85%);
+}
+
+.minus {
+  width: 69px;
+  height: 51px;
+  font-size: 28px;
+  background: #84b592;
+  border: 4px solid #84b592;
+  /* Depth / Flat */
+
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 100px 0px 0px 100px;
+  color: #ffffff;
+}
+
+.minus:hover {
+  cursor: pointer;
+  filter: brightness(85%);
+}
+
+#result {
+  position: relative;
+  width: 60px;
+  height: 49.5px;
+  background: #ffffff;
+  /* Color/Function/Disabled */
+  border: 1px solid #95a3d4;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+
+  color: #000000;
+}
+
+h1 {
+  width: 100px;
+  height: 24px;
+  margin-left: 5.3%;
+  margin-right: 2%;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.dateBox {
+  margin-left: 4.8%;
+  display: flex;
+  flex-direction: row;
+}
+
+h2 {
+  width: 100px;
+  height: 24px;
+  margin-left: 10%;
+  margin-right: 2%;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+input[type="date"] {
+  box-sizing: border-box;
+  margin-top: 1%;
+  width: 375px;
+  height: 42px;
+  margin-left: 2.7%;
+
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+}
+
+/* 포커스 상태일 때의 스타일링 */
+input[type="date"]:focus {
+  outline: none;
+  border-color: #84b592;
+  box-shadow: 0 0 5px #84b592;
+}
+
+input[type="date"]:hover {
+  cursor: pointer;
+}
+
+.textBox {
+  position: relative;
+  flex-direction: column;
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  width: 1000px;
+  height: 800px;
+  margin: auto;
+  margin-top: 2%;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+
+#title {
+  width: 800px;
+  height: 42px;
+  margin-left: 6%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 12px;
+  margin: auto;
+}
+
+#content {
+  width: 800px;
+  height: 420px;
+  margin-left: 6%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 12px;
+  margin: auto;
+}
+
+#submit {
+  width: 727px;
+  height: 56px;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  margin: auto;
+
+  background: #84b592;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+#submit:hover {
+  cursor: pointer;
+  filter: brightness(85%);
+}
+
+.submit {
+  font-size: 25px;
+  background-color: #84b592;
+  width: 727px;
+  height: 40px;
+  margin: auto;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.board_write {
+  border-top: none;
+}
+
+.board_write .title {
+  border-top: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+  font-size: 0;
+}
+
+.board_write .title dd {
+  width: calc(100% - 100px);
+}
+
+.board_write .title .price dd {
+  width: 300px;
+}
+
+.board_write .title dt {
+  margin-left: 5px;
+}

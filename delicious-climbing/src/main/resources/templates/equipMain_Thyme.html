@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등산 메이트 메인화면</title>
+    <link  rel="stylesheet" href="/css/equipMain.css">
+    <script defer src="/js/equipMain.js"></script>
+    <script defer src="/js/mateMain.js"></script>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+</head>
+<body>
+<div class = "mainBox">
+    <div class ="selectBox">
+        <select name="sido1" id="sido1"></select>
+        <select name="gugun1" id="gugun1"></select>
+        <select name="mountain1" id="mountain1"></select>
+    </div>
+</div>
+
+<!-- <button type="button" class="joiningBtn">모집중인 글만 보기
+</button> -->
+<div class="e" style="font-size:20px">
+    <p><input type="checkbox" id="joiningBtn">판매중인 글만 보기</p>
+    <button class="button" id="open" onclick="change_btn(event)">최신 순</button>
+
+    <button class="button" id="close" onclick="change_btn(event)">오래된 순</button>
+</div>
+
+
+<section>
+    <div class="container">
+        <div th:each="post : ${equipment}">
+            <div class="box">
+                <!-- 개시물 개수 -->
+                <div class="num" th:text="${equipment.id}"></div>
+                <img class="photo" th:src= "@{/img/blackYakIU.png}" alt="photo">
+
+                <a th:href="@{equipDetail.html}"><h1>[BlackYak] 아이유가 광고하는 M원더GTX자켓#2L/CORAL 팝니다!</h1>
+                    <img class="compass" src=/img/compass.png alt="compass">
+
+                    <!-- DB장소는 임의로 작성함 -->
+                    <div class="location" th:text="${equipment.sell.location}">서울시 서초구</div>
+                    <!-- 판매 완료, 판매 중 1개 이기 때문에 메세지로 작성 -->
+                    <div class="state" th:text="#{}">판매 완료</div>
+                    <!-- 통화로 표시하기 위함 -->
+                    <div class="price"th:text="${#numbers.formatCurrency(param.amount)}">299,000</div>
+                    <div class="profilePhoto"></div>
+                    <div class="name" th:text="#{equipment.name}">박민수</div>
+
+            </div>
+
+            <div class="box">
+                <img class="photo" src="/img/parka.png" alt="parka">
+
+                <a href="equipDetail.html"><h1>k2 가을용 바람막이 10개 팝니다!</h1></a>
+                <img class="compass" src="/img/compass.png" alt="compass">
+                <div class="location">서울시 종로구</div>
+                <div class="state">판매 중</div>
+                <div class="price">1,250,000</div>
+                <div class="profilePhoto"></div>
+                <div class="name">상명 산악회</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="content">
+        <!-- 페이지 내용을 여기에 추가합니다. -->
+    </div>
+
+
+    <div class="pagination">
+        <a href="#" class="page-link">1</a>
+        <a href="#" class="page-link">2</a>
+        <a href="#" class="page-link">3</a>
+        <!-- 필요한 만큼 페이지 링크를 추가합니다. -->
+    </div>
+</section>
+
+
+
+
+
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
@@ -63,31 +64,34 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute UserRegister dto) {
-        if(userService.existEmail(dto.getEmail())) {
-           // 예외 처리
-        }
         dto.setRole(Role.USER);
         dto.setType(LoginType.SINGIN);
         userService.createUser(dto);
         return "redirect:/login";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/user/update")
     public String updateUser(@ModelAttribute UserDto dto) {
-        // 사용자 Authentication 확인
-        User user = userService.updateUser(dto);
+
+        userService.updateUser(dto);
 
         return "redirect:/profile";
     }
 
-    @PostMapping("/update/password")
+    @PostMapping("/user/update/image")
+    public String updateUserImage(MultipartFile file) {
+        userService.updateUserImage(file);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/user/update/password")
     public String changePassword(@ModelAttribute UserPassword dto) {
         // 사용자 Authnetication 확인
         userService.changePassword(dto);
         return "redirect:/profile";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/user/delete")
     public String deleteUser(@ModelAttribute UserPassword dto) {
         userService.deleteUser(dto.getOldPassword());
         return "redirect:/login";

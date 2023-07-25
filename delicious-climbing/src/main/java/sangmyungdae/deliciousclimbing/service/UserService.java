@@ -1,12 +1,15 @@
 package sangmyungdae.deliciousclimbing.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.multipart.MultipartFile;
 import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
@@ -17,8 +20,6 @@ import sangmyungdae.deliciousclimbing.repository.FamousMountainRepository;
 import sangmyungdae.deliciousclimbing.repository.UserRepository;
 import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,6 +27,7 @@ public class UserService {
     private final FamousMountainRepository famousMountainRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManagerBuilder authenticationManager;
 
     private TbUser findUser(String username) {
         return userRepository.findByEmail(username)
@@ -44,12 +46,18 @@ public class UserService {
 
 
     @Transactional
-    public User login (UserSign dto) {
+    public User login(UserSign dto) {
         TbUser user = findUser(dto.getEmail());
 
-        if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Bad Credential");
         }
+
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+
+        Authentication authentication = authenticationManager.getObject().authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return User.builder()
                 .entity(user)
@@ -72,12 +80,12 @@ public class UserService {
 
         // Entity to Response DTO
         return UserRegister.builder()
-                .entity(user)
+                .entity(userRepository.save(user))
                 .build();
     }
 
     @Transactional
-    public User updateUser(UserDto dto) {
+    public void updateUser(UserDto dto) {
         TbUser user = findUser(AuthUtil.getAuthUser());
         TbFamousMountain famousMountain = findFamousMountain(dto.getFamousMountainId());
         TbAddress address = findAddress(dto.getAddressCode());
@@ -85,16 +93,19 @@ public class UserService {
         user.updateInfo(dto.getNickname(), dto.getImageUrl(), dto.getIntroduction(), dto.getDifficulty(),
                 dto.getSns(), famousMountain, address);
 
-        return User.builder()
-                .entity(userRepository.save(user))
-                .build();
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void updateUserImage(MultipartFile file) {
+
     }
 
     @Transactional
     public void deleteUser(String currentPassword) {
         TbUser user = findUser(AuthUtil.getAuthUser());
         // 기존 패스워드 확인
-        if(!passwordEncoder.matches(currentPassword, user.getPassword())) {
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             throw new BadCredentialsException("Bad Credential");
         }
 
@@ -105,11 +116,11 @@ public class UserService {
     public User changePassword(UserPassword dto) {
         TbUser user = findUser(AuthUtil.getAuthUser());
         // 기존 패스워드 확인
-        if(!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
             throw new BadCredentialsException("Bad Credential");
         }
         // 확인 후, 새로운 패스워드 변경
-        user.updatePassword(dto.getNewPassword());
+        user.updatePassword(passwordEncoder.encode(dto.getNewPassword()));
 
         return User.builder()
                 .entity(userRepository.save(user))

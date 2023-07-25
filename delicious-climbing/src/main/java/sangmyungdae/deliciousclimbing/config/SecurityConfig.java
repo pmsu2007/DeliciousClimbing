@@ -3,15 +3,18 @@ package sangmyungdae.deliciousclimbing.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import sangmyungdae.deliciousclimbing.config.auth.AuthFailureHandler;
 import sangmyungdae.deliciousclimbing.config.auth.AuthUserService;
 import sangmyungdae.deliciousclimbing.repository.UserRepository;
 
@@ -23,7 +26,6 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final UserRepository userRepository;
-
     /**
      * permitAll : 인증, 권한 X 가능
      * authenticated : 인증 해야 됨
@@ -35,16 +37,25 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
-                .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll()
-                //.anyRequest().authenticated()
-                .anyRequest().permitAll()
+                    .authorizeRequests()
+                        .antMatchers("/login").permitAll()
+                        .antMatchers("/register").permitAll()
+                        //.anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/main", true)
+                    .formLogin()
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .failureHandler(failureHandler())
+                        .defaultSuccessUrl("/profile", true)
                 .and()
-                .formLogin().loginProcessingUrl("/login").defaultSuccessUrl("/main", true)
+                    .logout()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/");
+                    .authenticationProvider(authenticationProvider());
 
         return http.build();
     }
@@ -57,6 +68,16 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() { return new AuthUserService(userRepository); }
 
+    @Bean
+    public AuthenticationFailureHandler failureHandler() { return new AuthFailureHandler(); }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        return authProvider;
+    }
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

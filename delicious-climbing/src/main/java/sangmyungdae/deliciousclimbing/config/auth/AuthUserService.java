@@ -25,7 +25,7 @@ public class AuthUserService implements UserDetailsService {
         return AuthUser.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .role(user.getRole().getName()) // expect error
+                .role(user.getRole().getName())
                 .build();
     }
 }

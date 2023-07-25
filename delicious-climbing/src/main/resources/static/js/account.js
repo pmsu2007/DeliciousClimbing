@@ -1468,20 +1468,4 @@ $("#searchKeyword").keyup(function (e) {
   }
 });
 
-const newPassword = $("#newPassword").val();
-const checkNewPassword = $("#check-new-password").val();
-const changePasswordForm = document.querySelector("#change-password");
-
-// 비밀번호 정규식 :
-const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-
-changePasswordForm.addEventListener("submit", (e) => {
-  if(!newPassword.match(reg)) {
-    alert("새로운 비밀번호를 규칙에 맞게 입력해주세요")
-    return false;
-  } else if (newPassword.match(checkNewPassword)) {
-    alert("새로운 비밀번호를 제대로 입력 했는지 확인해주세요")
-    return false;
-  }
-  return true;
-})
+// 이미지 등록

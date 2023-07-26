@@ -1,6 +1,8 @@
 package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +12,16 @@ import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
 import sangmyungdae.deliciousclimbing.dto.user.*;
 import sangmyungdae.deliciousclimbing.service.UserService;
+import sangmyungdae.deliciousclimbing.util.FileStore;
+
+import java.net.MalformedURLException;
 
 @RequiredArgsConstructor
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final FileStore fileStore;
 
     @GetMapping("/login")
     public String userLoginPage(Model model, UserSign userSign) {
@@ -95,5 +101,11 @@ public class UserController {
     public String deleteUser(@ModelAttribute UserPassword dto) {
         userService.deleteUser(dto.getOldPassword());
         return "redirect:/login";
+    }
+
+    @ResponseBody
+    @GetMapping("/user/image/{filename}")
+    public Resource getFile(@PathVariable String filename) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 }

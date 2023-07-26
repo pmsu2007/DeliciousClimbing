@@ -1,17 +1,15 @@
-package sangmyungdae.deliciousclimbing.config;
+package sangmyungdae.deliciousclimbing.util;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFile;
-import sangmyungdae.deliciousclimbing.dto.community.FileDto;
+import sangmyungdae.deliciousclimbing.dto.common.FileDto;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class FileStore {
@@ -23,10 +21,13 @@ public class FileStore {
 
     public String getFullPath(String filename) { return fileDir + filename; }
 
-    public TbFile storeFile(MultipartFile multipartFile)  {
+    public FileDto storeFile(MultipartFile multipartFile)  {
 
-        if(multipartFile.isEmpty()) {
-            return null;
+        if(multipartFile == null || multipartFile.isEmpty()) {
+            return FileDto.builder()
+                    .storeFileName(null)
+                    .uploadFileName(null)
+                    .build();
         }
 
         String originalFileName = multipartFile.getOriginalFilename();
@@ -40,14 +41,14 @@ public class FileStore {
             throw new RuntimeException(e);
         }
 
-        return TbFile.builder()
+        return FileDto.builder()
                 .uploadFileName(originalFileName)
                 .storeFileName(storeFileName)
                 .build();
     }
 
-    public List<TbFile> storeFiles(MultipartFile[] multipartFiles) {
-        List<TbFile> storeFileResult = new ArrayList<>();
+    public List<FileDto> storeFiles(MultipartFile[] multipartFiles) {
+        List<FileDto> storeFileResult = new ArrayList<>();
 
         // multipartFiles -> null 처리
         if (multipartFiles != null) {

@@ -16,14 +16,12 @@ public class PostDto {
     private BoardType type;
     private String title;
     private String content;
-    private Long userId;
 
     @Builder
-    public PostDto(BoardType type, String title, String content, Long userId) {
+    public PostDto(BoardType type, String title, String content) {
         this.type = type;
         this.title = title;
         this.content = content;
-        this.userId = userId;
     }
 
     public TbPost toEntity(TbUser user) {

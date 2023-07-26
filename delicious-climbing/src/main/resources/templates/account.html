@@ -23,6 +23,7 @@
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"
     ></script>
+    <script src="../static/js/account.js"></script>
   </head>
   <body class="container">
     <div class="account_main">
@@ -123,8 +124,11 @@
       </div>
     </div>
     <div class="profile">
-      <div>
+      <div th:if="${user.imageUrl == null}">
         <img id="profile_img" src="/img/profile.png" />
+      </div>
+      <div th:unless="${user.imageUrl == null}">
+        <img id="profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
       </div>
       <div>
         <p id="Name"></p>
@@ -217,17 +221,20 @@
             </div>
             <!-- 프로필 이미지 변경-->
             <div class="modal-update-img">
-              <form>
+              <form th:action="@{/user/update/image}" method="post" enctype="multipart/form-data">
                 <h1>프로필 이미지 변경</h1>
                 <br />
                 <br />
-                <div>
+                <div th:if="${user.imageUrl == null}">
                   <img id="profile_img" src="/img/profile.png" />
+                </div>
+                <div th:unless="${user.imageUrl == null}">
+                  <img id="profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label>이미지</label>
-                  <input type="file" name="file"/>
+                  <input id="profile_img_input" type="file" name="file"/>
                 </div>
                 <br />
                 <button class="request-button" type="submit">
@@ -285,122 +292,3 @@
     </div>
   </body>
 </html>
-
-<!-- <div class ="account_btn6">
-            <div>
-                <img id = "account_img" src = "/img/RecommendedMountain.png">
-            </div>
-            <div>
-                <p id = "account_title">Recommended Mountain</p>
-            </div>
-            <div>
-                <p id = "account_detail">지리산</p>
-            </div>
-        </div> -->
-
-<!-- <div class="modal" id="modal-3">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>거주지 설정</h1><br>
-                  <br>
-                  <h2>현재 비밀번호</h2>
-                  <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                  <br>
-                  <br>
-                  <h2>거주지 설정</h2>
-                  <select name="sido1" id="sido1"></select>
-                  <select name="gugun1" id="gugun1"></select>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>거주지 설정</h3></button>
-                  <br>
-                </div>
-              </div> 
-              <button class="open-button" data-modal="#modal-3"></button> -->
-
-<!-- <div class="modal" id="modal-5">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>회원 탈퇴</h1><br>
-                  <br>
-                  <h2>현재 비밀번호</h2>
-                  <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>회원 탈퇴</h3></button><br>
-                </div>
-              </div> 
-              <button class="open-button" data-modal="#modal-5"></button> -->
-
-<!-- <div class="modal" id="modal-4">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>소개글 설정</h1><br>
-                  <br>
-                  <br>
-                  <br>
-                  <h2>소개글</h2>
-                  <input class="introduce" type="text" maxlength='20' placeholder="20자 내로 소개하세요." oninput="handleInputLength(this,20)" id="searchKeyword" name="searchKeyword">
-                  <input class="introuduce_Count" type="text" placeholder="글자 수" id="textLengthCheck"> 
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>소개글 설정</h3></button>
-                <br>
-                </div>
-              </div>
-              <button class="open-button" data-modal="#modal-4"></button> -->
-
-<!-- <div class="modal" id="modal-2">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                    <br>
-                    <h1>닉네임 설정</h1><br>
-                    <br>
-                    <h2>현재 비밀번호</h2>
-                    <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                    <br>
-                    <br>
-                    <h2>변경하고 싶은 닉네임</h2>
-                    <input id="text" type="text" maxlength="10" placeholder="변경하고 싶은 닉네임을 입력해주세요."><br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <button class="passwordCheck" type="button"><h3>닉네임 변경</h3></button>
-                    <br>
-                </div>
-              </div>
-              <button class="open-button" data-modal="#modal-2"></button> -->
-
-<!-- <div class ="account_btn3" >
-            
-            <div>
-                <img id = "account_img" src = "/img/Password.png">
-            </div>
-            <div>
-                <p id = "account_title">Password</p>
-            </div>
-            <div>
-                <p id = "account_detail">dl********</p>
-            </div>
-</div> -->

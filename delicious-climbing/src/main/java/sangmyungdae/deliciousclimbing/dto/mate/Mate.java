@@ -43,7 +43,7 @@ public class Mate {
         this.updatedAt = entity.getUpdatedAt();
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
-        this.userImageUrl = entity.getUser().getImageUrl();
+        this.userImageUrl = entity.getUser().getStoreFileName();
         this.mountainId = entity.getMountain().getId();
         this.mountainName = entity.getMountain().getName();
     }

@@ -5,9 +5,8 @@ import org.springframework.data.domain.Page;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.common.File;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class Post {
         public User(TbUser user) {
             this.id = user.getId();
             this.author = user.getNickname();
-            this.imageUrl = user.getImageUrl();
+            this.imageUrl = user.getStoreFileName();
         }
     }
     @Builder

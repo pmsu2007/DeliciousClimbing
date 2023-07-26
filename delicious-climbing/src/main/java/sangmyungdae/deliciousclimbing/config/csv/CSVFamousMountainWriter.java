@@ -1,4 +1,4 @@
-package sangmyungdae.deliciousclimbing.config;
+package sangmyungdae.deliciousclimbing.config.csv;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;

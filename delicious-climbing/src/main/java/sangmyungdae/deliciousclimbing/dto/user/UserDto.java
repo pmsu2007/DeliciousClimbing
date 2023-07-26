@@ -11,7 +11,6 @@ import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 public class UserDto {
     private Long id;
     private String nickname;
-    private String imageUrl;
     private String introduction;
     private Difficulty difficulty;
     private String sns;
@@ -19,11 +18,10 @@ public class UserDto {
     private Long addressCode;
 
     @Builder
-    public UserDto(Long id, String nickname, String imageUrl, String introduction, Difficulty difficulty,
+    public UserDto(Long id, String nickname, String introduction, Difficulty difficulty,
                    String sns, Long famousMountainId, Long addressCode) {
         this.id = id;
         this.nickname = nickname;
-        this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.difficulty = difficulty;
         this.sns = sns;
@@ -34,7 +32,6 @@ public class UserDto {
     public TbUser toEntity(TbFamousMountain famousMountain, TbAddress address) {
         return TbUser.builder()
                 .nickname(this.nickname)
-                .imageUrl(this.imageUrl)
                 .introduction(this.introduction)
                 .difficulty(this.difficulty)
                 .sns(this.sns)

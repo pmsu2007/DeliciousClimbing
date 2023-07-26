@@ -19,6 +19,6 @@ public class Comment {
         this.id = entity.getId();
         this.content = entity.getContent();
         this.author = entity.getUser().getNickname();
-        this.authorImgUrl = entity.getUser().getImageUrl();
+        this.authorImgUrl = entity.getUser().getStoreFileName();
     }
 }

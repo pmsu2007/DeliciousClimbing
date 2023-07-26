@@ -14,11 +14,13 @@ import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.dto.common.FileDto;
 import sangmyungdae.deliciousclimbing.dto.user.*;
 import sangmyungdae.deliciousclimbing.repository.AddressRepository;
 import sangmyungdae.deliciousclimbing.repository.FamousMountainRepository;
 import sangmyungdae.deliciousclimbing.repository.UserRepository;
 import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
+import sangmyungdae.deliciousclimbing.util.FileStore;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class UserService {
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManager;
+    private final FileStore fileStore;
 
     private TbUser findUser(String username) {
         return userRepository.findByEmail(username)
@@ -90,15 +93,23 @@ public class UserService {
         TbFamousMountain famousMountain = findFamousMountain(dto.getFamousMountainId());
         TbAddress address = findAddress(dto.getAddressCode());
 
-        user.updateInfo(dto.getNickname(), dto.getImageUrl(), dto.getIntroduction(), dto.getDifficulty(),
+        user.updateInfo(dto.getNickname(), dto.getIntroduction(), dto.getDifficulty(),
                 dto.getSns(), famousMountain, address);
 
         userRepository.save(user);
     }
 
     @Transactional
-    public void updateUserImage(MultipartFile file) {
+    public void updateUserImage(MultipartFile multipartFile) {
+        TbUser user = findUser(AuthUtil.getAuthUser());
 
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            throw ExceptionUtil.require("No MultipartFile");
+        }
+
+        FileDto file = fileStore.storeFile(multipartFile);
+        user.updateImage(file.getStoreFileName(), file.getUploadFileName());
+        userRepository.save(user);
     }
 
     @Transactional

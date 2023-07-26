@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>커뮤니티 게시글보기</title>
     <link rel="stylesheet" href="/css/communityDetail.css" />
+    <script src="../static/js/account.js"></script>
   </head>
   <body>
     <div class="board_wrap">
@@ -24,7 +25,7 @@
             </div>
           </div>
           <div style = "text-align: right; padding-right: 40px;">
-            <form th:action="@{/posts/likes/{postId}/1 (postId=${post.id})}" method="post">
+            <form th:action="@{/posts/likes/{postId} (postId=${post.id})}" method="post">
               <button type="submit">좋아요</button>
             </form>
           </div>
@@ -55,7 +56,6 @@
       </div>
     </div>
     <form style = "margin-top:-80px;" th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}" th:object="${commentDto}" method="post">
-      <input style = "margin-bottom:-100px;" type="text" th:field="*{userId}"/>
     <div class="board_wrap">
       <div class="board_view_wrap">
         <div class="board_view">
@@ -72,6 +72,7 @@
         </div>
       </div>
     </div>
+      </form>
       <div class="comment" th:each="comment : ${post.comments}">
         <div class="board_wrap">
           <div class="board_view_wrap">
@@ -90,7 +91,7 @@
           </div>
         </div>
       </div>
-    </form>
+
 
   </body>
 </html>

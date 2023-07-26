@@ -11,8 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sangmyungdae.deliciousclimbing.config.FileStore;
+import sangmyungdae.deliciousclimbing.util.FileStore;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
 import sangmyungdae.deliciousclimbing.dto.community.Post;
 import sangmyungdae.deliciousclimbing.dto.community.PostDto;
@@ -78,7 +77,8 @@ public class CommunityController {
                                       PostDto postDto,
                                       Model model) {
         Post post = communityService.getPostDetail(postId);
-        model.addAttribute(post);
+        model.addAttribute("postDto", postDto);
+        model.addAttribute("post", post);
 
         return "communityUpdate";
     }
@@ -106,10 +106,9 @@ public class CommunityController {
         return "redirect:/posts/" + post.getType() + "/" + post.getId();
     }
 
-    @PostMapping("/likes/{postId}/{userId}")
-    public String likePost(@PathVariable Long postId,
-                           @PathVariable Long userId) {
-        Post post = communityService.postLike(userId, postId);
+    @PostMapping("/likes/{postId}")
+    public String likePost(@PathVariable Long postId) {
+        Post post = communityService.postLike(postId);
 
         return "redirect:/posts/" + post.getType() + "/" + post.getId();
     }
@@ -130,17 +129,6 @@ public class CommunityController {
         return "redirect:/posts/" + type + "/" + postId;
     }
 
-//    @PostMapping("/update/{postId}/comment/{commentId}")
-//    public String updateComment(@PathVariable Long postId,
-//                                @PathVariable Long commentId,
-//                                @ModelAttribute CommentDto dto,
-//                                RedirectAttributes redirectAttributes) {
-//        // 사용자 auth 확인
-//        // user_id DTO에 추가
-//        dto.setPostId(postId);
-//        communityService.updateComment(commentId, dto);
-//        return "redirect:/posts/{type}/{postId}";
-//    }
 
     @PostMapping("/delete/{type}/{postId}/comment/{commentId}")
     public String deleteComment(@PathVariable BoardType type,
@@ -156,31 +144,5 @@ public class CommunityController {
         return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
-//    @PostMapping("/create/{postId}/file")
-//    public String createFile(@PathVariable Long postId,
-//                             @ModelAttribute FileDto dto,
-//                             RedirectAttributes redirectAttributes) {
-//
-//        dto.setPostId(postId);
-//        communityService.createFile(dto);
-//        return "redirect:/posts/{type}/{postId}";
-//    }
 
-//    @PostMapping("/update/{postId}/file/{fileId}")
-//    public String updateFile(@PathVariable Long postId,
-//                             @PathVariable Long fileId,
-//                             @ModelAttribute FileDto dto,
-//                             RedirectAttributes redirectAttributes) {
-//
-//        dto.setPostId(postId);
-//        communityService.updateFile(fileId, dto);
-//        return "redirect:/posts/{type}/{postId}";
-//    }
-
-//    @PostMapping("/delete/{postId}/file/{fileId}")
-//    public String deleteFile(@PathVariable Long fileId,
-//                             RedirectAttributes redirectAttributes) {
-//        communityService.deleteFile(fileId);
-//        return "redirect:/posts/{type}/{postId}";
-//    }
 }

@@ -8,14 +8,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sangmyungdae.deliciousclimbing.config.FileStore;
+import sangmyungdae.deliciousclimbing.util.FileStore;
+import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.dto.community.*;
-import sangmyungdae.deliciousclimbing.dto.like.CommunityLikeDto;
 import sangmyungdae.deliciousclimbing.repository.*;
+import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -28,6 +29,18 @@ public class CommunityService {
     private final UserRepository userRepository;
     private final CommunityLikeRepository communityLikeRepository;
     private final FileStore fileStore;
+
+    private TbUser findUser(String username) {
+        return userRepository.findByEmail(username).orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
+    }
+
+    private TbPost findPost(Long id) {
+        return postRepository.findById(id).orElseThrow(() -> ExceptionUtil.id(id, TbPost.class.getName()));
+    }
+
+    private TbComment findComment(Long id) {
+        return commentRepository.findById(id).orElseThrow(() -> ExceptionUtil.id(id, TbComment.class.getName()));
+    }
 
     @Transactional
     public Page<Post> getPostList(PostSearchDto dto, Pageable pageable) {
@@ -57,69 +70,67 @@ public class CommunityService {
     }
 
     @Transactional
-    public Post getPostDetail(Long id) {
-        TbPost entity = postRepository.findById(id).orElseThrow(); // Optional<TbPost>
+    public Post getPostDetail(Long postId) {
+        TbPost post = findPost(postId);
 
-        entity.updateHit(entity.getHits() + 1);
-        postRepository.save(entity);
+        // 데이터 조회 시, 조회수 증가
+        post.updateHit(post.getHits() + 1);
 
-        return Post.builder()
-                .entity(entity)
-                .build();
+        return Post.builder().entity(postRepository.save(post)).build();
     }
 
     @Transactional
     public Post createPost(PostDto dto, MultipartFile[] multipartFiles) {
 
-        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
-        List<TbFile> files = fileStore.storeFiles(multipartFiles);
+        TbUser user = findUser(AuthUtil.getAuthUser());
+        List<TbFile> files = fileStore.storeFiles(multipartFiles).stream()
+                .map(file -> TbFile.builder()
+                                .storeFileName(file.getStoreFileName())
+                                .uploadFileName(file.getUploadFileName())
+                                .build())
+                .collect(Collectors.toList());
 
-        TbPost post = TbPost.builder()
-                .type(dto.getType())
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .user(user)
-                .build();
+        TbPost post = TbPost.builder().type(dto.getType()).title(dto.getTitle()).content(dto.getContent()).user(user).build();
 
         for (TbFile file : files) {
             post.addFile(file);
         }
 
         // Entity to Response DTO
-        return Post.builder()
-                .entity(postRepository.save(post))
-                .build();
+        return Post.builder().entity(postRepository.save(post)).build();
     }
 
     @Transactional
-    public Post updatePost(Long id, PostDto dto) {
-        TbPost entity = postRepository.findById(id).orElseThrow(); // Optional<TbPost>
-        entity.update(dto.getTitle(), dto.getContent()); // dirty checking
+    public Post updatePost(Long postId, PostDto dto) {
+        TbPost post = findPost(postId);
 
-        return Post.builder()
-                .entity(postRepository.save(entity))
-                .build();
-    }
-
-    @Transactional
-    public void deletePost(Long id) {
-        TbPost entity = postRepository.findById(id).orElseThrow();
-
-        for (TbComment comment : entity.getComments()) {
-            commentRepository.deleteById(comment.getId());
+        if (!post.getUser().getNickname().equals(AuthUtil.getAuthUser())) {
+            throw ExceptionUtil.available("Forbidden");
         }
 
-        for (TbFile file : entity.getFiles()) {
-            fileRepository.deleteById(file.getId());
-        }
+        post.update(dto.getTitle(), dto.getContent()); // dirty checking
 
-        postRepository.deleteById(id);
+        return Post.builder().entity(postRepository.save(post)).build();
     }
 
     @Transactional
-    public Post postLike(Long userId, Long postId) {
-        TbUser user = userRepository.findById(userId).orElseThrow();
-        TbPost post = postRepository.findById(postId).orElseThrow();
+    public void deletePost(Long postId) {
+        TbPost post = findPost(postId);
+
+        if (!post.getUser().getNickname().equals(AuthUtil.getAuthUser())) {
+            throw ExceptionUtil.available("Forbidden");
+        }
+
+        commentRepository.deleteAll(post.getComments());
+        fileRepository.deleteAll(post.getFiles());
+        postRepository.delete(post);
+    }
+
+    @Transactional
+    public Post postLike(Long postId) {
+        TbUser user = findUser(AuthUtil.getAuthUser());
+        TbPost post = findPost(postId);
+
         TbCommunityLike like = communityLikeRepository.findByUserAndPost(user, post).orElse(null);
 
         // 이미 추천을 눌렀다면
@@ -131,45 +142,30 @@ public class CommunityService {
             post.updateLike(post.getLikes() + 1);
         }
 
-        return Post.builder()
-                .entity(postRepository.save(post))
-                .build();
+        return Post.builder().entity(postRepository.save(post)).build();
     }
 
     @Transactional
     public Comment createComment(Long postId, CommentDto dto) {
         // Request DTO to Entity
-        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
-        TbPost post = postRepository.findById(postId).orElseThrow();
+        TbUser user = findUser(AuthUtil.getAuthUser());
+        TbPost post = findPost(postId);
 
         TbComment entity = commentRepository.save(dto.toEntity(post, user));
 
 
         // Entity to Response DTO
-        return Comment.builder()
-                .entity(entity)
-                .build();
+        return Comment.builder().entity(entity).build();
     }
 
     @Transactional
-    public Comment updateComment(Long id, CommentDto dto) {
-        TbComment entity = commentRepository.findById(id).orElseThrow();
+    public void deleteComment(Long commentId) {
+        TbComment comment = findComment(commentId);
 
-        entity.update(dto.getContent());
+        if (!comment.getUser().getNickname().equals(AuthUtil.getAuthUser())) {
+            throw ExceptionUtil.available("Forbidden");
+        }
 
-        return Comment.builder()
-                .entity(entity)
-                .build();
+        commentRepository.delete(comment);
     }
-
-    @Transactional
-    public void deleteComment(Long id) {
-        commentRepository.deleteById(id);
-    }
-
-    @Transactional
-    public void deleteFile(Long id) {
-        fileRepository.deleteById(id);
-    }
-
 }

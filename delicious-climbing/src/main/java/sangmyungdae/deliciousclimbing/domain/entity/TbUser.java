@@ -38,9 +38,6 @@ public class TbUser extends TbDateEntity {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
     private String introduction;
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +51,12 @@ public class TbUser extends TbDateEntity {
 
     @Column(nullable = false)
     private LocalDate birthday;
+
+    @Column(name = "upload_filename")
+    private String uploadFileName;
+
+    @Column(name = "store_filename")
+    private String storeFileName;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mountain_id")
@@ -76,7 +79,7 @@ public class TbUser extends TbDateEntity {
     private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
 
     @Builder
-    public TbUser(String email, String password, Role role, LoginType type, String nickname, String imageUrl, String introduction,
+    public TbUser(String email, String password, Role role, LoginType type, String nickname, String introduction,
                   Difficulty difficulty, String sns, Gender gender, LocalDate birthday,
                   TbFamousMountain famousMountain, TbAddress address) {
 
@@ -85,7 +88,6 @@ public class TbUser extends TbDateEntity {
         this.role = role;
         this.type = type;
         this.nickname = nickname;
-        this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.difficulty = difficulty;
         this.sns = sns;
@@ -95,15 +97,19 @@ public class TbUser extends TbDateEntity {
         this.address = address;
     }
 
-    public void updateInfo(String nickname, String imageUrl, String introduction, Difficulty difficulty,
+    public void updateInfo(String nickname, String introduction, Difficulty difficulty,
                            String sns, TbFamousMountain famousMountain, TbAddress address) {
         this.nickname = nickname;
-        this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.difficulty = difficulty;
         this.sns = sns;
         this.famousMountain = famousMountain;
         this.address = address;
+    }
+
+    public void updateImage(String storeFileName, String uploadFileName) {
+        this.storeFileName = storeFileName;
+        this.uploadFileName = uploadFileName;
     }
 
     public void updatePassword(String password) {

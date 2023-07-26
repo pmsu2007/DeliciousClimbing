@@ -1,9 +1,6 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.enums.Difficulty;
 import sangmyungdae.deliciousclimbing.domain.enums.Gender;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
@@ -18,6 +15,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "TB_USER")
+@ToString
 public class TbUser extends TbDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

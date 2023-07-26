@@ -170,7 +170,7 @@
             <span class="close-button" data-modal="#modal-1">&times;</span>
             <!-- 회원 정보 수정 -->
             <div class="modal-update-info">
-              <form th:action="@{/update/{id}(id=${user.id})}" th:object="${userDto}" method="post">
+              <form th:action="@{/user/update}" th:object="${userDto}" method="post">
                 <h1>회원 정보 수정</h1>
                 <br />
                 <br />
@@ -227,7 +227,7 @@
                 <br />
                 <div class="modal-input-wrap">
                   <label>이미지</label>
-                  <input type="file" />
+                  <input type="file" name="file"/>
                 </div>
                 <br />
                 <button class="request-button" type="submit">
@@ -238,7 +238,7 @@
             </div>
             <!-- 비밀번호 변경 -->
             <div class="modal-update-password">
-              <form id="change-password" th:action="@{/update/password/{id}(id=${user.id})}" th:object="${userPassword}" method="post">
+              <form id="change-password" th:action="@{/user/update/password}" th:object="${userPassword}" method="post">
                 <h1>비밀번호 변경</h1>
                 <br />
                 <br />
@@ -264,7 +264,7 @@
             </div>
             <!-- 회원 탈퇴 -->
             <div class="modal-delete-user">
-              <form th:action="@{/delete/{id}(id=${user.id})}" th:object="${userPassword}" method="post">
+              <form th:action="@{/user/delete}" th:object="${userPassword}" method="post">
                 <h1>회원 탈퇴</h1>
                 <br />
                 <br />

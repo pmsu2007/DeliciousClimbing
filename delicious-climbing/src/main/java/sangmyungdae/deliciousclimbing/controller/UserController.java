@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
 import sangmyungdae.deliciousclimbing.domain.enums.Role;
@@ -35,12 +36,11 @@ public class UserController {
         return "passwordFind";
     }
 
-    @GetMapping("/profile/{userId}")
-    public String userProfilePage(@PathVariable Long userId,
-                                  UserDto userDto,
+    @GetMapping("/profile")
+    public String userProfilePage(UserDto userDto,
                                   UserPassword userPassword,
                                   Model model) {
-        User user = userService.getUser(userId);
+        User user = userService.getUser();
         // 프로필 정보 전달
         model.addAttribute("user", user);
         // 프로필 수정 DTO 전달
@@ -57,43 +57,43 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserSign dto, RedirectAttributes redirect) {
+    public String login(@ModelAttribute UserSign dto) {
         User user = userService.login(dto);
-        return "redirect:/profile/" + user.getId();
+        return "redirect:/profile";
     }
 
     @PostMapping("/register")
     public String register(@ModelAttribute UserRegister dto) {
-        if(userService.existEmail(dto.getEmail())) {
-           // 예외 처리
-        }
         dto.setRole(Role.USER);
         dto.setType(LoginType.SINGIN);
         userService.createUser(dto);
         return "redirect:/login";
     }
 
-    @PostMapping("/update/{userId}")
-    public String updateUser(@ModelAttribute UserDto dto,
-                             @PathVariable Long userId) {
-        // 사용자 Authentication 확인
-        User user = userService.updateUser(userId, dto);
+    @PostMapping("/user/update")
+    public String updateUser(@ModelAttribute UserDto dto) {
 
-        return "redirect:/profile/" + user.getId();
+        userService.updateUser(dto);
+
+        return "redirect:/profile";
     }
 
-    @PostMapping("/update/password/{userId}")
-    public String changePassword(@ModelAttribute UserPassword dto,
-                                 @PathVariable Long userId) {
+    @PostMapping("/user/update/image")
+    public String updateUserImage(MultipartFile file) {
+        userService.updateUserImage(file);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/user/update/password")
+    public String changePassword(@ModelAttribute UserPassword dto) {
         // 사용자 Authnetication 확인
-        userService.changePassword(userId, dto);
-        return "redirect:/profile/{userId}";
+        userService.changePassword(dto);
+        return "redirect:/profile";
     }
 
-    @PostMapping("/delete/{userId}")
-    public String deleteUser(@ModelAttribute UserPassword dto,
-                             @PathVariable Long userId) {
-        userService.deleteUser(userId, dto);
+    @PostMapping("/user/delete")
+    public String deleteUser(@ModelAttribute UserPassword dto) {
+        userService.deleteUser(dto.getOldPassword());
         return "redirect:/login";
     }
 }

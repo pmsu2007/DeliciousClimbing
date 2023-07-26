@@ -56,9 +56,7 @@ public class TbFamousMountain {
         this.imageUrl = imageUrl;
         this.reason = reason;
         this.season = season;
-        this.region = region;
     }
-
     public void updateLike(int likes) {
         this.likes = likes;
     }

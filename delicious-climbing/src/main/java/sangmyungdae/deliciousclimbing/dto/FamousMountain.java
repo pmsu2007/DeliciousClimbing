@@ -29,6 +29,5 @@ public class FamousMountain {
         this.imageUrl = entity.getImageUrl();
         this.reason = entity.getReason();
         this.season = entity.getSeason();
-        this.region = entity.getRegion();
     }
 }

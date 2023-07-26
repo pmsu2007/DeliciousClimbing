@@ -63,6 +63,12 @@ public class TbEquipment extends TbDateEntity {
         this.user = user;
         this.address = address;
     }
+    public void addFile(TbEquipmentFile file){
+        this.equipmentFiles.add(file);
+        if(file.getEquipment()!=this){
+            file.addPost(this);
+        }
+    }
 
     public void update(String title, String content, int tradeCost, boolean tradeStatus, TbAddress address) {
         this.title = title;

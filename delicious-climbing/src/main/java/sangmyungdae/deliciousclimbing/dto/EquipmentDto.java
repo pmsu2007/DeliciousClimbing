@@ -13,13 +13,13 @@ public class EquipmentDto {
     private String title;
     private String content;
     private Long userId;
-    private int tradeCost;
+    private Integer tradeCost;
     private Boolean tradeStatus;
     private Long addressCode;
 
     @Builder
     public EquipmentDto(EquipmentType type, String title, String content,
-                        Long userId, int tradeCost, Boolean tradeStatus,Long addressCode) {
+                        Long userId, Integer tradeCost, Boolean tradeStatus,Long addressCode) {
         this.type = type;
         this.title = title;
         this.content = content;

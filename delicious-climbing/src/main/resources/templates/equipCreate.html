@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,8 +7,8 @@
   <title>등산 장비 글쓰기화면</title>
   <link rel="stylesheet" href="/css/equipCreate.css" />
   <script defer src="/js/equipCreate.js"></script>
-  <script defer src="/js/mateMain.js"></script>
-  <script defer src="/js/mateCreate.js"></script>
+  <!-- <script defer src="/js/mateMain.js"></script> -->
+  <!-- <script defer src="/js/mateCreate.js"></script> -->
 
   <script
           src="http://code.jquery.com/jquery-3.3.1.js"
@@ -18,48 +18,55 @@
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 <body>
-<form th:action=@"{/equipment/create}" th:object="${equipmentDto}" method="POST" enctype="multipart/form-data">
-  <div class="mainBox">
-    <div class="selectBox">
-      <select name="sido1" id="sido1" required></select>
-      <select th:field="*{addressCode}" name="gugun1" id="gugun1" required></select>
-      <select th:field="*{type}" name="mountain1" id="mountain1" required></select>
+<form method="POST" action="#" onsubmit="return validateForm();">
+  <form th:action="@{/equipment/create}" th:object="${equipmentDto}" method="POST" enctype="multipart/form-data">
+    <div class="mainBox">
+      <div class="selectBox">
+        <select name="sido1" id="sido1" required></select>
+        <select th:field="*{addressCode}" name="gugun1" id="gugun1" required></select>
+        <select th:field="*{type}" name="type" id="type" required></select>
+      </div>
     </div>
-  </div>
-  <div class="board_wrap">
-    <div class="board_title"></div>
-    <div class="board_write_wrap">
-      <div class="board_write">
-        <div class="title">
-          <dl>
-            <dt>제목</dt>
-            <dd><input type="text" th:field="*{title}" placeholder="제목 입력" /></dd>
-          </dl>
-          <div class="price">
+    <div class="board_wrap">
+      <div class="board_title"></div>
+      <div class="board_write_wrap">
+        <div class="board_write">
+          <div class="title">
             <dl>
-              <dt>가격</dt>
-              <dd class="price">
-                <input type="text" th:field="*{tradeCost}" placeholder="가격을 입력해주세요." />
+              <dt>제목</dt>
+              <dd><input type="text" th:field="*{title}" placeholder="제목 입력" /></dd>
+            </dl>
+            <div class="price">
+              <dl>
+                <dt>가격</dt>
+                <dd class="price">
+                  <input type="text" th:field="*{tradeCost}" placeholder="가격을 입력해주세요." />
+                </dd>
+              </dl>
+            </div>
+            <dl>
+              <dt>파일</dt>
+              <dd>
+                <label for="file"></label>
+                <input type="file" id="file" name="file" /><br />
               </dd>
             </dl>
           </div>
-          <dl>
-            <dt>파일</dt>
-            <dd>
-              <label for="file"></label>
-              <input type="file" id="file" name="file" /><br />
-            </dd>
-          </dl>
+          <div class="cont">
+            <textarea th:field="*{content}" placeholder="내용 입력"></textarea>
+          </div>
         </div>
-        <div class="cont">
-          <textarea th:field="*{content}" placeholder="내용 입력"></textarea>
+        <div class="bt_wrap">
+          <a
+                  href="equipMain.html"
+                  class="submit"
+                  style="font-size: 25px; padding-top: 20px"
+          >등록하기</a
+          >
         </div>
-      </div>
-      <div class="bt_wrap">
-        <a class="submit" style="font-size: 25px; padding-top: 20px">등록하기</a>
       </div>
     </div>
-  </div>
+  </form>
 </form>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,19 +12,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.*;
 import sangmyungdae.deliciousclimbing.dto.address.Address;
 import sangmyungdae.deliciousclimbing.service.EquipmentService;
+import sangmyungdae.deliciousclimbing.util.FileStore;
 
 import java.io.File;
+import java.net.MalformedURLException;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/equipment")
 public class EquipmentController {
     private final EquipmentService equipmentService;
+    private final FileStore fileStore;
 
     @GetMapping("/{type}")
     public String equipmentListPage(@PathVariable EquipmentType type,
@@ -51,10 +57,8 @@ public class EquipmentController {
     // /equipment/create
     @GetMapping("/create")
     public String equipmentCreatePage(EquipmentDto equipmentDto,
-                                      EquipmentFileDto equipmentFileDto,
                                       Model model) {
         model.addAttribute("equipmentDto",equipmentDto);
-        model.addAttribute("equipmentFileDto",equipmentFileDto);
         return "equipCreate";
     }
 
@@ -70,10 +74,14 @@ public class EquipmentController {
 
     @PostMapping("/create")
     public String createPost(@ModelAttribute EquipmentDto dto,
-                             RedirectAttributes redirectAttributes) {
+                             MultipartFile[]  files) {
+        for (MultipartFile file :
+            files) {
+            System.out.println("file = "+file.toString());
+        }
         // user_id DTO에 추가
-        equipmentService.createPost(dto);
-        return "redirect:/equipments/{type}/{postId}";
+        Equipment equipmentPost = equipmentService.createPost(dto, files);
+        return "redirect:/equipments/"+equipmentPost.getType()+"/"+equipmentPost.getId();
     }
 
     @PostMapping("/update/{postId}")
@@ -92,32 +100,10 @@ public class EquipmentController {
         return "redirect:/equipments/{type}";
     }
 
-
-    @PostMapping("/create/{postId}/file")
-    public String createFile(@PathVariable Long postId,
-                             @ModelAttribute EquipmentFileDto dto,
-                             RedirectAttributes redirectAttributes) {
-
-        dto.setPostId(postId);
-        equipmentService.createFile(dto);
-        return "redirect:/equipments/{type}/{postId}";
+    @ResponseBody
+    @GetMapping("/files/{filename}")
+    public Resource getFile(@PathVariable String filename) throws MalformedURLException {
+        return new UrlResource("file"+fileStore.getFullPath(filename));
     }
 
-    @PostMapping("/update/{postId}/file/{fileId}")
-    public String updateFile(@PathVariable Long postId,
-                             @PathVariable Long fileId,
-                             @ModelAttribute EquipmentFileDto dto,
-                             RedirectAttributes redirectAttributes) {
-
-        dto.setPostId(postId);
-        equipmentService.updateFile(fileId, dto);
-        return "redirect:/equipments/{type}/{postId}";
-    }
-
-    @PostMapping("/delete/{postId}/file/{fileId}")
-    public String deleteFile(@PathVariable Long fileId,
-                             RedirectAttributes redirectAttributes) {
-        equipmentService.deleteFile(fileId);
-        return "redirect:/equipments/{type}/{postId}";
-    }
 }

@@ -18,7 +18,7 @@ function change_btn(e) {
 }
 
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function(){
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       createCard();
   }
@@ -67,7 +67,7 @@ window.addEventListener('scroll', function() {
 //   }
 // }
 
-function goToPage(pageNumber) {
+function goToPage(pageNumber){
 // 해당 페이지로 이동하는 로직을 작성합니다.
 // 예를 들어, 서버에 Ajax 요청을 보내거나, 클라이언트 측 스크립트로 페이지 내용을 변경할 수 있습니다.
 // 이 예시에서는 페이지 번호만 출력하도록 작성되었습니다.
@@ -97,23 +97,23 @@ pageLinks[i].addEventListener("click", function() {
 
 
 //modal창
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
 var modalTrigger = document.querySelector('.box');
 var modal = document.getElementById('myModal');
 var closeBtn = document.querySelector('.close');
 
 // 모달 열기
-modalTrigger.addEventListener('click', function() {
+modalTrigger.addEventListener('click', function(){
   modal.style.display = 'block';
 });
 
 // 모달 닫기
-closeBtn.addEventListener('click', function() {
+closeBtn.addEventListener('click', function(){
   modal.style.display = 'none';
 });
 
 // 모달 외부 클릭 시 닫기
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function(event){
   if (event.target == modal) {
     modal.style.display = 'none';
   }

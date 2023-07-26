@@ -1,9 +1,9 @@
 @import "communityCreate.css";
 
-@font-face {
-  font-family: "Montserrat";
-  src: url("/font/Montserrat-Regular.ttf");
-}
+/*@font-face {*/
+/*  font-family: "Montserrat";*/
+/*  src: url("/font/Montserrat-Regular.ttf");*/
+/*}*/
 
 .mainBox {
   position: relative;

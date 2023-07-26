@@ -10,11 +10,13 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbEquipmentFile;
 public class EquipmentFile {
 
     private long id;
-    private String fileName;
+    private String storeFileName;
+    private String uploadFileName;
 
     @Builder
     public EquipmentFile(TbEquipmentFile entity){
         this.id = entity.getId();
-        this.fileName = entity.getFileName();
+        this.storeFileName = entity.getStoreFileName();
+        this.uploadFileName = entity.getUploadFileName();
     }
 }

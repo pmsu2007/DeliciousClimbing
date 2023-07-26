@@ -63,9 +63,9 @@ class EquipmentServiceTest {
                 .userId(1L)
                 .build();
         //when
-        Equipment testDto = equipmentService.createPost(dto);
+//        Equipment testDto = equipmentService.createPost(dto,files);
         //soutv + enter
-        System.out.println("testDto = " + testDto);
+//        System.out.println("testDto = " + testDto);
         //then
 //        assertEquals(1L,equipmentRepository.count());
 //

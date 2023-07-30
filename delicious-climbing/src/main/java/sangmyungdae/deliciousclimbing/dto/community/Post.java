@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 public class Post {
-    private long id;
+    private Long id;
     private BoardType type;
     private String title;
     private String content;

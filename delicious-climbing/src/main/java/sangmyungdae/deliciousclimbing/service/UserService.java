@@ -37,6 +37,11 @@ public class UserService {
                 .orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
     }
 
+    private TbUser findUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> ExceptionUtil.id(id, TbUser.class.getName()));
+    }
+
     private TbFamousMountain findFamousMountain(Long id) {
         return famousMountainRepository.findById(id)
                 .orElseThrow(() -> ExceptionUtil.id(id, TbFamousMountain.class.getName()));
@@ -70,6 +75,15 @@ public class UserService {
     @Transactional
     public User getUser() {
         TbUser user = findUser(AuthUtil.getAuthUser());
+
+        return User.builder()
+                .entity(user)
+                .build();
+    }
+
+    @Transactional
+    public User getUserById(Long id) {
+        TbUser user = findUser(id);
 
         return User.builder()
                 .entity(user)

@@ -2,79 +2,76 @@ package sangmyungdae.deliciousclimbing.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
-import sangmyungdae.deliciousclimbing.dto.EquipmentReview;
-import sangmyungdae.deliciousclimbing.dto.EquipmentReviewDto;
-import sangmyungdae.deliciousclimbing.dto.MateReview;
-import sangmyungdae.deliciousclimbing.dto.MateReviewDto;
+import sangmyungdae.deliciousclimbing.domain.enums.ReviewType;
+import sangmyungdae.deliciousclimbing.dto.review.Review;
+import sangmyungdae.deliciousclimbing.dto.review.ReviewDto;
 import sangmyungdae.deliciousclimbing.repository.*;
+import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
-    private final EquipmentReviewRepository equipmentReviewRepository;
-    private final MateReviewRepository mateReviewRepository;
-    private final EquipmentRepository equipmentRepository;
-    private final MateRepository mateRepository;
-    private  final UserRepository userRepository;
-    //리뷰 조회
-    @Transactional
-    public List<EquipmentReview> getEquipmentReviewList(){
-        List<TbEquipmentReview> reviews = equipmentReviewRepository.findAll();
+    private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
 
-        List<EquipmentReview> EquipmentReviwList =
-                reviews.stream().map(review -> new EquipmentReview(review))
-                        .collect(Collectors.toList());
-
-        return EquipmentReviwList;
-    }
-    @Transactional
-    public List<MateReview> getMateReviewList(){
-        List<TbMateReview> reviews = mateReviewRepository.findAll();
-
-        List<MateReview> MateReviwList =
-                reviews.stream().map(review -> new MateReview(review))
-                        .collect(Collectors.toList());
-
-        return MateReviwList;
+    private TbUser findUser(String username) {
+        return userRepository.findByEmail(username).orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
     }
 
-    //리뷰 생성
+    private TbUser findUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> ExceptionUtil.id(id, TbUser.class.getName()));
+    }
+
+    private TbReview findReview(Long reviewId) {
+        return reviewRepository.findById(reviewId).orElseThrow(() -> ExceptionUtil.id(reviewId, TbReview.class.getName()));
+    }
+
     @Transactional
-    public EquipmentReview createEquipmentReview(EquipmentReviewDto dto){
-        TbEquipment equipment = equipmentRepository.findById(dto.getPostId()).orElseThrow();
-        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
+    public Review getReview(Long reviewId) {
+        TbReview review = findReview(reviewId);
 
-        TbEquipmentReview entity = equipmentReviewRepository.save(dto.toEntity(equipment,user));
-
-        return EquipmentReview.builder()
-                .entity(entity)
+        return Review.builder()
+                .entity(review)
                 .build();
     }
+    //리뷰 조회
     @Transactional
-    public MateReview createMateReview(MateReviewDto dto) {
-        TbMate mate = mateRepository.findById(dto.getPostId()).orElseThrow();
-        TbUser user = userRepository.findById(dto.getUserId()).orElseThrow();
+    public List<Review> getReviewList(ReviewType type){
+        List<TbReview> reviews = reviewRepository.findByType(type);
+        return Review.toDtoList(reviews);
+    }
+    //리뷰 생성
+    @Transactional
+    public Review creatReview(Long userId, ReviewDto dto){
+        TbUser user = findUser(userId);
+        TbUser reviewer = findUser(AuthUtil.getAuthUser());
 
-        TbMateReview entity = mateReviewRepository.save(dto.toEntity(mate, user));
+        if (user == reviewer) {
+            throw ExceptionUtil.available("본인에게 리뷰를 작성할 수 없습니다");
+        }
 
-        return MateReview.builder()
-                .entity(entity)
+        TbReview review = TbReview.builder()
+                .type(dto.getType())
+                .content(dto.getContent())
+                .reviewer(reviewer)
+                .user(user)
+                .build();
+
+        return Review.builder()
+                .entity(reviewRepository.save(review))
                 .build();
     }
     //리뷰 삭제
     @Transactional
-    public void deleteEquipmentReview(Long id){
-        equipmentReviewRepository.deleteById(id);
+    public void deleteReview(Long reviewId){
+        TbReview review = findReview(reviewId);
+        reviewRepository.delete(review);
     }
-    @Transactional
-    public void deleteMateReview(Long id){
-        mateReviewRepository.deleteById(id);
-    }
-
 
 }

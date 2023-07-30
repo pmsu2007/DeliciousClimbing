@@ -1,0 +1,193 @@
+/* COMMON */
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+
+/*채팅프로파일*/
+ .inner {
+  width:800px; /*기존 1200*/
+  height: 750px; /*기존 880*/
+  margin: 0 auto;
+ /* background-color: royalblue;   */
+  position: relative;
+}
+
+
+
+ .inner .person_icon {
+  position: absolute;
+  transform:scale(0.05,0.05);
+  border-radius: 50%;
+  right: 5%;
+  top: -70%;
+  
+
+}
+
+ .inner .name {
+  position: absolute;
+  font-size: 25px;
+  font-weight: 1000;
+  left: 23%;
+  top: 10%;
+}
+
+ .inner .ageNsex {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 900;
+  color: rgb(170, 170, 170);
+  left: 23%;
+  top: 17%;
+}
+
+ .inner .info {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 900;
+  color: #333;
+  left: 15%;
+  top: 23%;
+}
+
+hr {
+  position: relative;
+  top: 30%;
+  border: none;  
+  border-top: 1px solid #333;  
+  text-align: center;   
+  overflow: visible;   
+  width: 700px;
+}
+
+/* hr:after {
+  content: "Or";
+  position: relative;  
+  top: -15px;   
+  background-color: white;    
+  padding: 0 10px;   
+} */
+
+ .inner .sns {
+  position: absolute;
+  font-size: 25px;
+  font-weight: 1000;
+  color: #333;
+  left: 15%;
+  top: 33%;
+}
+
+ .inner .instagram_icon {
+  /* display: none; */
+  position: absolute;
+  transform:scale(0.05,0.05);
+  left: -5%;
+  top: -6.5%;
+}
+
+ .inner .twitter_icon {
+  position: absolute;
+  transform:scale(0.045,0.045);
+  border-radius: 20%;
+  left: -1%;
+  top: -6.5%;
+}
+
+ .inner .tag {
+  position: absolute;
+  font-size: 25px;
+  font-weight: 1000;
+  color: #333;
+  top: 43%;
+  left: 15%;
+}
+
+ .inner .hashtag {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  top: 44%;
+  left: 26%;
+}
+
+ .inner .mountainReview {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  top: 55%;
+  left: 14%;
+  border-radius: 100%;
+  border:none;
+  background-color: #FFF;
+}
+
+ .inner .mountainReview:hover {
+  transition: 0.5s;
+  color: #27733D;
+  background-color: #C4E7CE;
+}
+
+ .inner .mountainReview:active {
+  color: #27733D;
+  background-color: #C4E7CE;
+}
+
+ .inner .tradeReview {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  top: 55%;
+  left: 25%;
+  border-radius: 45%;
+  border:none;
+  background-color: #FFF;
+}
+
+ .inner .tradeReview:hover {
+  transition: 0.5s;
+  color: #27733D;
+  background-color: #C4E7CE;
+}
+
+ .inner .tradeReview:active {
+  color: #27733D;
+  background-color: #C4E7CE;
+}
+
+ .inner .window {
+  position: absolute;
+  top: 60%;
+  left: 6%;
+  width: 700px;
+  height: 250px;
+}
+
+ .inner .comment {
+  position: absolute;
+  top: 95%;
+  left: 15%;
+  width: 600px;
+  height: 25px;
+  border-radius: 10px; 
+  border-color: #949494;
+  border: 1px solid;
+}
+
+ .inner .comment_click {
+  position: absolute;
+  font-weight: 1000;
+  top: 95.5%;
+  right:10%;
+  border:none;
+  background-color: #FFF;
+  color: #27733D;
+}

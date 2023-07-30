@@ -11,12 +11,14 @@ import sangmyungdae.deliciousclimbing.dto.review.ReviewDto;
 import sangmyungdae.deliciousclimbing.repository.*;
 import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
+
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
 
@@ -73,5 +75,4 @@ public class ReviewService {
         TbReview review = findReview(reviewId);
         reviewRepository.delete(review);
     }
-
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.enums.ReviewType;
 import sangmyungdae.deliciousclimbing.dto.review.Review;
@@ -21,11 +22,12 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final UserService userService;
+
     @GetMapping("/{userId}")
     public String reviewListPage(@PathVariable Long userId,
                                  @RequestParam ReviewType type,
                                  ReviewDto reviewDto,
-                                 Model model){
+                                 Model model) {
         User user = userService.getUserById(userId);
         List<Review> reviews = reviewService.getReviewList(type);
 
@@ -55,5 +57,4 @@ public class ReviewController {
         redirectAttributes.addAttribute("type", review.getType());
         return "redirect:/reviews/" + userId;
     }
-
 }

@@ -16,6 +16,6 @@ public interface EquipmentFileRepository extends JpaRepository<TbEquipmentFile, 
     // equipment_id로 조회
     List<TbEquipmentFile> findByEquipment_Id(Long equipmentId);
     List<TbEquipmentFile> findByEquipment(TbEquipment equipment);
-    void deleteByEquipment_Id(Long postId);
 
+    void deleteByEquipment_Id(Long postId);
 }

@@ -38,15 +38,13 @@ public class TbFamousMountain {
     @Column(columnDefinition = "integer default 0")
     private int likes;
 
-    @Enumerated(EnumType.STRING)
-    private Region region;
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
   
     @Builder
     public TbFamousMountain(Long id, String name, int height, String info, Difficulty difficulty, int period,
-                            String imageUrl, String reason, String season, Region region) {
+                            String imageUrl, String reason, String season) {
         this.id = id;
         this.name = name;
         this.height = height;

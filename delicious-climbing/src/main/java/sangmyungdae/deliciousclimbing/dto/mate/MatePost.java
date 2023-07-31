@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class MatePost {
 
     private Mate mate;

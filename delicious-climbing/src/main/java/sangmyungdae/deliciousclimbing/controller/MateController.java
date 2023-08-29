@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
+import sangmyungdae.deliciousclimbing.dto.user.User;
 import sangmyungdae.deliciousclimbing.service.MateService;
+import sangmyungdae.deliciousclimbing.service.UserService;
 
 //TODO: 그 조회할때나 글 작성할때 주소코드 날라오면 산 목록 반환해주는 부분 해야합니다.
 
@@ -21,6 +23,7 @@ import sangmyungdae.deliciousclimbing.service.MateService;
 @RequiredArgsConstructor
 public class MateController {
     private final MateService service;
+    private final UserService userService;
 
     @GetMapping
     public String mateListPage(@RequestParam(required = false) Long mountainId,
@@ -70,16 +73,18 @@ public class MateController {
         log.info("mateInfo={}", dto);
 
         //임시 코드
+        User user = userService.getUser(33L);
         MateDto mateDto = MateDto.builder().recruitCount(dto.getRecruitCount())
                 .mountainId(1L)
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .recruitStatus(dto.getRecruitStatus())
+                .recruitStatus(Boolean.TRUE)
                 .recruitDate(dto.getRecruitDate())
                 .recruitCount(dto.getRecruitCount())
                 .build();
 
-        service.createPost(33L, mateDto);
+        Mate mate = service.createPost(33L, mateDto);
+        redirectAttributes.addAttribute("mateId", mate.getId());
 
         return "redirect:/mate/{mateId}";
     }
@@ -103,6 +108,10 @@ public class MateController {
         //세션에서 사용자 정보를 갖고와야함, userId
         //Todo: 나머지 코드 작성
 //        service.createComment(mateId, userId, dto)
+
+        // 임시 코드
+        service.createComment(mateId, 33L, dto);
+
         log.info("content={}", dto.getContent());
 
         return "redirect:/mate/{mateId}";

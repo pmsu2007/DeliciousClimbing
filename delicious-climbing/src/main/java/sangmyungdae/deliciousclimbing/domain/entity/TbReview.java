@@ -4,14 +4,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sangmyungdae.deliciousclimbing.domain.enums.ReviewType;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_CHAT_MESSAGE")
-public class TbChatMessage extends TbDateEntity {
+@Table(name = "TB_REVIEW")
+public class TbReview extends TbDateEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,18 +21,22 @@ public class TbChatMessage extends TbDateEntity {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private TbChatRoom room;
+    @Column(nullable = false)
+    private ReviewType type;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviewer_id")
+    private TbUser reviewer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private TbUser user;
 
     @Builder
-    public TbChatMessage(String content, TbChatRoom room, TbUser user) {
+    public TbReview(String content, ReviewType type, TbUser reviewer, TbUser user) {
         this.content = content;
-        this.room = room;
+        this.type = type;
+        this.reviewer = reviewer;
         this.user = user;
     }
 }

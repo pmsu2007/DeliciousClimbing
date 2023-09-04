@@ -104,6 +104,12 @@ public class UserController {
     }
 
     @ResponseBody
+    @GetMapping("/user/exist-email/{email}")
+    public boolean existsEmail(@PathVariable String email) {
+        return userService.existEmail(email);
+    }
+
+    @ResponseBody
     @GetMapping("/user/image/{filename}")
     public Resource getFile(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + fileStore.getFullPath(filename));

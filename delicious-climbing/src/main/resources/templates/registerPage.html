@@ -17,8 +17,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
  
   <link rel="stylesheet" href="/css/signin.css" />
-
-  <script defer src="/js/signin.js"></script>
 </head>
 <body>
 
@@ -40,8 +38,10 @@
         <div class="signin">
           <a class="title">회 원 가 입</a>
           <form th:action="@{/register}" th:object="${userRegister}" method="post">
-              <input type="text" class="email" placeholder="이메일" th:field="*{email}"/>
-              <button class="check">중복확인</button>
+              <div class="input-email-box">
+                  <input type="text" class="email" placeholder="이메일" th:field="*{email}"/>
+                  <div class="check" onclick="existsEmail()">중복확인</div>
+              </div>
               <br> <br>
               <input type="password" class="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)" th:field="*{password}"/>
               <br> <br>
@@ -54,13 +54,13 @@
               <br> <br>
               <input type="date" class="birthday" placeholder="생년월일 예&#41;20230101" th:field="*{birthday}"/>
               <br> <br>
-              <button type="submit" class="ok">가 입 하 기</button>
+              <button type="submit" class="ok" disabled>가 입 하 기</button>
           </form>
           
         </div>
       
     </div>
  </section>
-  
+  <script src="/js/signin.js"></script>
 </body>
 </html>

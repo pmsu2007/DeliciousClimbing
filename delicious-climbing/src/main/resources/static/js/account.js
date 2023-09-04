@@ -1470,14 +1470,16 @@ $("#searchKeyword").keyup(function (e) {
 
 // 이미지 등록
 const profileImgInput = document.getElementById('profile_img_input');
-const profileImg = document.getElementById('profile_img');
+const profileImg = document.getElementById('upload_profile_img');
 
 profileImgInput.addEventListener('change', function (e) {
   const file = e.target.files[0];
   const reader = new FileReader();
 
   reader.onload = function (e) {
-    profileImg.src = e.target.result;
+    document.getElementById('upload_profile_img').setAttribute("src", "");
+    console.log(e.target.result)
+    document.getElementById('upload_profile_img').setAttribute("src", e.target.result);
   }
 
   reader.readAsDataURL(file);

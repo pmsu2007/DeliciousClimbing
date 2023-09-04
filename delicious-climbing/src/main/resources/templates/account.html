@@ -24,6 +24,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/account.js"></script>
+    <script src="../static/js/signin.js"></script>
   </head>
   <body class="container">
     <div class="account_main">
@@ -49,7 +50,7 @@
           <p id="account_title">Register Since</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.createdAt}"></p>
+          <p id="account_detail" th:text="${#strings.substring(user.createdAt, 0, 11)}"></p>
         </div>
       </div>
 
@@ -97,7 +98,7 @@
           <p id="account_title">Preffered Difficulty</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.difficulty}"></p>
+          <p id="account_detail" th:text="${user.difficulty.name}"></p>
         </div>
       </div>
       <div class="account_btn7">
@@ -153,7 +154,7 @@
             <p id="profile_title">Gender</p>
           </div>
           <div>
-            <p id="profile_detail3"th:text="${user.gender}"></p>
+            <p id="profile_detail3"th:text="${user.gender.name}"></p>
           </div>
         </div>
       </div>
@@ -180,17 +181,17 @@
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">닉네임</label>
-                  <input class="modal-input" type="text" th:field="*{nickname}"/><br />
+                  <input class="modal-input" type="text" th:field="*{nickname}" th:value="${user.nickname}"/><br />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">소개글</label>
-                  <input class="modal-input" type="text" th:field="*{introduction}"/><br />
+                  <input class="modal-input" type="text" th:field="*{introduction}" th:value="${user.introduction}"/><br />
                   <label></label>
                 </div>
                 <div class="modal-input-wrap">
                   <label class="modal-label">선호 난이도</label>
-                  <select class="modal-select" th:field="*{difficulty}">
+                  <select class="modal-select" th:field="*{difficulty}" th:value="${user.difficulty}">
                     <option value="UPPER">상</option>
                     <option value="MIDDLE">중</option>
                     <option value="LOWER">하</option>
@@ -199,13 +200,13 @@
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">선호하는 산</label>
-                  <select class="modal-select" th:field="*{famousMountainId}">
+                  <select class="modal-select" th:field="*{famousMountainId}" th:value="${user.famousMountain}">
                   </select>
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label" >SNS</label>
-                  <input class="modal-input" type="text" th:field="*{sns}"/><br />
+                  <input class="modal-input" type="text" th:field="*{sns}" th:value="${user.sns}"/><br />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
@@ -226,10 +227,10 @@
                 <br />
                 <br />
                 <div th:if="${user.imageUrl == null}">
-                  <img id="profile_img" src="/img/profile.png" />
+                  <img id="upload_profile_img" src="/img/profile.png" />
                 </div>
                 <div th:unless="${user.imageUrl == null}">
-                  <img id="profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
+                  <img id="upload_profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
                 </div>
                 <br />
                 <div class="modal-input-wrap">

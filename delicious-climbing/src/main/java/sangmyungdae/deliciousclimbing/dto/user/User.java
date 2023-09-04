@@ -24,7 +24,6 @@ public class User {
     private String sns;
     private Gender gender;
     private LocalDate birthday;
-
     private String imageUrl;
     private String createdAt;
     private FamousMountain famousMountain;

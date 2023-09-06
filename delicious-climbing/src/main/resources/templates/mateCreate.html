@@ -18,8 +18,8 @@
     <div class="mainBox">
         <div class ="selectBox">
             <select name="sido1" id="sido1" required></select>
-            <select name="gugun1" id="gugun1" onchange="get_option2(sido1.value, gugun1.value, mountain1)" required></select>
-            <select name="mountain1" id="mountain1"  required></select>
+            <select name="gugun1" id="gugun1" onchange="get_option2(sido1.value, gugun1.value, mountainId)" required></select>
+            <select name="mountainId" id="mountainId" th:fileld="*{mountainId}"  required></select>
         </div>
 
         <div class="countBox">

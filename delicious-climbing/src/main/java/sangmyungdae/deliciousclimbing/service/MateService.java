@@ -32,13 +32,13 @@ public class MateService {
             findMates = mateRepository.findAll(pageable);
         } else if (dto.getMountainId() == null && dto.isRecruitStatusFiltering() == true) {
             // 산 필터링 X, 모집중인 게시글만 보기 O
-            findMates = mateRepository.findPageByRecruitStatus(dto.isRecruitStatusFiltering(), pageable);
+            findMates = mateRepository.findPageByRecruitStatus(false, pageable);
         } else if (dto.getMountainId() != null && dto.isRecruitStatusFiltering() == false) {
             // 산 필터링 O, 모집중인 게시글만 보기 X
             findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
         } else {
             // 산 필터링 O, 모집중인 게시글만 보기 O
-            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), dto.isRecruitStatusFiltering(), pageable);
+            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), false, pageable);
         }
 
         return MatePost.toDtoList(findMates);
@@ -49,6 +49,9 @@ public class MateService {
     public MatePost getPostDetail(Long mateId) {
 
         TbMate tbMate = mateRepository.findById(mateId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. mateId=" + mateId));
+
+        // 데이터 조회 시, 조회수 증가
+        tbMate.updateHit(tbMate.getHits() + 1);
 
         return MatePost.builder()
                 .entity(tbMate)

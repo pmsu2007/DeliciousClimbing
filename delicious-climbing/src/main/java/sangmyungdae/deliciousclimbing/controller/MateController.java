@@ -2,6 +2,7 @@ package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,9 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
-import sangmyungdae.deliciousclimbing.dto.user.User;
 import sangmyungdae.deliciousclimbing.service.MateService;
 import sangmyungdae.deliciousclimbing.service.UserService;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO: 그 조회할때나 글 작성할때 주소코드 날라오면 산 목록 반환해주는 부분 해야합니다.
 
@@ -27,13 +33,16 @@ public class MateController {
 
     @GetMapping
     public String mateListPage(@RequestParam(required = false) Long mountainId,
-                               @RequestParam(required = false) boolean recruitStatusFiltering,
+                               @RequestParam(required = false) Boolean rscheck,
                                @PageableDefault(size = 8, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                Model model) {
 
+        if(rscheck == null)
+            rscheck = false;
+
         MateSearchDto dto = MateSearchDto.builder()
                 .mountainId(mountainId)
-                .recruitStatusFiltering(recruitStatusFiltering)
+                .recruitStatusFiltering(rscheck)
                 .build();
         Page<MatePost> matePostList = service.getMateList(dto, pageable);
         model.addAttribute("matePostList", matePostList);
@@ -73,7 +82,6 @@ public class MateController {
         log.info("mateInfo={}", dto);
 
         //임시 코드
-        User user = userService.getUser(33L);
         MateDto mateDto = MateDto.builder().recruitCount(dto.getRecruitCount())
                 .mountainId(1L)
                 .title(dto.getTitle())
@@ -157,5 +165,33 @@ public class MateController {
         service.deleteFile(mateId, fileId);
 
         return "redirect:/mate/{mateId}";
+    }
+
+    @RequestMapping(value = "/{sido}/{sigungu}", produces = "application/json;charset=UTF-8", method= RequestMethod.GET)
+    @ResponseBody
+    public void get_option2(HttpServletResponse res, @PathVariable String sido, @PathVariable String sigungu) throws IOException {
+
+//        List<Option> options = OptionService.findOption2(option1);
+//        List<String> optionList = new ArrayList();
+//
+//        for (int i = 0; i < options.size(); i++) {
+//            optionList.add(options.get(i).getOption2());
+//        }
+        res.setContentType("application/json;charset=UTF-8");
+        log.info("sido={}, sigungu={}", sido, sigungu);
+        List<String> mtList = new ArrayList<>();
+        mtList.add("광교산");
+        mtList.add("칠보산");
+        mtList.add("수원산");
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < mtList.size(); i++) {
+            jsonArray.put(mtList.get(i));
+        }
+
+        PrintWriter pw = res.getWriter();
+        pw.print(jsonArray.toString());
+        pw.flush();
+        pw.close();
     }
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>등산 메이트 메인화면</title>
     <link  rel="stylesheet" href="/css/mateMain.css">
+    <link rel="stylesheet" href="/css/communityList.css" />
     <script defer src="/js/setting.js"></script>
     <script defer src="/js/mateMain.js"></script>
 
@@ -24,132 +25,36 @@
     <!-- <button type="button" class="joiningBtn">모집중인 글만 보기
     </button> -->
     <div class="e" style="font-size:20px">
-        <p><input type="checkbox" id="joiningBtn">모집중인 글만 보기</p>
-        <button class="button" id="open" onclick="change_btn(event)">최신 순</button>
-          <button class="button" id="close" onclick="change_btn(event)">오래된 순</button>
-    </div>  
-
+        <p th:if="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:checked="true" th:onchange="|window.location.href='@{/mate(rscheck=false, sort=${param.sort})}'|">모집중</p>
+        <p th:unless="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:onchange="|window.location.href='@{/mate(rscheck=true, sort=${param.sort})}'|">모집중</p>
+        <button class="button" id="open" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,desc')}'|">최신 순</button>
+        <button class="button" id="close" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,asc')}'|">오래된 순</button>
+    </div>
 
     <section>
         <div class="container">
-            <div class="box" >
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close"></span>
-                        <div class="topModal">
-                            <div class="modal_mountain">
-                                <div class ="modal_roadView"><img src="/img/roadView.png" alt="roadview"></div>
-                                <h1>무등산</h1>
-                            </div>
-                            <div class ="modal_recruitmentComplete"><h2>모집완료</h2></div>
-                            <span class="modal_close"></span>
-                        </div>
-                        <div class="mainModal">
-                            <div class="main_2_modal">
-                                <div class="stateModal">
-                                    <div class="modal_profile">
-                                        <div class ="modal_profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
-                                        <h2>상명 산악회</h2>
-                                    </div>
-                                    <div class="modal_date"><h1>2023년 2월 24일 (금)</h1>
-                                    </div>
-                                    <div class="modal_recruitment"><h3>모집중</h3>
-                                    </div>
-                                </div>
-                                <div class="textModal">
-                                    <h1>안녕하세요~!! 상명산악회입니다.<br>이번 산행은 무등산입니다 ~~<br>같이 재밌게 등산하실 분 찾아요 !!<br>인원은 총 6명 정도로 생각하고 있습니다.<br>많은 연락 주세요~
-                                    </h1>
-                                </div>
-                                <div class="views">
-                                    <h1>2023.02.20 조회수 1217</h1>
-                                </div>
-                            </div>
-                            <div class="commentModal">
-                                <input type="text" id="text" >
-                                <button type="button" class="posting">게시</button>
-                            </div>
-                            <div class="otherCommentmodal">
-                                <div class = "modal_profile2">
-                                    <div class ="modal_profilePhoto2"><img src="/img/profilePhoto.png" alt="profile"></div>
-                                    <h2>이은지</h2>
-                                </div>
-                                <div class="otherComment">
-                                    <h1>산악회에 잘생긴 사람들 많나요?? 키 187cm이상만요. 얼굴도 강동원 급이면 좋을거같아요</h1>
-                                </div>
-                            </div>
-                            <button type="button" class="chatingBtn"><h1>채팅하기</h1></button>
-                        </div>
-
-                    </div>
-                </div>                
+            <div class="box"  th:each="matePost : ${matePostList}" th:onclick="|location.href='@{/mate/{mateId}(mateId=${matePost.getMate().getId()})}'|">
                 <div class ="topBox">
                     <div class="mountain">
                         <div class ="roadView"><img src="/img/roadView.png" alt="roadview"></div>
-                        <h1>무등산</h1>
+                        <h1 th:text="${matePost.getMate().getMountainName()}">무등산</h1>
                     </div>
-                    <div class="date">2월 24일 (금)
+                    <div class="date"th:text="${#temporals.format(matePost.getMate().getRecruitDate(), 'MM월 dd일 (E)')}">2월 24일 (금)
                     </div>
                 </div>
-                <div class="textBox"><p>안녕하세요 같이 등산하실 분 찾아요. 안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요</p>
+                <div class="textBox"><p th:text="${matePost.getMate().getContent()}">안녕하세요 같이 등산하실 분 찾아요. 안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요</p>
 
                 </div>
                 <div class="profile">
                     <div class ="profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
-                    <h2>상명 산악회</h2>
-                    <div class="recruitment"><h3>모집완료</h3>
+                    <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
+                    <div class ="recruitment" th:if="${matePost.getMate().getRecruitStatus()}"><h3>모집완료</h3></div>
+                    <div class ="recruitment" th:unless="${matePost.getMate().getRecruitStatus()}"><h3>모집중</h3></div>
                     </div>
                 </div>
             </div>
 
-            <div class="box">
-                <div class ="topBox">
-                    <div class="mountain">
-                        <div class ="roadView"><img src="/img/roadView.png" alt="roadview"></div>
-                        <h1>무등산</h1>
-                    </div>
-                    <div class="date">2월 24일 (금)
-                    </div>
-                </div>
-                <div class="textBox"><p>안녕하세요 같이 등산하실 분 찾아요. 안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요</p>
-                </div>
-                <div class="profile">
-                    <div class ="profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
-                    <h2>상명 산악회</h2>
-                    <div class="recruitment"><h3>모집완료</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="box">
-                <p>
-                    3번째 블록
-                </p>
-            </div>
-            <div class="box">
-                    <p>
-                        4번째 블록
-                    </p>
-            </div>
-            <div class="box">
-                <p>
-                    5번째 블록
-                </p>
-                </div>
-                <div class="box">
-                <p>
-                    6번째 블록
-                </p>
-                </div>
-                <div class="box">
-                    <p>
-                        7번째 블록
-                    </p>
-                </div>
-                <div class="box">
-                        <p>
-                            8번째 블록
-                        </p>
-                </div>
-        </div>
+
         <button type="button" class="create" th:onclick="|location.href='@{/mate/write}'|">글쓰기</button>
 
         <div id="content">
@@ -157,12 +62,63 @@
           </div>
 
 
-        <div class="pagination">
-            <a href="#" class="page-link">1</a>
-            <a href="#" class="page-link">2</a>
-            <a href="#" class="page-link">3</a>
-            <!-- 필요한 만큼 페이지 링크를 추가합니다. -->
-        </div>
+        <!-- 페이징 -->
+        <div class="foot" th:if="${!matePostList.isEmpty()}">
+            <!-- 전역 변수 선언 -->
+            <nav
+                    th:with="
+                pageNumber = ${matePostList.pageable.pageNumber},
+                pageSize = ${matePostList.pageable.pageSize},
+                totalPages = ${matePostList.totalPages},
+                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                tempEndPage = ${startPage + pageSize - 1},
+                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+            >
+                <div class="board_page">
+                    <!-- 처음으로 이동 -->
+                    <div th:classappend="${pageNumber < pageSize} ? 'disabled'" class="bt first">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=0, sort=${param.sort})}">
+                            &laquo;
+                        </a>
+                    </div>
+
+                    <!-- 이전으로 이동 -->
+                    <div th:classappend="${matePostList.first} ? 'disabled'" class="bt prev" th:if="${!matePostList.first}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber - 1}, sort=${param.sort})}">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </div>
+
+                    <!-- 특정 페이지로 이동 -->
+                    <div th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                         th:classappend="${page == pageNumber + 1} ? 'active'" class="num">
+                        <a th:text="${page}" th:href="@{/mate(rscheck=${param.rscheck}, page=${page - 1}, sort=${param.sort})}"></a>
+                    </div>
+
+                    <!-- 다음으로 이동 -->
+                    <div th:classappend="${matePostList.last} ? 'disabled'" class="bt next" th:if="${!matePostList.last}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber + 1}, sort=${param.sort})}">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </div>
+
+                    <!-- 마지막으로 이동 -->
+                    <div th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'"
+                         class="bt last">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${totalPages - 1}, sort=${param.sort})}">
+                            <span>&raquo;</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div> <!-- /container -->
+
+<!--        <div class="pagination">-->
+<!--            <a href="#" class="page-link">1</a>-->
+<!--            <a href="#" class="page-link">2</a>-->
+<!--            <a href="#" class="page-link">3</a>-->
+<!--            &lt;!&ndash; 필요한 만큼 페이지 링크를 추가합니다. &ndash;&gt;-->
+<!--        </div>-->
       </section>
     
     

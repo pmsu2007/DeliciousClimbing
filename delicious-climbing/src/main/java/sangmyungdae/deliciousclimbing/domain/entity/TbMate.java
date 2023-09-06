@@ -76,4 +76,8 @@ public class TbMate extends TbDateEntity {
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
     }
+
+    public void updateHit(int hits) {
+        this.hits = hits;
+    }
 }

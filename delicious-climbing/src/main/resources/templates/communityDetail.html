@@ -6,12 +6,13 @@
     <title>커뮤니티 게시글보기</title>
     <link rel="stylesheet" href="/css/communityDetail.css" />
     <script src="../static/js/account.js"></script>
+    <link rel="stylesheet" href="../static/css/reviewListPage.css">
   </head>
   <body>
     <div class="board_wrap">
       <div class="board_view_wrap">
         <div class="board_view">
-          <div class="category" th:text="${post.type}">게시판 종류</div>
+          <div class="category" th:text="${post.type.name}">게시판 종류</div>
           <div class="board_view_top">
             <div class="title" th:text="${post.title}">글 제목이 들어갑니다.</div>
             <div class="view_btn">
@@ -77,8 +78,15 @@
         <div class="board_wrap">
           <div class="board_view_wrap">
             <div class="board_view" style = "margin-top: -80px;">
-              <div class = "comment_writer" style="float:left; font-size: 15px; margin-top:15px; margin-left:10px">
-                <div th:text="${comment.author}"></div>
+              <div class = "comment_writer" >
+                <div  th:if="${comment.user.imageUrl == null}">
+                  <img class="comment-profile-img" src="/img/profile.png" />
+                </div>
+                <div th:unless="${comment.user.imageUrl == null}">
+                  <img class="comment-profile-img" th:src="@{/user/image/{filename}(filename=${comment.user.imageUrl})}" />
+                </div>
+
+                <div th:text="${comment.user.author}"></div>
               </div>
               <div class = "comment_content" style="display: inline-block; max-width: 80%; margin-left:20px; margin-top:15px; margin-bottom:10px; font-size:15px;">
                 <div th:text="${comment.content}"></div>

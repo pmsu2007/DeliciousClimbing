@@ -20,7 +20,7 @@
                 <dd>
                   <select th:field="*{type}">
                     <option value="">게시판을 선택해주세요</option>
-                    <option th:each="type : ${types}" th:value="${type}" th:text="${type}"/>
+                    <option th:each="type : ${types}" th:value="${type}" th:text="${type.name}"/>
                   </select>
                 </dd>
               </dl>

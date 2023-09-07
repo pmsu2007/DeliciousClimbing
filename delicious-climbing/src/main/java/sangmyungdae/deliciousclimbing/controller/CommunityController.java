@@ -42,6 +42,8 @@ public class CommunityController {
                 .build();
 
         Page<Post> posts = communityService.getPostList(dto, pageable);
+
+        model.addAttribute("types", BoardType.values());
         model.addAttribute("type", type);
         model.addAttribute("posts", posts);
         return "communityList";

@@ -60,8 +60,10 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result)
+                $("#mountainId option").remove();
                 for (i = 0; i < result.length; i++) {
-                    selectOption.options[i] = new Option(result[i], i);
+                    // selectOption.options[i] = new Option(result[i].mtName, result[i].id);
+                    $("#mountainId").append($("<option></option>") .attr("value",result[i].id) .text(result[i].mtName));
                 }
             }
         }).fail(function (error) {

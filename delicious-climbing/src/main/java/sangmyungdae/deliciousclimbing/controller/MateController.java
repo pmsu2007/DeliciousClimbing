@@ -3,6 +3,7 @@ package sangmyungdae.deliciousclimbing.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -83,7 +84,7 @@ public class MateController {
 
         //임시 코드
         MateDto mateDto = MateDto.builder().recruitCount(dto.getRecruitCount())
-                .mountainId(1L)
+                .mountainId(dto.getMountainId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .recruitStatus(Boolean.TRUE)
@@ -91,7 +92,7 @@ public class MateController {
                 .recruitCount(dto.getRecruitCount())
                 .build();
 
-        Mate mate = service.createPost(33L, mateDto);
+        Mate mate = service.createPost(2L, mateDto);
         redirectAttributes.addAttribute("mateId", mate.getId());
 
         return "redirect:/mate/{mateId}";
@@ -179,16 +180,19 @@ public class MateController {
 //        }
         res.setContentType("application/json;charset=UTF-8");
         log.info("sido={}, sigungu={}", sido, sigungu);
-        List<String> mtList = new ArrayList<>();
-        mtList.add("광교산");
-        mtList.add("칠보산");
-        mtList.add("수원산");
+        List<MateFamousMountain> mountainList = service.getMountainList(sido, sigungu);
+        log.info("mountainList={}", mountainList);
+
 
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < mtList.size(); i++) {
-            jsonArray.put(mtList.get(i));
+        for (int i = 0; i < mountainList.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("mtName", mountainList.get(i).getMtName());
+            jsonObject.put("id", mountainList.get(i).getId());
+            jsonArray.put(jsonObject);
         }
 
+        log.info("result={}", jsonArray.toString());
         PrintWriter pw = res.getWriter();
         pw.print(jsonArray.toString());
         pw.flush();

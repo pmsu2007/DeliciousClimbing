@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,22 @@ import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.repository.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MateService {
 
     private final MateRepository mateRepository;
     private final MateCommentRepository commentRepository;
     private final MateFileRepository fileRepository;
     private final MountainRepository mountainRepository;
+    private final FamousMountainRepository fmtRepository;
+    private final AddressRepository addressRepository;
+    private final FamousMountainAddressRepository fmtAddressRepository;
     private final UserRepository userRepository;
 
     // 게시글 목록 조회 → Pagination 구현
@@ -35,10 +41,10 @@ public class MateService {
             findMates = mateRepository.findPageByRecruitStatus(false, pageable);
         } else if (dto.getMountainId() != null && dto.isRecruitStatusFiltering() == false) {
             // 산 필터링 O, 모집중인 게시글만 보기 X
-            findMates = mateRepository.findPageByMountain_Id(dto.getMountainId(), pageable);
+            findMates = mateRepository.findPageByFamousMountain_Id(dto.getMountainId(), pageable);
         } else {
             // 산 필터링 O, 모집중인 게시글만 보기 O
-            findMates = mateRepository.findPageByMountain_IdAndRecruitStatus(dto.getMountainId(), false, pageable);
+            findMates = mateRepository.findPageByFamousMountain_IdAndRecruitStatus(dto.getMountainId(), false, pageable);
         }
 
         return MatePost.toDtoList(findMates);
@@ -58,11 +64,27 @@ public class MateService {
                 .build();
     }
 
+    // 산 리스트 반환
+    @Transactional
+    public List<MateFamousMountain> getMountainList(String sido, String sigungu) {
+
+        TbAddress tbAddress = addressRepository.findBySidoAndSigungu(sido, sigungu).orElseThrow(() -> new IllegalArgumentException("tbAddress doesn't exist. sido=" + sido + ", sigungu=" + sigungu));
+        log.info("addressCode={}", tbAddress.getCode());
+        // List<TbFamousMountainAddress>에서 명산 id를 추출하여 List로 반환
+        List<Long> fmtIds = fmtAddressRepository.findByAddress(tbAddress)
+                .stream().map(fmtAddress -> fmtAddress.getFamousMountain().getId())
+                .collect(Collectors.toList());
+        List<TbFamousMountain> findFamousMountainList = fmtRepository.findByIdIn(fmtIds);
+
+        return MateFamousMountain.toDtoList(findFamousMountainList);
+    }
+
     // 게시글 생성
     @Transactional
     public Mate createPost(Long userId, MateDto dto) {
 
-        TbMountain findMountain = mountainRepository.getReferenceById(dto.getMountainId());
+//        TbMountain findMountain = mountainRepository.getReferenceById(dto.getMountainId());
+        TbFamousMountain findMountain = fmtRepository.getReferenceById(dto.getMountainId());
         TbUser findUser = userRepository.getReferenceById(userId);
 
         TbMate entity = mateRepository.save(dto.toEntity(findUser, findMountain));
@@ -76,8 +98,9 @@ public class MateService {
     @Transactional
     public Mate updatePost(Long mateId, MateDto dto) {
 
+        TbFamousMountain findFamousMountain = fmtRepository.getReferenceById(dto.getMountainId());
         TbMate tbMate = mateRepository.findById(mateId).orElseThrow(() -> new IllegalArgumentException("tbMate doesn't exist. mateId=" + mateId));
-        tbMate.update(dto.getTitle(), dto.getContent(), dto.getRecruitCount(), dto.getRecruitStatus(), dto.getRecruitDate());
+        tbMate.update(dto.getTitle(), dto.getContent(), dto.getRecruitCount(), dto.getRecruitStatus(), dto.getRecruitDate(), findFamousMountain);
 
         return Mate.builder()
                 .entity(tbMate)

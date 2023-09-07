@@ -16,4 +16,5 @@ public interface FamousMountainRepository extends JpaRepository<TbFamousMountain
     //list<TbFamousMountain> 으로 조회 할 수 있는 방법은 없나>?
     List<TbFamousMountain> findByNameContainingAndIdIn(String searchKeyword, List<Long> ids, Pageable pageable);
     List<TbFamousMountain> findByIdIn(List<Long> ids, Pageable pageable);
+    List<TbFamousMountain> findByIdIn(List<Long> ids);
 }

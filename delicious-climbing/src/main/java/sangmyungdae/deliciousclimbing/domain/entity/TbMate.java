@@ -43,8 +43,12 @@ public class TbMate extends TbDateEntity {
     @JoinColumn (name = "user_id")
     private TbUser user;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    private TbMountain mountain;
+
     @OneToOne(fetch = FetchType.LAZY)
-    private TbMountain mountain;
+    @JoinColumn(name = "famousMountain_id")
+    private TbFamousMountain famousMountain;
 
     @OneToMany(mappedBy = "mate")
     private List<TbMateComment> mateComments = new ArrayList<>();
@@ -57,7 +61,7 @@ public class TbMate extends TbDateEntity {
 
     @Builder
     public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
-                  LocalDate recruitDate, TbUser user, TbMountain mountain) {
+                  LocalDate recruitDate, TbUser user, TbFamousMountain famousMountain) {
         this.title = title;
         this.content = content;
         this.hits = hits;
@@ -65,16 +69,17 @@ public class TbMate extends TbDateEntity {
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
         this.user = user;
-        this.mountain = mountain;
+        this.famousMountain = famousMountain;
     }
 
 
-    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDate recruitDate) {
+    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDate recruitDate, TbFamousMountain famousMountain) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
+        this.famousMountain = famousMountain;
     }
 
     public void updateHit(int hits) {

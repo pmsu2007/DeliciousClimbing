@@ -46,7 +46,7 @@ public class Mate {
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
         this.userImageUrl = entity.getUser().getImageUrl();
-        this.mountainId = entity.getMountain().getId();
-        this.mountainName = entity.getMountain().getName();
+        this.mountainId = entity.getFamousMountain().getId();
+        this.mountainName = entity.getFamousMountain().getName();
     }
 }

@@ -7,13 +7,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
+import sangmyungdae.deliciousclimbing.domain.enums.Gender;
+import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
+import sangmyungdae.deliciousclimbing.domain.enums.Role;
 import sangmyungdae.deliciousclimbing.dto.*;
+import sangmyungdae.deliciousclimbing.dto.user.UserRegister;
 import sangmyungdae.deliciousclimbing.repository.*;
 import sangmyungdae.deliciousclimbing.util.FileStore;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,27 +35,56 @@ public class EquipmentService {
     private final FileStore fileStore;
 
     @Transactional
-    public Page<Equipment> getPostList(EquipmentSearchDto dto, Pageable pageable) {
+    public List<Equipment> getPostList(EquipmentSearchDto dto) {
 //        Page<TbEquipment> entities = equipmentRepository.findPageByAddress_CodeAndType(code,type ,pageable);
 //        return Equipment.toDtoList(entities);
-        if (dto.getEquipmentType() == null && dto.getAdressCode() == null) {
-            Page<TbEquipment> findEquipments = equipmentRepository.findAll(pageable);
-            return Equipment.toDtoList(findEquipments);
+//         if(dto.getLatest().equals("latest")){
+//            // 최신순
+//            List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateDesc();
+//
+//            return findEquipments.stream()
+//                    .map(Equipment::new)
+//                    .collect(Collectors.toList());
+//
+//        } else if(dto.getLatest().equals("oldest")){
+//             // 오래된 순
+//            List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateAsc();
+//
+//            return findEquipments.stream()
+//                    .map(Equipment::new)
+//                    .collect(Collectors.toList());
+//
+//        }else
+            if (dto.getEquipmentType() == null && dto.getAdressCode() == null) {
+            List<TbEquipment> findEquipments = equipmentRepository.findAll();
+            return findEquipments.stream()
+                    .map(Equipment::new)
+                    .collect(Collectors.toList());
+
         } else if (dto.getEquipmentType() == null && dto.getAdressCode() != null) {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_Code(dto.getAdressCode(), pageable);
-            return Equipment.toDtoList(findEquipments);
+            List<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_Code(dto.getAdressCode());
+            return findEquipments.stream()
+                    .map(Equipment::new)
+                    .collect(Collectors.toList());
+
         } else if (dto.getEquipmentType() != null && dto.getAdressCode() == null) {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByType(dto.getEquipmentType(), pageable);
-            return Equipment.toDtoList(findEquipments);
-        } else {
-            Page<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndType(dto.getAdressCode(), dto.getEquipmentType(), pageable);
-            return Equipment.toDtoList(findEquipments);
+            List<TbEquipment> findEquipments = equipmentRepository.findPageByType(dto.getEquipmentType());
+            return findEquipments.stream()
+                    .map(Equipment::new)
+                    .collect(Collectors.toList());
+        } else{
+            List<TbEquipment> findEquipments = equipmentRepository.findPageByAddress_CodeAndType(dto.getAdressCode(), dto.getEquipmentType());
+            return findEquipments.stream()
+                    .map(Equipment::new)
+                    .collect(Collectors.toList());
         }
+
     }
 
     @Transactional  //게시글 상세 조회
     public Equipment getPostDetail(Long postId) {
         TbEquipment entity = equipmentRepository.findById(postId).orElseThrow();
+        entity.updateViews(entity.getViews()+1);
 
         return Equipment.builder()
                 .entity(entity)
@@ -58,7 +95,6 @@ public class EquipmentService {
     public Equipment createPost(EquipmentDto dto, MultipartFile[] multipartFiles) {
         TbUser user = userRepository.findById(dto.getUserId()).orElse(null);
         TbAddress address = addressRepository.findByCode(dto.getAddressCode()).orElse(null);
-        TbEquipment entity = equipmentRepository.save(dto.toEntity(user, address));
         List<TbEquipmentFile> files = fileStore.storeFiles(multipartFiles).stream()
                 .map(file -> TbEquipmentFile.builder()
                         .storeFileName(file.getStoreFileName())
@@ -66,7 +102,7 @@ public class EquipmentService {
                         .build())
                 .collect(Collectors.toList());
 
-        TbEquipment equipment = TbEquipment.builder().type(dto.getType()).content(dto.getContent()).user(user).build();
+        TbEquipment equipment = TbEquipment.builder().type(dto.getType()).title(dto.getTitle()).address(address).tradeCost(dto.getTradeCost()).tradeStatus(true).content(dto.getContent()).user(user).views(0L).build();
 
         for (TbEquipmentFile file : files) {
             equipment.addFile(file);
@@ -90,5 +126,29 @@ public class EquipmentService {
         equipmentFileRepository.deleteByEquipment_Id(postId);
         equipmentRepository.deleteById(postId);
     }
+
+    @Transactional // 거래 상태 업데이트
+    public void updateTradeStatus(Long postId){
+        TbEquipment entity = equipmentRepository.findById(postId).orElseThrow();
+        entity.updateTradeStatus(!entity.isTradeStatus());
+    }
+
+//    // 최신순으로 정렬된 게시글 목록 가져오기
+//    public List<Equipment> getLatestPosts() {
+//        List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateDesc();
+//
+//        return findEquipments.stream()
+//                .map(Equipment::new)
+//                .collect(Collectors.toList());
+//    }
+//
+//    // 오래된 순으로 정렬된 게시글 목록 가져오기
+//    public List<Equipment> getOldestPosts() {
+//        List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateAsc();
+//
+//        return findEquipments.stream()
+//                .map(Equipment::new)
+//                .collect(Collectors.toList());
+//    }
 
 }

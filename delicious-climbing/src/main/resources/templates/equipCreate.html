@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,8 +18,8 @@
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 <body>
-<form method="POST" action="#" onsubmit="return validateForm();">
-  <form th:action="@{/equipment/create}" th:object="${equipmentDto}" method="POST" enctype="multipart/form-data">
+<!--<form method="POST" action="#" onsubmit="return validateForm();">-->
+  <form th:action="@{/equipment/create}" th:object="${equipmentDto}" method="post" enctype="multipart/form-data">
     <div class="mainBox">
       <div class="selectBox">
         <select name="sido1" id="sido1" required></select>
@@ -40,33 +40,28 @@
               <dl>
                 <dt>가격</dt>
                 <dd class="price">
-                  <input type="text" th:field="*{tradeCost}" placeholder="가격을 입력해주세요." />
+                  <input type="number" th:field="*{tradeCost}" placeholder="가격을 입력해주세요."/>
                 </dd>
               </dl>
             </div>
-            <dl>
+            <dl>능
               <dt>파일</dt>
               <dd>
-                <label for="file"></label>
-                <input type="file" id="file" name="file" /><br />
+                  <input type="file" name="files" multiple/><br/>
               </dd>
             </dl>
           </div>
           <div class="cont">
+            <input type="number" th:field="*{userId}" placeholder="유저아이디"></textarea>
             <textarea th:field="*{content}" placeholder="내용 입력"></textarea>
           </div>
         </div>
         <div class="bt_wrap">
-          <a
-                  href="equipMain.html"
-                  class="submit"
-                  style="font-size: 25px; padding-top: 20px"
-          >등록하기</a
-          >
+          <button class ="on" type="submit">등록하기</button>
         </div>
       </div>
     </div>
   </form>
-</form>
+<!--</form>-->
 </body>
 </html>

@@ -14,20 +14,22 @@ public class EquipmentDto {
     private String content;
     private Long userId;
     private Integer tradeCost;
-    private Boolean tradeStatus;
+    private Boolean tradeStatus ;
     private Long addressCode;
+    private Long views;
 
     @Builder
     public EquipmentDto(EquipmentType type, String title, String content,
-                        Long userId, Integer tradeCost, Boolean tradeStatus,Long addressCode) {
+                         Long userId, Integer tradeCost,Long addressCode,Long views) {
         this.type = type;
         this.title = title;
         this.content = content;
         this.userId = userId;
         this.tradeCost = tradeCost;
-        this.tradeStatus = tradeStatus;
+        this.tradeStatus = Boolean.TRUE;
         //address는?
         this.addressCode = addressCode;
+        this.views = views;
     }
 
     public TbEquipment toEntity(TbUser user, TbAddress address){
@@ -36,9 +38,10 @@ public class EquipmentDto {
                 .title(this.title)
                 .content(this.content)
                 .tradeCost(this.tradeCost)
-                .tradeStatus(this.tradeStatus)
+                .tradeStatus(true)
                 .address(address)
                 .user(user)
+                .views(0L)
                 .build();
     }
 }

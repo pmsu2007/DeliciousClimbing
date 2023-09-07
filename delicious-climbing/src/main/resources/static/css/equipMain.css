@@ -1,3 +1,7 @@
+h3{
+  font-size: 40px;
+  margin-left: 70px;
+}
 .mainBox {
   display: flex;
   justify-content: center;
@@ -12,10 +16,13 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
-
+.wrapper{
+  width: 1200px;
+  margin: 0 auto;
+}
 select {
   position: relative;
-  width: 308px;
+  width: 270px;
   height: 40px;
   border-radius: 5px;
   margin:20px;
@@ -43,9 +50,9 @@ p{
 }
 
 .e{
-  position: absolute;
-  float :left;
-  left:53%;
+  position: relative;
+  float :right;
+  right : 10%;
   display:flex;
  text-align: center;
 }
@@ -60,6 +67,34 @@ p{
 a{
   color: #000000;
 }
+.filterBtn{
+  position: relative;
+  width: 80px;
+  height: 30px;
+  margin: auto;
+  margin-left:5px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 31px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  color: #000000;
+  border-color : gray;
+  border-width: 1px;
+  border: 0;
+}
+.filterBtn:hover,
+.filterBtn.active {
+  background: #84B592;
+  color: white;
+}
+.filterBtn:visited {
+  background: #7ea338;
+  color: white;
+}
 .button{
   position: relative;
   width: 130px;
@@ -70,10 +105,10 @@ a{
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 31px;
   background: #FFFFFF;
-  border-radius: 12px;
+  border-radius: 15px;
   color: #000000;
   border-color : gray;
   border-width: 1px;
@@ -94,28 +129,27 @@ border: 0;
 
 section {
   margin-top:5%;
-  margin-left:8%;
+
 }
 
-section .box {
+.box1 {
   display: inline-block;
-  position: relative;    
+  position: relative;
   width: 1113px;
   height: 200px;
-  margin-top: 5%;
-  margin-right:1%;
-  left: 57%;
+  margin-bottom: 3%;
+  margin-top: 0.5%;
 
   background: #C4E7CE;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
 
-section .box p {
+.box1 p {
 
   background-color: transparent;
 }
-section .box .photo {
+.box1 .photo {
   position: absolute;
   width: 155px;
   height: 155px;
@@ -123,52 +157,55 @@ section .box .photo {
   top: 10%;
 }
 
-section .box .compass {
-  position: absolute;
-  transform:scale(1.5,1.5);
-  right: 11.5%;
-  top: 6%;
-  right: 5%;
- 
+.box1 .compass {
+  position: relative;
+  float:left;
+  /*transform:scale(1.5,1.5);*/
+  /*right: 11.5%;*/
+  top: 25px;
+  margin-left:30  px;
+  width: 150px;
+  height: 150px;
+
 }
 
-section .box .location {
+.box1 .location {
   position: absolute;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 1000;
-  right: 3%;
-  top: 3%;
+  right: 4%;
+  top: 10%;
   background-color: #84B592;
   padding: 5px;
   border-radius: 15px;
 }
 
-section .box .state {
+.box1 .state {
   position: absolute;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 1000;
-  right: 3%;
+  right: 5%;
   top: 40%;
 
 }
 
-section .box .price {
+.box1 .price {
   position: absolute;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 1000;
-  right: 3%;
+  right: 5%;
   top: 80%;
 }
 
-section .box h1 {
+.box1 h1 {
   position: absolute;
-  
+
   left: 20%;
-  top: 1%;
+  top: 8%;
   font-size: 30px;
 }
 
-section .box .profilePhoto {
+.box1 .profilePhoto {
   position: absolute;
   width: 35px;
   height: 35px;
@@ -178,45 +215,26 @@ section .box .profilePhoto {
   top: 77%;
 }
 
-section .box .name {
+.box1 .name {
   position: absolute;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 1000;
   left: 24%;
-  top: 75%;
+  top: 80%;
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  white-space: nowrap;
-  /* margin : 0 auto; */
-  width: 1000px;
-}
-
-.pagination {
-  margin : auto;
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
+  /*white-space: nowrap;*/
+   margin : 0 auto;
+  width: 1200px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top:5%;
 }
 
 
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition:  .3s;
-}
-
-.pagination a.active {
-  background-color: #84B592;
-  border-radius: 100px;
-  color: white;
-
+.falseComponent{
+  display:block;
 }
 
 

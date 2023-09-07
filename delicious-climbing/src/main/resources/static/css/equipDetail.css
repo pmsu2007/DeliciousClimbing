@@ -172,7 +172,7 @@ h1{
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 31px;
 
     color: #000000;
@@ -199,18 +199,12 @@ h1{
 
 }
 
-.views_w {
-    font-size: 20px;
-    position: relative;
-    top: 23%;
-    left: -70%;
-}
+
 
 .views_n {
     font-size: 20px;
     position: relative;
-    top: 24%;
-    left: -157%;
+    margin-left: 300px;
 }
 
 .profile {
@@ -299,9 +293,9 @@ h3 {
 
   .modal-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 1% auto;
     padding: 20px;
-    width: 80%;
+    width: 1000px;
   }
 
   .close {
@@ -330,12 +324,12 @@ h3 {
     position: relative;
     margin-top: 7%;
     margin-left:8%;
-    width:50%;
+    width:240px;
 
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 13px;
     line-height: 31px;
 
     color: #000000;
@@ -359,15 +353,15 @@ h3 {
     float:right;
     
     margin-top: 7%;
-    margin-left:160%;
-    width:30%;
-
+    margin-left:20%;
+    margin-right:10%;
+    width:90px;
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 31px;
-
+    padding-left: 10px;
     color: #000000;
 
     background-color: #C4E7CE;
@@ -378,7 +372,7 @@ h3 {
 
 .modal_recruitmentComplete h2{
     background-color: transparent;
-    margin:auto;
+    margin-left:30px;
 }
 
 .mainModal {
@@ -413,7 +407,7 @@ h3 {
     display: flex;
     position: relative;
     margin-top: 2%;
-    margin-left:10%;
+    margin-left:3%;
 }
 .modal_profile h2{
     margin-top:1.4%;
@@ -610,3 +604,4 @@ h3 {
     background-color: transparent;
     
 }
+

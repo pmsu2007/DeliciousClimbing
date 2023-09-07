@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등산 장비 목록</title>
+    <link  rel="stylesheet" href="/css/equipMain.css">
+    <script defer src="/js/equipMain.js"></script>
+<!--    <script defer src="/js/mateMain.js"></script>-->
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<h3>등산 장비</h3>
+<div class = "mainBox">
+
+    <form th:action="@{/equipment/list/}"  method="get" >
+    <div class ="selectBox">
+        <select name="sido1" id="sido1"></select>
+        <select  name="addressCode" id="gugun1" ></select>
+        <select name="type" id="type" ></select>
+        <button class="filterBtn" type="submit">필터링</button>
+    </div>
+    </form>
+</div>
+<!--
+해야될 거 : 최신순 / 오래된 순 정렬
+-->
+
+<div class="e" style="font-size:20px">
+    <p><button class="button" onclick="filterTradeStatus()" id="tradeStatusBtn">판매중인 글만 보기</button>
+
+    <button class="button" id="open" th:href="@{/equipment/list/}" >최신 순</button>
+
+    <button class="button" id="close" th:href="@{/equipment/list/}" >오래된 순</button>
+</div>
+
+
+    <div class="container">
+        <div  th:each="equipment : ${equipments}">
+            <div th:if="${equipment.tradeStatus == true}" >
+            <div class="box1">
+<!--                <img class="photo" th:src="@{/img/parka.png}" alt="parka">-->
+
+                <a th:href="@{/equipment/detail/{postId}(postId=${equipment.id})}"><h1 th:text="${equipment.title}">k2 가을용 바람막이 10개 팝니다!</h1></a>
+                <img class="compass" th:if="${equipment.files.size()== 0}" src="img/a.png">
+                <img class="compass" th:if="${equipment.files.size()!= 0}" th:src="@{/equipment/files/{filename}(filename=${equipment.files[0].storeFileName})}" alt="compass">
+                <div class="location" th:text="${equipment.address.sidoSigungu}">서울시 종로구</div>
+                <div class="state" th:text="${equipment.tradeStatusString}">판매 중</div>
+                <div class="price" th:text="|가격 : ${equipment.tradeCost}|">1,250,000</div>
+                <div class="profilePhoto"></div>
+                <div class="name" th:text="${equipment.user.author}">상명 산악회</div>
+            </div>
+            </div>
+            <div th:if="${equipment.tradeStatus==false}"class="falseComponent" >
+                <div class="box1">
+                    <a th:href="@{/equipment/detail/{postId}(postId=${equipment.id})}"><h1 th:text="${equipment.title}">k2 가을용 바람막이 10개 팝니다!</h1></a>
+                    <img class="compass" th:if="${equipment.files.size() == 0}" src="img/a.png">
+                    <img class="compass" th:if="${equipment.files.size() != 0}" th:src="@{/equipment/files/{filename}(filename=${equipment.files[0].storeFileName})}" alt="compass">
+                    <div class="location" th:text="${equipment.address.sidoSigungu}">서울시 종로구</div>
+                    <div class="state" th:text="${equipment.tradeStatusString}">판매 중</div>
+                    <div class="price" th:text="|가격 : ${equipment.tradeCost}|">1,250,000</div>
+                    <div class="profilePhoto"></div>
+                    <div class="name" th:text="${equipment.user.author}">상명 산악회</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

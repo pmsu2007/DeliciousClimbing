@@ -24,7 +24,7 @@ public class TbEquipmentFile extends TbDateEntity {
     private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "equipment_id")
     private TbEquipment equipment;
 
     @Builder

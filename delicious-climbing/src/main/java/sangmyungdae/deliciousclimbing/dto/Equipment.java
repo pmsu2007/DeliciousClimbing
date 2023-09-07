@@ -10,6 +10,7 @@ import sangmyungdae.deliciousclimbing.dto.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +26,13 @@ public class Equipment {
     private EquipmentType type;
     private Boolean tradeStatus;
     private Address address;
+    private Long views;
 
     private User user;
-    private List<EquipmentFile> equipmentFiles = new ArrayList<>();
+    private List<EquipmentFile> files;
     private LocalDateTime createdAt;
+
+    private String tradeStatusString;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -58,13 +62,16 @@ public class Equipment {
         this.createdAt = entity.getCreatedAt();
         this.address = new Address(entity.getAddress());
         this.user = new User(entity.getUser());
+        this.files = entity.getFiles().stream().map(EquipmentFile::new).collect(Collectors.toList());
+        this.views = entity.getViews();
+        if(entity.isTradeStatus()){
+            this.tradeStatusString = "판매중";
+        }else if(!entity.isTradeStatus()){
+            this.tradeStatusString = "거래완료";
+        }
 
     }
 
-    public static Page<Equipment> toDtoList(Page<TbEquipment>entities){
-        Page<Equipment> equipments = entities.map(entity ->
-                Equipment.builder().entity(entity).build());
 
-        return equipments;
-    }
+
 }

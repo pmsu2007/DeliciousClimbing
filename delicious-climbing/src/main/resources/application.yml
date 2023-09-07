@@ -23,3 +23,4 @@ spring:
     check-template-location: true
     prefix: classpath:/templates/
     suffix: .html
+

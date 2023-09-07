@@ -6,15 +6,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 
+import java.util.List;
+
 public interface EquipmentRepository extends JpaRepository<TbEquipment, Long> {
 
 
-    Page<TbEquipment> findPageByAddress_Code(Long code, Pageable pageable);
+    List<TbEquipment> findPageByAddress_Code(Long code);
 
-    Page<TbEquipment> findPageByType(EquipmentType type, Pageable pageable);
+    List<TbEquipment> findPageByType(EquipmentType type);
 
-    Page<TbEquipment> findPageByAddress_CodeAndType(Long code, EquipmentType type, Pageable pageable);
+    List<TbEquipment> findPageByAddress_CodeAndType(Long code, EquipmentType type);
 
 
-    Page<TbEquipment> findPageByTradeStatus(Boolean tradeStatus, Pageable pageable);
+    List<TbEquipment> findPageByTradeStatus(Boolean tradeStatus);
+
+//    // 최신순 정렬
+//    List<TbEquipment> findAllByOrderByCreatedDateDesc();
+//
+//    // 오래된 순 정렬
+//    List<TbEquipment> findAllByOrderByCreatedDateAsc();
 }

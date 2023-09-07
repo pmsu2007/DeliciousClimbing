@@ -13,12 +13,20 @@ public class EquipmentSearchDto {
 
     private  Long adressCode;
     private EquipmentType equipmentType;
+//    private String latest;
 
 
-    @Builder
-    public EquipmentSearchDto(Long adressCode,EquipmentType equipmentType,boolean tradeStatusFiltering){
-        this.adressCode = adressCode;
-        this.equipmentType = equipmentType;
-    }
+//    @Builder
+//    public EquipmentSearchDto(Long adressCode,EquipmentType equipmentType,boolean tradeStatusFiltering){
+//        this.adressCode = adressCode;
+//        this.equipmentType = equipmentType;
+//    }
+@Builder
+public EquipmentSearchDto(Long adressCode,EquipmentType equipmentType){
+    this.adressCode = adressCode;
+    this.equipmentType = equipmentType;
+//    this.latest = latest;
+}
+
 
 }

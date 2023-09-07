@@ -213,7 +213,7 @@ input[type="date"]:hover {
   margin: auto;
 }
 
-#submit {
+#on {
   width: 727px;
   height: 56px;
   text-align: center;
@@ -235,12 +235,12 @@ input[type="date"]:hover {
   color: #000000;
 }
 
-#submit:hover {
+#on:hover {
   cursor: pointer;
   filter: brightness(85%);
 }
 
-.submit {
+.on {
   font-size: 25px;
   background-color: #84b592;
   width: 727px;

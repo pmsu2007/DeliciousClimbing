@@ -16,71 +16,83 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
   <!--Google Material Icons-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
- 
-  <link rel="stylesheet" href="/css/chatingProfile.css" />
+  <link rel="stylesheet" href="/css/reviewListPage.css" />
+  <script defer src="/js/reviewListPage.js"></script>
+    <link rel="stylesheet" href="../static/css/reviewListPage.css">
+    <script src="../static/js/reviewListPage.js"></script>
 
-  <script defer src="/js/chatingProfile.js"></script>
-   
 </head>
 <body>
- <!-- 채팅 프로필 -->
-  <div class="inner">
-      <!-- user profile start -->
-      <div th:if="${user.imageUrl == null}">
-          <img class="person_icon" src="/img/profile.png" />
-      </div>
-      <div th:unless="${user.imageUrl == null}">
-          <img class="person_icon" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
-      </div>
-
-      <div class="name" th:text="${user.nickname}">정성욱</div>
-      <div class="ageNsex" th:text="${user.birthday}">20대 남성</div>
-      <div th:text="${user.gender}"></div>
-      <div class="info" th:text="${user.introduction}">상명대 컴퓨터과학과 18학번 4학년 군필 인왕산 안산 북한산 킬러</div>
-      <hr />
-      <div class="sns" th:text="${user.sns}">SNS 계정</div>
-      <a href="">
-        <img class="instagram_icon" src="/img/instagram_icon.png" alt="instagram">
-      </a>
-      <!-- user profile end -->
-
-      <!-- review filtering button -->
-      <a class="mountainReview" href="?type=MATE">동행 후기</a>
-      <a class="tradeReview" href="?type=EQUIPMENT">거래 후기</a>
-
-      <div class="head">받은 동행 후기</div>
-      <div class="number" th:text="${reviews.size()}">1</div>
-
-          <!-- review list start-->
-          <div th:each="review : ${reviews}">
-
-              <div th:if="${review.reviewer.imageUrl == null}">
-                  <img class="person_icon" src="/img/profile.png" />
+ <!-- 유저 프로필 리뷰 목록 -->
+  <div class="review-container">
+      <div class="review-container-wrap">
+          <div class="profile-container">
+              <div  th:if="${user.imageUrl == null}">
+                  <img class="profile-img" src="/img/profile.png" />
               </div>
-              <div th:unless="${review.reviewer.imageUrl == null}">
-                  <img class="person_icon" th:src="@{/user/image/{filename}(filename=${review.reviewer.imageUrl})}" />
+              <div th:unless="${user.imageUrl == null}">
+                  <img class="profile-img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
               </div>
-
-              <div th:text="${review.reviewer.nickname}">Elon Musk</div>
-              <div th:text="${review.content}">화성 갈끄니까!!</div>
-              <div th:if="${#authentication != null and #authentication.name == review.reviewer.nickname}">
-                  <form th:action="@{/reviews/{userId}/delete/{reviewId}(userId=${user.id}, reviewId=${review.id})}" method="post">
-                      <button type="submit" >삭제</button>
-                  </form>
+              <div class="profile-info-box">
+                  <div class="profile-nickname" th:text="${user.nickname}"></div>
+                  <div class="profile-birthday" th:text="|${user.birthday} ${user.gender.name}|"></div>
+                  <div class="profile-introduction" th:text="${user.introduction}"></div>
+                  <div class="profile-sns-box">
+                      <div class="profile-sns-title">SNS</div>
+                      <img class="instagram_icon" src="/img/Snsid.png" alt="instagram">
+                      <div class="profile-sns" th:text="${user.sns}"></div>
+                  </div>
               </div>
           </div>
+
+          <!-- user profile end -->
+          <hr/>
+          <!-- review filtering button -->
+          <div class="review-filter-box">
+              <a class="review-filter" href="?type=MATE">동행 후기</a>
+              <a class="review-filter" href="?type=EQUIPMENT">거래 후기</a>
+          </div>
+
+          <div class="review-title-box" th:text="|받은 동행 후기 ${reviews.size()}|"></div>
+
+          <!-- review list start-->
+          <div class="review-item-container">
+              <div class="review-item" th:each="review : ${reviews}">
+                  <div class="review-profile-box" th:onclick="|location.href='@{/reviews/{userId}(userId=${review.reviewer.id}, type=${review.type})}'|" >
+                      <div th:if="${review.reviewer.imageUrl == null}">
+                          <img class="review-profile-img" src="/img/profile.png" />
+                      </div>
+                      <div th:unless="${review.reviewer.imageUrl == null}">
+                          <img class="review-profile-img" th:src="@{/user/image/{filename}(filename=${review.reviewer.imageUrl})}" />
+                      </div>
+
+                      <div class="review-profile-nickname" th:text="${review.reviewer.nickname}">Elon Musk</div>
+                  </div>
+                  <div class="review-content-box">
+                      <div class="review-content" th:text="${review.content}">화성 갈끄니까!!</div>
+                      <div class="review-content-delete" th:if="${#authentication != null and #authentication.name == review.reviewer.nickname}">
+                          <form th:action="@{/reviews/{userId}/delete/{reviewId}(userId=${user.id}, reviewId=${review.id})}" method="post">
+                              <button type="submit" >삭제</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
           <!-- review list end-->
 
-      <!-- review create form start -->
-      <form th:action="@{/reviews/{userId}/create(userId=${user.id})}" th:object="${reviewDto}" method="post">
-          <select th:field="*{type}">
-              <option value="">게시판을 선택해주세요</option>
-              <option th:each="type : ${types}" th:value="${type}" th:text="${type}"/>
-          </select>
-          <input type="text" th:field="*{content}" class="comment" placeholder='동행 후기를 달아보세요!(50자 이내)'><br>
-          <button type="submit" class="comment_click">등록</button>
-      </form>
-      <!-- review create form end -->
+          <!-- review create form start -->
+          <form class="review-form" th:action="@{/reviews/{userId}/create(userId=${user.id})}" th:object="${reviewDto}" method="post">
+              <select class="review-type-select" th:field="*{type}">
+                  <option value="">게시판을 선택해주세요</option>
+                  <option th:each="type : ${types}" th:value="${type}" th:text="${type}"/>
+              </select>
+              <input class="review-input" type="text" th:field="*{content}" placeholder='동행 후기를 달아보세요!(50자 이내)'><br>
+              <button type="submit" class="review-submit-btn">등록</button>
+          </form>
+          <!-- review create form end -->
+      </div>
   </div>
 </body>
 </html>

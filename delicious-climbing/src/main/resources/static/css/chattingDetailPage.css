@@ -42,7 +42,17 @@
     line-height: 30px;
 }
 
-.chatting-message-container {min-height: 600px;width: 100%;overflow-y: scroll;box-sizing: border-box;margin: 20px 0;display: flex;flex-direction: column;justify-content: center;align-items: center;}
+.chatting-message-container {
+    min-height: 600px;
+    width: 100%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 .chatting-me {

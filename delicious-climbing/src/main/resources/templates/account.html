@@ -25,6 +25,7 @@
     ></script>
     <script src="../static/js/account.js"></script>
     <script src="../static/js/signin.js"></script>
+    <link rel="stylesheet" href="../static/css/chattingDetailPage.css">
   </head>
   <body class="container">
     <div class="account_main">
@@ -98,7 +99,8 @@
           <p id="account_title">Preffered Difficulty</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.difficulty.name}"></p>
+          <p th:if="${user.difficulty} == null" id="account_detail"></p>
+          <p th:if="${user.difficulty} != null" id="account_detail" th:text="${user.difficulty.name}"></p>
         </div>
       </div>
       <div class="account_btn7">

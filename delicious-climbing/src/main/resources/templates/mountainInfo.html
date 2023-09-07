@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicous Mountain</title>
+
+  <!--로고-->
+  <link rel="icon" href="/img/Logo.png" />
+   <!--브라우저 스타일 초기화-->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
+  <!--Google Fonts - 나눔고딕-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+  <!--Google Material Icons-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+ 
+  <link rel="stylesheet" href="/css/mountainInfo.css" />
+
+  <script defer src="/js/mountainInfo.js"></script>
+</head>
+</head>
+<body> 
+  <header>
+    <div class="inner"></div>
+  </header>
+
+  <section>
+    
+    <div class="inner">
+      <!-- 검색 탭 -->
+      <div class="search">
+        <input type="text" placeholder="산을 검색하세요"/>
+        <div class="material-icons" >search</div>
+      </div>
+      
+      <!-- 정렬탭 -->
+        <div class="sort"> 난이도
+            <select class="mountainSort">
+              <option value="">가나다 순</option>
+              <option value="">높이 순</option>
+              <option value="">난이도 순(상->하)</option>
+              <option value="">난이도 역순(하->상)</option>
+              <option value="">추천수 순</option>
+          </select>
+        </div>
+      <!-- 지도시작 -->
+      <img src="/img/map.png" alt="map" class="map"  />
+        <div class="seoul">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+            <br>
+          <a href="javascriptLvoid(0)">서울/경기</a>
+        </div>
+        <div class="gangwon">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">강원도</a>
+        </div>
+        <div class="chungbuk">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">충청북도</a>
+        </div>
+        <div class="chungnam">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">충청남도</a>
+        </div>
+        <div class="jeonbuk">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">전라북도</a>
+        </div>
+        <div class="jeonnam">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">전라남도</a>
+        </div>
+        <div class="gyungbuk">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">경상북도</a>
+        </div>
+        <div class="gyungnam">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">경상남도</a>
+        </div>
+        <div class="jeju">
+          <span class="material-icons">
+            arrow_drop_down
+            </span>
+          <a href="javascriptLvoid(0)">제주도</a>
+        </div>
+        
+
+        <!-- 사진 스크롤 iframe -->
+      <iframe src="/mountains/iframe" class="photos"></iframe>
+
+    </div>
+  </section>
+
+</body>
+</html>

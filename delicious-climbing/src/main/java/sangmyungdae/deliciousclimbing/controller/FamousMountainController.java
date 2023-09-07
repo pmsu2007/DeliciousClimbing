@@ -20,8 +20,8 @@ public class FamousMountainController {
     private final FamousMountainService service;
 
     @GetMapping(value = "")
-    public String mountainListPage(@RequestParam String region,
-                                   @RequestParam String keyword,
+    public String mountainListMainPage(@RequestParam(required = false) String region,
+                                   @RequestParam(required = false) String keyword,
                                    @PageableDefault(size = 100, sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                    Model model) {
         FamousMountainSearchDto dto = FamousMountainSearchDto.builder()
@@ -31,17 +31,28 @@ public class FamousMountainController {
         List<FamousMountainList> famousMountainList = service.getMountainList(dto, pageable);
         model.addAttribute("famousMountainList", famousMountainList);
 
-        return "infoMain";
+        return "mountainInfo";
+    }
+
+    @GetMapping(value = "/iframe")
+    public String mountainListPage() {
+
+
+        return "mountainInfoPhoto";
     }
 
     @GetMapping(value = "/{mountainId}")
     public String mountainDetailPage(@PathVariable Long mountainId, Model model) {
         //TODO: Session 통해 로그인중인 userId 갖고와서 삽입
         Long userId = null;
-        FamousMountain famousMountain = service.getMountainDetail(mountainId, userId);
+//        FamousMountain famousMountain = service.getMountainDetail(mountainId, userId);
+//        model.addAttribute("famousMountain", famousMountain);
+
+        //임시 코드
+        FamousMountain famousMountain = service.getMountainDetail(mountainId, 33L);
         model.addAttribute("famousMountain", famousMountain);
 
-        return "infoDetail";
+        return "mountainInfoDetail";
     }
 
     @GetMapping(value = "/recommend")

@@ -1,0 +1,277 @@
+/* COMMON */
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+header .inner {
+  width:1200px;
+  height: 150px;
+  margin: 0 auto;
+/*background-color: orange;*/
+  position: relative;
+}
+
+section .inner {
+  width: 1200px;
+  height: 1080px;
+  margin: 0 auto;
+  /* background-color: violet; */
+}
+
+section .inner .search {
+  height: 35px;
+/*  background-color: royalblue; */
+  position: relative;
+  top: 3.4%;
+  left: 10%;
+}
+
+section .inner .search input {
+ 
+  width: 200px;
+  height: 25px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  outline: none;
+  background-color: #fff;
+  color: #777;
+  margin: auto;
+}
+
+section .inner .search .material-icons {
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+ 
+}
+
+/*정렬 탭*/
+
+section .inner .sort {
+  position: relative;
+  left: 40%;
+  font-size: 13px;
+  font-weight: 800;
+  
+}
+
+section .inner .mountainSort {
+  width: 150px;
+  height: 25px;
+  font-size: 13px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  outline: none;
+  margin: auto;
+}
+/*   지도   */
+
+section .inner .map {
+  position: relative;
+  width: 500px;
+  height: 600px;
+  top: 10%;
+  left: 10%;
+}
+/* iframe 사진들 */
+
+section .inner .photos {
+  position: absolute;
+  width: 400px;
+  height: 700px;
+  left: 58%;
+  bottom: 15%;
+}
+
+/* 각도별 링크 */
+
+
+section .inner .seoul a {
+  position: absolute;
+  top: 35%;
+  left: 36%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .seoul a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+} 
+
+section .inner .seoul .material-icons { 
+  position: absolute;
+  left: 37%;
+  top: 33%;
+}
+
+
+section .inner .gangwon a{
+  position: absolute;
+  top: 32%;
+  left: 41.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .gangwon a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .gangwon .material-icons { 
+  position: absolute;
+  left: 42%;
+  top: 30%;
+}
+
+section .inner .chungbuk a{
+  position: absolute;
+  top: 41%;
+  left: 39.2%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .chungbuk a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .chungbuk .material-icons { 
+  position: absolute;
+  left: 40%;
+  top: 39%;
+}
+
+section .inner .chungnam a{
+  position: absolute;
+  top: 43%;
+  left: 34.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .chungnam a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .chungnam .material-icons { 
+  position: absolute;
+  left: 35%;
+  top: 41%;
+}
+
+section .inner .jeonbuk a{
+  position: absolute;
+  top: 52%;
+  left: 35.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .jeonbuk a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .jeonbuk .material-icons { 
+  position: absolute;
+  left: 36%;
+  top: 50%;
+}
+
+section .inner .jeonnam a{
+  position: absolute;
+  top: 60%;
+  left: 34.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .jeonnam a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .jeonnam .material-icons { 
+  position: absolute;
+  left: 35%;
+  top: 58%;
+}
+
+section .inner .gyungbuk a{
+  position: absolute;
+  top: 47%;
+  left: 43.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .gyungbuk a:hover{
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .gyungbuk .material-icons {
+  position: absolute;
+  left: 44%;
+  top: 45%;
+}
+
+section .inner .gyungnam a{
+  position: absolute;
+  top: 57%;
+  left: 42.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .gyungnam a:hover{
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .gyungnam .material-icons {
+  position: absolute;
+  left: 43%;
+  top: 55%;
+}
+
+section .inner .jeju a{
+  position: absolute;
+  top: 69%;
+  left: 34.5%;
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+}
+
+section .inner .jeju a:hover {
+  transition: 0.3s;
+  color: rgb(117, 117, 117);
+}
+
+section .inner .jeju .material-icons {
+  position: absolute;
+  left: 35%;
+  top: 67.5%;
+}

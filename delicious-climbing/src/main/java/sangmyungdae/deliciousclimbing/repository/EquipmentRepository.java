@@ -17,7 +17,6 @@ public interface EquipmentRepository extends JpaRepository<TbEquipment, Long> {
 
     List<TbEquipment> findPageByAddress_CodeAndType(Long code, EquipmentType type);
 
-
     List<TbEquipment> findPageByTradeStatus(Boolean tradeStatus);
 
 //    // 최신순 정렬
@@ -25,4 +24,5 @@ public interface EquipmentRepository extends JpaRepository<TbEquipment, Long> {
 //
 //    // 오래된 순 정렬
 //    List<TbEquipment> findAllByOrderByCreatedDateAsc();
+
 }

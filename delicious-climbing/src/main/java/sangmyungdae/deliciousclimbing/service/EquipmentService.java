@@ -1,27 +1,17 @@
 package sangmyungdae.deliciousclimbing.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
-import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
-import sangmyungdae.deliciousclimbing.domain.enums.Gender;
-import sangmyungdae.deliciousclimbing.domain.enums.LoginType;
-import sangmyungdae.deliciousclimbing.domain.enums.Role;
-import sangmyungdae.deliciousclimbing.dto.*;
-import sangmyungdae.deliciousclimbing.dto.user.UserRegister;
+import sangmyungdae.deliciousclimbing.dto.equipment.Equipment;
+import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentDto;
+import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentSearchDto;
 import sangmyungdae.deliciousclimbing.repository.*;
 import sangmyungdae.deliciousclimbing.util.FileStore;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service

@@ -27,6 +27,7 @@ public class CommunityController {
     private final CommunityService communityService;
     private final FileStore fileStore;
 
+
     @GetMapping("/{type}")
     public String communityListPage(@PathVariable BoardType type,
                                     @RequestParam(required = false) String title,
@@ -41,6 +42,8 @@ public class CommunityController {
                 .build();
 
         Page<Post> posts = communityService.getPostList(dto, pageable);
+
+        model.addAttribute("types", BoardType.values());
         model.addAttribute("type", type);
         model.addAttribute("posts", posts);
         return "communityList";

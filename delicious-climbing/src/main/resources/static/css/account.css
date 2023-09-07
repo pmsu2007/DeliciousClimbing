@@ -234,6 +234,17 @@
   border: 2px solid #F2F2F2;
 }
 
+#upload_profile_img {
+  width: 300px;
+  height: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 70%;
+  object-fit: contain;
+  border: 2px solid #F2F2F2;
+}
+
 #Name {
   font-size: 18px;
   font-weight: bolder;

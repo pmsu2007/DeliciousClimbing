@@ -38,9 +38,6 @@ public class TbFamousMountain {
     @Column(columnDefinition = "integer default 0")
     private int likes;
 
-    @OneToMany(mappedBy = "famousMountain")
-    private List<TbFamousMountainRegion> famousMountainRegions = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
@@ -58,7 +55,6 @@ public class TbFamousMountain {
         this.reason = reason;
         this.season = season;
     }
-
     public void updateLike(int likes) {
         this.likes = likes;
     }

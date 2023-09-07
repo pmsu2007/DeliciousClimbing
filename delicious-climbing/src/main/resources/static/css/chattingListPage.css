@@ -1,0 +1,85 @@
+.chatting-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.chatting-container-wrap {
+    width: 600px;
+    height: 800px;
+    border: 2px solid #C4E7CE;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chatting-title-box {
+    width: 90%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatting-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.chatting-setting {
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 12px;
+    text-align: center;
+    padding: 10px;
+
+}
+
+.chatting-item-box {
+    width: 550px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.chatting-item-wrap {
+    box-sizing: border-box;
+    width: 450px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #C4E7CE;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.15);
+}
+
+.chatting-item {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration-line: none;
+}
+
+.chatting-count {
+    font-size: 18px;
+}
+
+.chatting-delete-box {
+    background: red;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    display: none;
+}

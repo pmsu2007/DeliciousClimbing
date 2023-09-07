@@ -1,22 +1,17 @@
 package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
-import sangmyungdae.deliciousclimbing.dto.*;
-import sangmyungdae.deliciousclimbing.dto.address.Address;
+import sangmyungdae.deliciousclimbing.dto.equipment.Equipment;
+import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentDto;
+import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentSearchDto;
 import sangmyungdae.deliciousclimbing.service.EquipmentService;
 import sangmyungdae.deliciousclimbing.util.FileStore;
 
@@ -117,7 +112,4 @@ public class EquipmentController {
         return "redirect:/equipment/detail/"+postId;
 
     }
-
-
-
 }

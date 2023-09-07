@@ -1,0 +1,234 @@
+.review-container {
+ width: 100%;
+ height: 100%;
+
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.review-container-wrap {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+ border: 2px solid #84B592;
+ width: 960px;
+ height: 1024px;
+
+ box-sizing: border-box;
+ margin: 50px 0;
+ padding: 50px 0;
+ border-radius: 12px;
+}
+
+.profile-container {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+
+ width: 100%;
+ height: 200px;
+
+ box-sizing: border-box;
+ margin-bottom: 20px;
+}
+
+.profile-img {
+ box-sizing: border-box;
+ width: 200px;
+ height: 200px;
+ overflow: hidden;
+ border-radius: 70%;
+ object-fit: contain;
+ border: 2px solid #84B592;
+ margin: 0 50px;
+}
+
+.profile-info-box {
+ width: calc(100% - 300px);
+ height: 200px;
+
+ display: flex;
+ flex-direction: column;
+}
+
+.profile-nickname {
+ font-size: 48px;
+ font-weight: 700;
+ margin-bottom: 10px;
+}
+
+.profile-birthday {
+ font-size: 20px;
+ margin-bottom: 10px;
+}
+
+.profile-introduction {
+ width: 90%;
+ padding: 10px 0;
+ border-top: 2px solid #84B592;
+
+ font-size: 20px;
+ margin-bottom: 10px;
+}
+
+.profile-sns-box {
+ width: 90%;
+ display: flex;
+ align-items: center;
+
+ border-radius: 12px;
+}
+.profile-sns-title {
+ margin-right: 10px;
+ font-size: 24px;
+ font-weight: 700;
+}
+.instagram_icon {
+ width: 25px;
+ height: 28px;
+ margin-right: 10px;
+}
+
+.profile-sns {
+ height: 30px;
+ font-size: 18px;
+ font-weight: 700;
+ line-height: 30px;
+}
+
+.review-filter-box {
+ display: flex;
+ align-items: center;
+ width: 100%;
+ padding: 0 50px;
+ box-sizing: border-box;
+ margin-bottom: 20px;
+}
+
+.review-filter {
+ color: #27733D;
+ font-size: 20px;
+ font-weight: bold;
+ text-decoration-line: none;
+ padding: 0 10px;
+}
+
+.review-filter:hover {
+ color: #27733D;
+ font-size: 20px;
+ font-weight: bold;
+ padding: 0 10px;
+ text-decoration-line: underline;
+}
+
+.review-title-box {
+ display: flex;
+ align-items: center;
+ width: 100%;
+ padding: 0 60px;
+ box-sizing: border-box;
+
+ font-size: 24px;
+ color:#27733D;
+ font-weight: 700;
+}
+
+.review-item-container {
+ width: 90%;
+ min-height: 500px;
+
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+ box-sizing: border-box;
+ border: 2px solid #84B592;
+ border-radius: 12px;
+
+ padding: 20px;
+ margin: 20px 0;
+ overflow-y: scroll;
+ overflow-x: visible;
+
+}
+
+.review-item {
+ width: 90%;
+ height: 100px;
+ display: flex;
+ flex-direction: column;
+ margin-bottom: 10px;
+}
+
+.review-profile-box {
+ display: flex;
+ align-items: center;
+
+ margin-bottom: 10px;
+}
+
+.review-profile-img {
+ width: 50px;
+ height: 50px;
+ margin-right: 10px;
+
+ overflow: hidden;
+ border-radius: 70%;
+ object-fit: contain;
+ border: 2px solid black;
+}
+
+.review-profile-nickname {
+ font-size: 18px;
+ font-weight: 700;
+}
+
+.review-content-box {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.review-content {
+ padding: 5px 10px;
+ border-radius: 12px;
+ background: #C4E7CE;
+}
+
+.review-content-delete button {
+ background-color: white;
+ border: 2px solid #84B592;
+ border-radius: 8px;
+ color: #84B592;
+ cursor: pointer;
+}
+
+.review-form {
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ align-content: center;
+}
+
+.review-type-select {
+ width: 10%;
+ border: 2px solid #27733D;
+ margin-right: 10px;
+ color: #27733D;
+}
+
+.review-input {
+ width: 50%;
+ border: 2px solid #27733D;
+ margin-right: 10px;
+}
+
+.review-submit-btn {
+ width: 5%;
+ border: 2px solid #27733D;
+ margin-right: 10px;
+ background-color: white;
+ color: #27733D;
+}

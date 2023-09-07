@@ -50,9 +50,6 @@ public class TbEquipment extends TbDateEntity {
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TbEquipmentFile> files = new ArrayList<>();
 
-    @OneToMany(mappedBy = "equipment")
-    private List<TbEquipmentReview> equipmentReviews = new ArrayList<>();
-
     @Builder
     public TbEquipment(String title, String content, int hits, int tradeCost, EquipmentType type,
                        boolean tradeStatus, TbUser user, TbAddress address,Long views) {

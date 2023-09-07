@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>등산 장비 글쓰기화면</title>
+  <link rel="stylesheet" href="/css/equipCreate.css" />
+  <script defer src="/js/equipCreate.js"></script>
+  <!-- <script defer src="/js/mateMain.js"></script> -->
+  <!-- <script defer src="/js/mateCreate.js"></script> -->
+
+  <script
+          src="http://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"
+  ></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+</head>
+<body>
+<!--<form method="POST" action="#" onsubmit="return validateForm();">-->
+  <form th:action="@{/equipment/create}" th:object="${equipmentDto}" method="post" enctype="multipart/form-data">
+    <div class="mainBox">
+      <div class="selectBox">
+        <select name="sido1" id="sido1" required></select>
+        <select th:field="*{addressCode}" name="gugun1" id="gugun1" required></select>
+        <select th:field="*{type}" name="type" id="type" required></select>
+      </div>
+    </div>
+    <div class="board_wrap">
+      <div class="board_title"></div>
+      <div class="board_write_wrap">
+        <div class="board_write">
+          <div class="title">
+            <dl>
+              <dt>제목</dt>
+              <dd><input type="text" th:field="*{title}" placeholder="제목 입력" /></dd>
+            </dl>
+            <div class="price">
+              <dl>
+                <dt>가격</dt>
+                <dd class="price">
+                  <input type="number" th:field="*{tradeCost}" placeholder="가격을 입력해주세요."/>
+                </dd>
+              </dl>
+            </div>
+            <dl>능
+              <dt>파일</dt>
+              <dd>
+                  <input type="file" name="files" multiple/><br/>
+              </dd>
+            </dl>
+          </div>
+          <div class="cont">
+            <input type="number" th:field="*{userId}" placeholder="유저아이디"></textarea>
+            <textarea th:field="*{content}" placeholder="내용 입력"></textarea>
+          </div>
+        </div>
+        <div class="bt_wrap">
+          <button class ="on" type="submit">등록하기</button>
+        </div>
+      </div>
+    </div>
+  </form>
+<!--</form>-->
+</body>
+</html>

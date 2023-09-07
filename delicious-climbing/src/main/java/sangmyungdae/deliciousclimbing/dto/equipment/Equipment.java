@@ -36,11 +36,13 @@ public class Equipment {
         private Long id;        // user엔 이 변수들말고 어어엄청 다양하니까!
         private String author;
         private String imageUrl;
+        private String email;
 
     public User(TbUser user) {
         this.id = user.getId();
         this.author = user.getNickname();
         this.imageUrl = user.getStoreFileName();
+        this.email = user.getEmail();
     }
 }
 

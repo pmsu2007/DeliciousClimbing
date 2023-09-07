@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
 import sangmyungdae.deliciousclimbing.dto.equipment.Equipment;
 import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentDto;
@@ -94,7 +95,8 @@ public class EquipmentController {
     @PostMapping("/delete/{postId}")
     public String deletePost(@PathVariable Long postId,
                              RedirectAttributes redirectAttributes) {
-        return "redirect:/equipment/{type}";
+        equipmentService.deletePost(postId);
+        return "redirect:/equipment/list";
     }
 
 

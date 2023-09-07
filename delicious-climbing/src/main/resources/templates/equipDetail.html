@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +52,11 @@
 
                     <div class="views">
                         <div class="date" th:text="${equipment.createdAt}">2021.1.15</div>
+                        <div class="equipment-delete" th:if="${#authentication != null and #authentication.name == equipment.user.email}">
+                            <form th:action="@{/equipment/delete/{postId}(postId=${equipment.id})}" method="post">
+                                <button class="button" type="submit" >삭제</button>
+                            </form>
+                        </div>
                         <p class="views_n" th:text="|조회수 : ${equipment.views}|" >100</p>
                     </div>
                 </div>

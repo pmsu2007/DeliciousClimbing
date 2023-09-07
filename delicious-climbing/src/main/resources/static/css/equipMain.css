@@ -52,7 +52,7 @@ p{
 .e{
   position: relative;
   float :right;
-  right : 10%;
+  right : 8%;
   display:flex;
  text-align: center;
 }
@@ -66,6 +66,7 @@ p{
 
 a{
   color: #000000;
+  text-decoration: none;
 }
 .filterBtn{
   position: relative;
@@ -94,6 +95,13 @@ a{
 .filterBtn:visited {
   background: #7ea338;
   color: white;
+}
+
+#create-link{
+  font-size: 15px;
+  line-height: 35px;
+  margin-left:15px;
+
 }
 .button{
   position: relative;

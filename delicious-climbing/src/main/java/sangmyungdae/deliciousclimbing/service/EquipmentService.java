@@ -3,11 +3,13 @@ package sangmyungdae.deliciousclimbing.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.dto.equipment.Equipment;
 import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentDto;
 import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentSearchDto;
 import sangmyungdae.deliciousclimbing.repository.*;
+import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 import sangmyungdae.deliciousclimbing.util.FileStore;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,10 @@ public class EquipmentService {
     private final UserRepository userRepository;
     private final EquipmentFileRepository equipmentFileRepository;
     private final FileStore fileStore;
+
+    private TbUser findUser(String username) {
+        return userRepository.findByEmail(username).orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
+    }
 
     @Transactional
     public List<Equipment> getPostList(EquipmentSearchDto dto) {
@@ -83,7 +89,7 @@ public class EquipmentService {
 
     @Transactional  //게시글 생성
     public Equipment createPost(EquipmentDto dto, MultipartFile[] multipartFiles) {
-        TbUser user = userRepository.findById(dto.getUserId()).orElse(null);
+        TbUser user = findUser(AuthUtil.getAuthUser());
         TbAddress address = addressRepository.findByCode(dto.getAddressCode()).orElse(null);
         List<TbEquipmentFile> files = fileStore.storeFiles(multipartFiles).stream()
                 .map(file -> TbEquipmentFile.builder()
@@ -113,6 +119,10 @@ public class EquipmentService {
 
     @Transactional  //게시글 삭제
     public void deletePost(Long postId) {
+        TbEquipment entity = equipmentRepository.findById(postId).orElseThrow();
+        if(!entity.getUser().getEmail().equals(AuthUtil.getAuthUser())){
+            throw ExceptionUtil.available("Forbidden");
+        }
         equipmentFileRepository.deleteByEquipment_Id(postId);
         equipmentRepository.deleteById(postId);
     }
@@ -120,6 +130,9 @@ public class EquipmentService {
     @Transactional // 거래 상태 업데이트
     public void updateTradeStatus(Long postId){
         TbEquipment entity = equipmentRepository.findById(postId).orElseThrow();
+        if(!entity.getUser().getEmail().equals(AuthUtil.getAuthUser())){
+            throw ExceptionUtil.available("Forbidden");
+        }
         entity.updateTradeStatus(!entity.isTradeStatus());
     }
 

@@ -78,20 +78,10 @@ public class EquipmentController {
     @PostMapping("/create")
     public String createPost(@ModelAttribute EquipmentDto dto,
                              MultipartFile[] files) {
-//        for (MultipartFile file :
-//            files) {
-//            System.out.println("file = "+file.toString());
-//        }
-        System.out.println("1차 확인!!!!!!!타이틀!!!!! = " + dto.getTitle());
-        System.out.println("dto = " + dto.getContent());
-        System.out.println("dto.getAddressCode() = " + dto.getAddressCode());
-        System.out.println("dto.getType() = " + dto.getType());
-//        if (files != null) {
-//            for (MultipartFile file : files) {
-//                System.out.println("file = " + file.toString()); // 일단 파일은 계속 널값 처리 됨
-//            }
-//        }
-        // user_id DTO에 추가
+        for (MultipartFile file :
+                files) {
+            System.out.println("file = "+file.toString());
+        }
         Equipment equipment = equipmentService.createPost(dto, files);
         return "redirect:/equipment/detail/"  + equipment.getId();
     }

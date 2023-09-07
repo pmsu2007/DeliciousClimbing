@@ -39,9 +39,6 @@ public class TbEquipment extends TbDateEntity {
     @Column(name = "trade_status")
     private boolean tradeStatus;
 
-//    @Column(nullable = false)
-//    private LocalDateTime createdDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
     private TbUser user;
@@ -68,7 +65,7 @@ public class TbEquipment extends TbDateEntity {
         this.user = user;
         this.address = address;
         this.views = views;
-//        this.createdDate =createdDate;
+
     }
     public void addFile(TbEquipmentFile file){
         this.files.add(file);

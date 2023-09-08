@@ -39,7 +39,7 @@
         <div class="sort"> 난이도
             <select class="mountainSort">
               <option value="">가나다 순</option>
-              <option value="">높이 순</option>
+              <option value="" th:href="@{/mountains(sort='height,DESC')}">높이 순</option>
               <option value="">난이도 순(상->하)</option>
               <option value="">난이도 역순(하->상)</option>
               <option value="">추천수 순</option>
@@ -52,60 +52,60 @@
             arrow_drop_down
             </span>
             <br>
-          <a href="javascriptLvoid(0)">서울/경기</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=SEOUL_GYEONGGI)}">서울/경기</a>
         </div>
         <div class="gangwon">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">강원도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=GANGWON)}">강원도</a>
         </div>
         <div class="chungbuk">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">충청북도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=CHUNGCHEONGBUKDO)}">충청북도</a>
         </div>
         <div class="chungnam">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">충청남도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=CHUNGCHEONGNAMDO)}">충청남도</a>
         </div>
         <div class="jeonbuk">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">전라북도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=JEOLLABUKDO)}">전라북도</a>
         </div>
         <div class="jeonnam">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">전라남도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=JEOLLANAMDO)}">전라남도</a>
         </div>
         <div class="gyungbuk">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">경상북도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=GYEONGSANGBUKDO)}">경상북도</a>
         </div>
         <div class="gyungnam">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">경상남도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=GYEONGSANGNAMDO)}">경상남도</a>
         </div>
         <div class="jeju">
           <span class="material-icons">
             arrow_drop_down
             </span>
-          <a href="javascriptLvoid(0)">제주도</a>
+          <a href="javascriptLvoid(0)" th:href="@{/mountains(region=JEJU)}">제주도</a>
         </div>
         
 
         <!-- 사진 스크롤 iframe -->
-      <iframe src="/mountains/iframe" class="photos"></iframe>
+      <iframe src="/mountains/iframe" th:src="@{/mountains/iframe(region=${param.region})}" class="photos"></iframe>
 
     </div>
   </section>

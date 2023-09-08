@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -13,6 +14,7 @@ import sangmyungdae.deliciousclimbing.service.FamousMountainService;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/mountains")
@@ -24,6 +26,10 @@ public class FamousMountainController {
                                    @RequestParam(required = false) String keyword,
                                    @PageableDefault(size = 100, sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                    Model model) {
+
+        if(region == null || region == "")
+            region = null;
+
         FamousMountainSearchDto dto = FamousMountainSearchDto.builder()
                 .keyword(keyword)
                 .region(region == null ? null : Region.valueOf(region))
@@ -35,8 +41,21 @@ public class FamousMountainController {
     }
 
     @GetMapping(value = "/iframe")
-    public String mountainListPage() {
+    public String mountainListPage(@RequestParam(required = false) String region,
+                                   @RequestParam(required = false) String keyword,
+                                   @PageableDefault(size = 100, sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
+                                   Model model) {
 
+        if(region == null || region == "")
+            region = null;
+
+        log.info("region={}", region);
+        FamousMountainSearchDto dto = FamousMountainSearchDto.builder()
+                .keyword(keyword)
+                .region(region == null ? null : Region.valueOf(region))
+                .build();
+        List<FamousMountainList> famousMountainList = service.getMountainList(dto, pageable);
+        model.addAttribute("famousMountainList", famousMountainList);
 
         return "mountainInfoPhoto";
     }

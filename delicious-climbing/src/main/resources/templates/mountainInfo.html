@@ -30,10 +30,14 @@
     
     <div class="inner">
       <!-- 검색 탭 -->
+
       <div class="search">
-        <input type="text" placeholder="산을 검색하세요"/>
-        <div class="material-icons" >search</div>
+        <form method="get" th:action="@{/mountains(region=${param.region}, sort=${param.sort}, keyword=)}">
+          <input type="text" placeholder="산을 검색하세요"/>
+          <div class="material-icons" >search</div>
+        </form>
       </div>
+
       
       <!-- 정렬탭 -->
         <div class="sort"> 난이도

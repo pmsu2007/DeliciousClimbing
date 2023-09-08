@@ -19,7 +19,6 @@ import sangmyungdae.deliciousclimbing.service.UserService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 //TODO: 그 조회할때나 글 작성할때 주소코드 날라오면 산 목록 반환해주는 부분 해야합니다.
@@ -59,7 +58,7 @@ public class MateController {
 
         log.info("recruitDate={}, updatedAt={}", matePost.getMate().getRecruitDate(), matePost.getMate().getUpdatedAt());
 
-        return "mateDetail";
+        return "mateDetail2";
     }
 
     @GetMapping(value = "/edit/{mateId}")
@@ -119,7 +118,7 @@ public class MateController {
 //        service.createComment(mateId, userId, dto)
 
         // 임시 코드
-        service.createComment(mateId, 33L, dto);
+        service.createComment(mateId, 2L, dto);
 
         log.info("content={}", dto.getContent());
 

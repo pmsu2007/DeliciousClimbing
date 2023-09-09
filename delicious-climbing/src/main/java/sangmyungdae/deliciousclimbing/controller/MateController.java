@@ -86,7 +86,7 @@ public class MateController {
                 .mountainId(dto.getMountainId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .recruitStatus(Boolean.FALSE)
+                .recruitStatus(dto.getRecruitStatus())
                 .recruitDate(dto.getRecruitDate())
                 .recruitCount(dto.getRecruitCount())
                 .build();

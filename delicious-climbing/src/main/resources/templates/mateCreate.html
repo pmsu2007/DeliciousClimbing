@@ -14,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 <body>
-    <form method="POST" action="#" th:action th:object="${mateInfo}" onsubmit="return validateForm();">
+<form method="POST" action="#" th:action th:object="${mateInfo}" onsubmit="return validateForm();">
     <div class="mainBox">
         <div class ="selectBox">
             <select name="sido1" id="sido1" required></select>
@@ -33,21 +33,28 @@
             <button type="button" class="plus" onclick="count('plus')">+</button>
             <input type="hidden" id="counterInput" th:field="*{recruitCount}" th:value="0">
 
-        </div>    
+        </div>
         <div class="dateBox">
             <label for="date-input"><h1>날짜 선택</h1></label>
             <input type="date" id="date-input" name="date" max="2050-12-31" min="" required th:field="*{recruitDate}">
         </div>
+        <br>
+        <div class="status">
+            <h1>모집 완료</h1>
+            <input type="checkbox" id="check1" th:field="*{recruitStatus}">
+            <!--            <label for="check1" ></label>-->
+        </div>
+
     </div>
     <div class="textBox">
 
-            <label for="title"><h2>글 제목</h2></label>
-            <input type="text" id="title" name="title" required th:field="*{title}"><br><br>
-            
-            <label for="content"><h2>글 내용</h2></label>
-            <textarea id="content" name="content" rows="5" cols="50" required th:field="*{content}"></textarea><br><br>
-            
-            <input type="submit" id="submit" onclick="submitData()" value="등록하기">
+        <label for="title"><h2>글 제목</h2></label>
+        <input type="text" id="title" name="title" required th:field="*{title}"><br><br>
+
+        <label for="content"><h2>글 내용</h2></label>
+        <textarea id="content" name="content" rows="5" cols="50" required th:field="*{content}"></textarea><br><br>
+
+        <input type="submit" id="submit" onclick="submitData()" value="등록하기">
     </div>
 </form>
 
@@ -71,5 +78,6 @@
         })
     }
 </script>
+
 </body>
 </html>

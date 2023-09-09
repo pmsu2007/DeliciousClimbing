@@ -15,20 +15,23 @@
 </head>
 <body>
     <div class = "mainBox">
+        <form th:action="@{/mate}" method="get" >
         <div class ="selectBox">
-            <select name="sido1" id="sido1"></select>
-            <select name="gugun1" id="gugun1"></select>
-            <select name="mountain1" id="mountain1"></select>
+            <select name="sido1" id="sido1" required></select>
+            <select name="gugun1" id="gugun1" onchange="get_option2(sido1.value, gugun1.value, mountainId)" required></select>
+            <select name="mountainId" id="mountainId" required></select>
+            <button type="submit" >검색</button>
         </div>
+        </form>
     </div>
 
     <!-- <button type="button" class="joiningBtn">모집중인 글만 보기
     </button> -->
     <div class="e" style="font-size:20px">
-        <p th:if="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:checked="true" th:onchange="|window.location.href='@{/mate(rscheck=false, sort=${param.sort})}'|">모집중</p>
-        <p th:unless="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:onchange="|window.location.href='@{/mate(rscheck=true, sort=${param.sort})}'|">모집중</p>
-        <button class="button" id="open" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,desc')}'|">최신 순</button>
-        <button class="button" id="close" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,asc')}'|">오래된 순</button>
+        <p th:if="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:checked="true" th:onchange="|window.location.href='@{/mate(rscheck=false, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
+        <p th:unless="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:onchange="|window.location.href='@{/mate(rscheck=true, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
+        <button class="button" id="open" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,desc', mountainId=${param.mountainId})}'|">최신 순</button>
+        <button class="button" id="close" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,asc', mountainId=${param.mountainId})}'|">오래된 순</button>
     </div>
 
     <section>
@@ -77,14 +80,14 @@
                 <div class="board_page">
                     <!-- 처음으로 이동 -->
                     <div th:classappend="${pageNumber < pageSize} ? 'disabled'" class="bt first">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=0, sort=${param.sort})}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=0, sort=${param.sort}, mountainId=${param.mountainId})}">
                             &laquo;
                         </a>
                     </div>
 
                     <!-- 이전으로 이동 -->
                     <div th:classappend="${matePostList.first} ? 'disabled'" class="bt prev" th:if="${!matePostList.first}">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber - 1}, sort=${param.sort})}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </div>
@@ -92,12 +95,12 @@
                     <!-- 특정 페이지로 이동 -->
                     <div th:each="page: ${#numbers.sequence(startPage, endPage)}"
                          th:classappend="${page == pageNumber + 1} ? 'active'" class="num">
-                        <a th:text="${page}" th:href="@{/mate(rscheck=${param.rscheck}, page=${page - 1}, sort=${param.sort})}"></a>
+                        <a th:text="${page}" th:href="@{/mate(rscheck=${param.rscheck}, page=${page - 1}, sort=${param.sort}, mountainId=${param.mountainId})}"></a>
                     </div>
 
                     <!-- 다음으로 이동 -->
                     <div th:classappend="${matePostList.last} ? 'disabled'" class="bt next" th:if="${!matePostList.last}">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber + 1}, sort=${param.sort})}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber + 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </div>
@@ -105,7 +108,7 @@
                     <!-- 마지막으로 이동 -->
                     <div th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'"
                          class="bt last">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${totalPages - 1}, sort=${param.sort})}">
+                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${totalPages - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
                             <span>&raquo;</span>
                         </a>
                     </div>
@@ -120,9 +123,28 @@
 <!--            &lt;!&ndash; 필요한 만큼 페이지 링크를 추가합니다. &ndash;&gt;-->
 <!--        </div>-->
       </section>
-    
-    
 
+
+    <script>
+        function get_option2(option1, option2, selectOption) {
+            $.ajax({
+                type: 'GET',
+                url: '/mate/' + option1 + '/' + option2,
+                contentType: "application/json; charset=UTF-8",
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result)
+                    $("#mountainId option").remove();
+                    for (i = 0; i < result.length; i++) {
+                        // selectOption.options[i] = new Option(result[i].mtName, result[i].id);
+                        $("#mountainId").append($("<option></option>") .attr("value",result[i].id) .text(result[i].mtName));
+                    }
+                }
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            })
+        }
+    </script>
 
 
 

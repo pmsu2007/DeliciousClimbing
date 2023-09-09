@@ -58,7 +58,7 @@ public class MateController {
 
         log.info("recruitDate={}, updatedAt={}", matePost.getMate().getRecruitDate(), matePost.getMate().getUpdatedAt());
 
-        return "mateDetail2";
+        return "mateDetail";
     }
 
     @GetMapping(value = "/edit/{mateId}")
@@ -86,12 +86,12 @@ public class MateController {
                 .mountainId(dto.getMountainId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .recruitStatus(Boolean.TRUE)
+                .recruitStatus(Boolean.FALSE)
                 .recruitDate(dto.getRecruitDate())
                 .recruitCount(dto.getRecruitCount())
                 .build();
 
-        Mate mate = service.createPost(2L, mateDto);
+        Mate mate = service.createPost(1L, mateDto);
         redirectAttributes.addAttribute("mateId", mate.getId());
 
         return "redirect:/mate/{mateId}";
@@ -118,7 +118,7 @@ public class MateController {
 //        service.createComment(mateId, userId, dto)
 
         // 임시 코드
-        service.createComment(mateId, 2L, dto);
+        service.createComment(mateId, 1L, dto);
 
         log.info("content={}", dto.getContent());
 

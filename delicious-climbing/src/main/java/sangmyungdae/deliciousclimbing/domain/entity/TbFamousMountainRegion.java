@@ -1,15 +1,12 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.enums.Region;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "TB_FAMOUSMOUNTAIN_REGION")
 public class TbFamousMountainRegion {

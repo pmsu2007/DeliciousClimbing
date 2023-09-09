@@ -31,7 +31,7 @@
                     </div>
                     <div class ="modal_recruitmentComplete" th:if="${matePost.getMate().getRecruitStatus()}"><h2>모집완료</h2></div>
                     <div class ="modal_recruitmentComplete" th:unless="${matePost.getMate().getRecruitStatus()}"><h2>모집 중</h2></div>
-                    <div class="recruitCount" th:text="${matePost.getMate().getRecruitCount()} + '명'"><h2>6명</h2></div>
+                    <div class="recruitCount" ><h2 th:text="${matePost.getMate().getRecruitCount()} + '명'">6명</h2></div>
                     <span class="modal_close"></span>
                 </div>
                 <div class="mainModal">
@@ -71,7 +71,9 @@
                             <div class ="modal_profilePhoto2"><img src="/img/profilePhoto.png" alt="profile"></div>
                             <h2 th:text="${comment.getNickName()}">이은지</h2>
                             <button type="button" class="update2">수정</button>
-                            <button type="button" class="delete2">삭제</button>
+                            <form method="post" th:action="@{/mate/{mateId}/comment/delete/{commentId}(mateId=${matePost.getMate().getId()}, commentId=${comment.getId()})}">
+                                <button type="submit" class="delete2">삭제</button>
+                            </form>
                         </div>
 
                         <div class="otherComment">

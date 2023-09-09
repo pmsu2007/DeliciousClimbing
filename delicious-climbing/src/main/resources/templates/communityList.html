@@ -18,15 +18,18 @@
         <strong>자유게시판</strong>
       </div>
       <!-- 게시글 정렬 + 게시글 검색 HTML & CSS & JS -->
-      <form th:action="@{/posts/{type}(type=${type})}" method="get">
-        <select name="sort">
-          <option value="">전체</option>
-          <option value="likes">추천순</option>
-          <option value="hits">조회순</option>
-        </select>
-        <input type="text" name="title"/>
-        <button type="submit">조회</button>
-      </form>
+      <div style="margin-bottom:5px;">
+        <form th:action="@{/posts/{type}(type=${type})}" method="get">
+          <select class="board_list_sort" name="sort">
+            <option value="">전체</option>
+            <option value="likes">추천순</option>
+            <option value="hits">조회순</option>
+          </select>
+          <input type="text" name="title"/>
+          <button style="width:50px; height:20px; background-color:#1DC800; text-align: center; border:none; border-radius:5px;" type="submit">조회</button>
+        </form>
+      </div>
+
 
       <div class="board_list_wrap">
         <div class="board_list">
@@ -41,9 +44,9 @@
           <div th:each="post : ${posts}">
             <div class="num" th:text="${post.id}">5</div>
             <div class="title">
-              <a th:href="@{/posts/{type}/{id}(type=${type}, id=${post.id})}" th:text="${post.title}">글 제목이 들어갑니다.</a>
+              <a style="float:left;" th:href="@{/posts/{type}/{id}(type=${type}, id=${post.id})}" th:text="${post.title}">글 제목이 들어갑니다.</a>
               <!-- 빨간색 CSS - 피그마 참고 -->
-              <div th:text="|[ ${post.comments.size()} ]|">댓글 수</div>
+              <div style="color:red;" th:text="|[ ${post.comments.size()} ]|">댓글 수</div>
             </div>
             <div class="writer" th:text="${post.user.author}"></div>
             <div class="date" th:text="${#strings.substring(post.createdAt, 0, 11)}"></div>

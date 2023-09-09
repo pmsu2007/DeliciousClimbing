@@ -11,7 +11,9 @@
     .board_list .count {
         display: none;
     }
-
+    .board_list_sort{
+      width: 50px;
+    }
     .board_list .date {
         width: 40%;
     }

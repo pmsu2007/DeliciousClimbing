@@ -14,137 +14,137 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 <body>
-    <div class = "mainBox">
-        <form th:action="@{/mate}" method="get" >
+<div class = "mainBox">
+    <form th:action="@{/mate}" method="get" >
         <div class ="selectBox">
             <select name="sido1" id="sido1" required></select>
             <select name="gugun1" id="gugun1" onchange="get_option2(sido1.value, gugun1.value, mountainId)" required></select>
             <select name="mountainId" id="mountainId" required></select>
-            <button type="submit" >검색</button>
+            <button type="submit" id="filtering">필터링</button>
         </div>
-        </form>
-    </div>
+    </form>
+</div>
 
-    <!-- <button type="button" class="joiningBtn">모집중인 글만 보기
-    </button> -->
-    <div class="e" style="font-size:20px">
-        <p th:if="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:checked="true" th:onchange="|window.location.href='@{/mate(rscheck=false, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
-        <p th:unless="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:onchange="|window.location.href='@{/mate(rscheck=true, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
-        <button class="button" id="open" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,desc', mountainId=${param.mountainId})}'|">최신 순</button>
-        <button class="button" id="close" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,asc', mountainId=${param.mountainId})}'|">오래된 순</button>
-    </div>
+<!-- <button type="button" class="joiningBtn">모집중인 글만 보기
+</button> -->
+<div class="e" style="font-size:20px">
+    <p th:if="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:checked="true" th:onchange="|window.location.href='@{/mate(rscheck=false, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
+    <p th:unless="${#strings.equals(param.rscheck, 'true')}"><input type="checkbox" id="joiningBtn" th:onchange="|window.location.href='@{/mate(rscheck=true, sort=${param.sort}, mountainId=${param.mountainId})}'|">모집중</p>
+    <button class="button" id="open" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,desc', mountainId=${param.mountainId})}'|">최신 순</button>
+    <button class="button" id="close" onclick="change_btn(event)" th:onclick="|location.href='@{/mate(rscheck=${param.rscheck}, sort='createdAt,asc', mountainId=${param.mountainId})}'|">오래된 순</button>
+</div>
 
-    <section>
-        <div class="container">
-            <div class="box"  th:each="matePost : ${matePostList}" th:onclick="|location.href='@{/mate/{mateId}(mateId=${matePost.getMate().getId()})}'|">
-                <div class ="topBox">
-                    <div class="mountain">
-                        <div class ="roadView"><img src="/img/roadView.png" alt="roadview"></div>
-                        <h1 th:text="${matePost.getMate().getMountainName()}">무등산</h1>
-                    </div>
-                    <div class="date"th:text="${#temporals.format(matePost.getMate().getRecruitDate(), 'MM월 dd일 (E)')}">2월 24일 (금)
-                    </div>
+<section>
+    <div class="container">
+        <div class="box"  th:each="matePost : ${matePostList}" th:onclick="|location.href='@{/mate/{mateId}(mateId=${matePost.getMate().getId()})}'|">
+            <div class ="topBox">
+                <div class="mountain">
+                    <div class ="roadView"><img src="/img/roadView.png" alt="roadview"></div>
+                    <h1 th:text="${matePost.getMate().getMountainName()}">무등산</h1>
                 </div>
-                <div class="textBox"><p th:text="${matePost.getMate().getContent()}">안녕하세요 같이 등산하실 분 찾아요. 안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요</p>
-
-                </div>
-                <div class="profile">
-                    <div class ="profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
-                    <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
-                    <div class ="recruitment" th:if="${matePost.getMate().getRecruitStatus()}"><h3>모집완료</h3></div>
-                    <div class ="recruitment" th:unless="${matePost.getMate().getRecruitStatus()}"><h3>모집중</h3></div>
-                    </div>
+                <div class="date"th:text="${#temporals.format(matePost.getMate().getRecruitDate(), 'MM월 dd일 (E)')}">2월 24일 (금)
                 </div>
             </div>
+            <div class="textBox"><p th:text="${matePost.getMate().getContent()}">안녕하세요 같이 등산하실 분 찾아요. 안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요.안녕하세요 같이 등산하실 분 찾아요</p>
+
+            </div>
+            <div class="profile">
+                <div class ="profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
+                <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
+                <div class ="recruitment" th:if="${matePost.getMate().getRecruitStatus()}"><h3>모집완료</h3></div>
+                <div class ="recruitment" th:unless="${matePost.getMate().getRecruitStatus()}"><h3>모집중</h3></div>
+            </div>
+        </div>
+    </div>
 
 
-        <button type="button" class="create" th:onclick="|location.href='@{/mate/write}'|">글쓰기</button>
+    <button type="button" class="create" th:onclick="|location.href='@{/mate/write}'|">글쓰기</button>
 
-        <div id="content">
-            <!-- 페이지 내용을 여기에 추가합니다. -->
-          </div>
+    <div id="content">
+        <!-- 페이지 내용을 여기에 추가합니다. -->
+    </div>
 
 
-        <!-- 페이징 -->
-        <div class="foot" th:if="${!matePostList.isEmpty()}">
-            <!-- 전역 변수 선언 -->
-            <nav
-                    th:with="
+    <!-- 페이징 -->
+    <div class="foot" th:if="${!matePostList.isEmpty()}">
+        <!-- 전역 변수 선언 -->
+        <nav
+                th:with="
                 pageNumber = ${matePostList.pageable.pageNumber},
                 pageSize = ${matePostList.pageable.pageSize},
                 totalPages = ${matePostList.totalPages},
                 startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
                 tempEndPage = ${startPage + pageSize - 1},
                 endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
-            >
-                <div class="board_page">
-                    <!-- 처음으로 이동 -->
-                    <div th:classappend="${pageNumber < pageSize} ? 'disabled'" class="bt first">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=0, sort=${param.sort}, mountainId=${param.mountainId})}">
-                            &laquo;
-                        </a>
-                    </div>
-
-                    <!-- 이전으로 이동 -->
-                    <div th:classappend="${matePostList.first} ? 'disabled'" class="bt prev" th:if="${!matePostList.first}">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
-                            <span aria-hidden="true">&lt;</span>
-                        </a>
-                    </div>
-
-                    <!-- 특정 페이지로 이동 -->
-                    <div th:each="page: ${#numbers.sequence(startPage, endPage)}"
-                         th:classappend="${page == pageNumber + 1} ? 'active'" class="num">
-                        <a th:text="${page}" th:href="@{/mate(rscheck=${param.rscheck}, page=${page - 1}, sort=${param.sort}, mountainId=${param.mountainId})}"></a>
-                    </div>
-
-                    <!-- 다음으로 이동 -->
-                    <div th:classappend="${matePostList.last} ? 'disabled'" class="bt next" th:if="${!matePostList.last}">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber + 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
-                            <span aria-hidden="true">&gt;</span>
-                        </a>
-                    </div>
-
-                    <!-- 마지막으로 이동 -->
-                    <div th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'"
-                         class="bt last">
-                        <a th:href="@{/mate(rscheck=${param.rscheck}, page=${totalPages - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
-                            <span>&raquo;</span>
-                        </a>
-                    </div>
+        >
+            <div class="board_page">
+                <!-- 처음으로 이동 -->
+                <div th:classappend="${pageNumber < pageSize} ? 'disabled'" class="bt first">
+                    <a th:href="@{/mate(rscheck=${param.rscheck}, page=0, sort=${param.sort}, mountainId=${param.mountainId})}">
+                        &laquo;
+                    </a>
                 </div>
-            </nav>
-        </div> <!-- /container -->
 
-<!--        <div class="pagination">-->
-<!--            <a href="#" class="page-link">1</a>-->
-<!--            <a href="#" class="page-link">2</a>-->
-<!--            <a href="#" class="page-link">3</a>-->
-<!--            &lt;!&ndash; 필요한 만큼 페이지 링크를 추가합니다. &ndash;&gt;-->
-<!--        </div>-->
-      </section>
+                <!-- 이전으로 이동 -->
+                <div th:classappend="${matePostList.first} ? 'disabled'" class="bt prev" th:if="${!matePostList.first}">
+                    <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </div>
+
+                <!-- 특정 페이지로 이동 -->
+                <div th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                     th:classappend="${page == pageNumber + 1} ? 'active'" class="num">
+                    <a th:text="${page}" th:href="@{/mate(rscheck=${param.rscheck}, page=${page - 1}, sort=${param.sort}, mountainId=${param.mountainId})}"></a>
+                </div>
+
+                <!-- 다음으로 이동 -->
+                <div th:classappend="${matePostList.last} ? 'disabled'" class="bt next" th:if="${!matePostList.last}">
+                    <a th:href="@{/mate(rscheck=${param.rscheck}, page=${pageNumber + 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </div>
+
+                <!-- 마지막으로 이동 -->
+                <div th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'"
+                     class="bt last">
+                    <a th:href="@{/mate(rscheck=${param.rscheck}, page=${totalPages - 1}, sort=${param.sort}, mountainId=${param.mountainId})}">
+                        <span>&raquo;</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div> <!-- /container -->
+
+    <!--        <div class="pagination">-->
+    <!--            <a href="#" class="page-link">1</a>-->
+    <!--            <a href="#" class="page-link">2</a>-->
+    <!--            <a href="#" class="page-link">3</a>-->
+    <!--            &lt;!&ndash; 필요한 만큼 페이지 링크를 추가합니다. &ndash;&gt;-->
+    <!--        </div>-->
+</section>
 
 
-    <script>
-        function get_option2(option1, option2, selectOption) {
-            $.ajax({
-                type: 'GET',
-                url: '/mate/' + option1 + '/' + option2,
-                contentType: "application/json; charset=UTF-8",
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result)
-                    $("#mountainId option").remove();
-                    for (i = 0; i < result.length; i++) {
-                        // selectOption.options[i] = new Option(result[i].mtName, result[i].id);
-                        $("#mountainId").append($("<option></option>") .attr("value",result[i].id) .text(result[i].mtName));
-                    }
+<script>
+    function get_option2(option1, option2, selectOption) {
+        $.ajax({
+            type: 'GET',
+            url: '/mate/' + option1 + '/' + option2,
+            contentType: "application/json; charset=UTF-8",
+            dataType: 'json',
+            success: function (result) {
+                console.log(result)
+                $("#mountainId option").remove();
+                for (i = 0; i < result.length; i++) {
+                    // selectOption.options[i] = new Option(result[i].mtName, result[i].id);
+                    $("#mountainId").append($("<option></option>") .attr("value",result[i].id) .text(result[i].mtName));
                 }
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
-            })
-        }
-    </script>
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        })
+    }
+</script>
 
 
 

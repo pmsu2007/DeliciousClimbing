@@ -15,10 +15,10 @@
         <a href="/posts/review">등산 후기</a>
       </div>
       <div class="board_title">
-        <strong>자유게시판</strong>
+        <strong th:text="${type.name}">자유게시판</strong>
       </div>
       <!-- 게시글 정렬 + 게시글 검색 HTML & CSS & JS -->
-      <div style="margin-bottom:5px;">
+      <div style="margin-bottom: 10px;">
         <form th:action="@{/posts/{type}(type=${type})}" method="get">
           <select class="board_list_sort" name="sort">
             <option value="">전체</option>

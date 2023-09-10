@@ -22,11 +22,13 @@ public class Review {
         private Long id;
         private String nickname;
         private String imageUrl;
+        private String email;
 
         public User(TbUser user) {
             this.id = user.getId();
             this.nickname = user.getNickname();
             this.imageUrl = user.getStoreFileName();
+            this.email = user.getEmail();
         }
     }
 

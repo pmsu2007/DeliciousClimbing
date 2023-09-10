@@ -11,7 +11,7 @@ header .inner {
   width:1200px;
   height: 150px;
   margin: 0 auto;
-/*background-color: orange;*/
+  /*background-color: orange;*/
   position: relative;
 }
 
@@ -24,14 +24,14 @@ section .inner {
 
 section .inner .search {
   height: 35px;
-/*  background-color: royalblue; */
+  /*  background-color: royalblue; */
   position: relative;
   top: 3.4%;
   left: 10%;
 }
 
 section .inner .search input {
- 
+
   width: 200px;
   height: 25px;
   padding: 4px 10px;
@@ -49,17 +49,66 @@ section .inner .search .material-icons {
   position: absolute;
   top: 0;
   bottom: 0;
- 
+
 }
 
 /*정렬 탭*/
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-section .inner .sort {
+section .inner .dropdown {
+  position : absolute;
+  left: 50%;
+  top: 13%;
+}
+
+.dropbtn_icon {
+  font-family : 'Material Icons';
+}
+
+.dropbtn {
+  border : 1px solid rgb(37, 37, 37);
+  border-radius : 4px;
+  background-color: #f5f5f5;
+  font-weight: 400;
+  color : rgb(37, 37, 37);
+  padding : 12px;
+  width :200px;
+  text-align: left;
+  cursor : pointer;
+  font-size : 12px;
+}
+
+.dropdown-content {
+  display : none;
+  position : absolute;
+  z-index : 1; /*다른 요소들보다 앞에 배치*/
+  font-weight: 400;
+  background-color: #f9f9f9;
+  min-width : 200px;
+}
+
+.dropdown-content a{
+  display : block;
+  text-decoration : none;
+  color : rgb(37, 37, 37);
+  font-size: 12px;
+  padding : 12px 20px;
+}
+
+.dropdown-content a:hover {
+  background-color : #ececec
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* section .inner .sort {
   position: relative;
   left: 40%;
   font-size: 13px;
   font-weight: 800;
-  
+
 }
 
 section .inner .mountainSort {
@@ -72,7 +121,8 @@ section .inner .mountainSort {
   border-radius: 5px;
   outline: none;
   margin: auto;
-}
+} */
+
 /*   지도   */
 
 section .inner .map {
@@ -107,9 +157,9 @@ section .inner .seoul a {
 section .inner .seoul a:hover {
   transition: 0.3s;
   color: rgb(117, 117, 117);
-} 
+}
 
-section .inner .seoul .material-icons { 
+section .inner .seoul .material-icons {
   position: absolute;
   left: 37%;
   top: 33%;
@@ -130,7 +180,7 @@ section .inner .gangwon a:hover {
   color: rgb(117, 117, 117);
 }
 
-section .inner .gangwon .material-icons { 
+section .inner .gangwon .material-icons {
   position: absolute;
   left: 42%;
   top: 30%;
@@ -150,7 +200,7 @@ section .inner .chungbuk a:hover {
   color: rgb(117, 117, 117);
 }
 
-section .inner .chungbuk .material-icons { 
+section .inner .chungbuk .material-icons {
   position: absolute;
   left: 40%;
   top: 39%;
@@ -170,7 +220,7 @@ section .inner .chungnam a:hover {
   color: rgb(117, 117, 117);
 }
 
-section .inner .chungnam .material-icons { 
+section .inner .chungnam .material-icons {
   position: absolute;
   left: 35%;
   top: 41%;
@@ -190,7 +240,7 @@ section .inner .jeonbuk a:hover {
   color: rgb(117, 117, 117);
 }
 
-section .inner .jeonbuk .material-icons { 
+section .inner .jeonbuk .material-icons {
   position: absolute;
   left: 36%;
   top: 50%;
@@ -210,7 +260,7 @@ section .inner .jeonnam a:hover {
   color: rgb(117, 117, 117);
 }
 
-section .inner .jeonnam .material-icons { 
+section .inner .jeonnam .material-icons {
   position: absolute;
   left: 35%;
   top: 58%;

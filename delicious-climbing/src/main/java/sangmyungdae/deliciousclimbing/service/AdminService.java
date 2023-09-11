@@ -68,20 +68,20 @@ public class AdminService {
                 }
             }
 
-//            for (Map<String, Object> item : mapList) {
-//                Long mountainId = Long.valueOf((String) item.get("mountain_id"));
-//                Long addressCode = Long.valueOf((String) item.get("address_code"));
-//
-//                TbAddress address = findAddress(addressCode);
-//                TbFamousMountain famousMountain = findFamousMountain(mountainId);
-//                TbFamousMountainAddress famousMountainAddress = TbFamousMountainAddress.builder()
-//                        .address(address)
-//                        .famousMountain(famousMountain)
-//                        .build();
-//
-//                famousMountainAddressRepository.save(famousMountainAddress);
-//
-//            }
+            for (Map<String, Object> item : mapList) {
+                Long mountainId = Long.valueOf((String) item.get("mountain_id"));
+                Long addressCode = Long.valueOf((String) item.get("address_code"));
+
+                TbAddress address = findAddress(addressCode);
+                TbFamousMountain famousMountain = findFamousMountain(mountainId);
+                TbFamousMountainAddress famousMountainAddress = TbFamousMountainAddress.builder()
+                        .address(address)
+                        .famousMountain(famousMountain)
+                        .build();
+
+                famousMountainAddressRepository.save(famousMountainAddress);
+
+            }
 
             return mapList;
         } catch (IOException e) {

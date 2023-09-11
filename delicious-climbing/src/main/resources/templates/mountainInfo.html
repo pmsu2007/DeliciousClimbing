@@ -32,7 +32,7 @@
     <!-- 검색 탭 -->
 
     <div class="search">
-      <form method="get" th:action="@{/mountains(region=${param.region}, sort=${param.sort})}">
+      <form method="get" th:action="@{/mountains}">
         <input type="text" name="keyword" placeholder="산을 검색하세요"/>
         <div class="material-icons" >search</div>
       </form>
@@ -48,8 +48,8 @@
       <div class="dropdown-content">
         <a href="#" th:href="@{/mountains(region=${param.region}, sort='name,ASC', keyword=${param.keyword})}">가나다 순</a>
         <a href="#" th:href="@{/mountains(region=${param.region}, sort='height,DESC', keyword=${param.keyword})}">높이 순</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficult,ASC', keyword=${param.keyword})}">난이도 순(상->하)</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficult,DESC', keyword=${param.keyword})}">난이도 역순(하->순)</a>
+        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,ASC', keyword=${param.keyword})}">난이도 순(상->하)</a>
+        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,DESC', keyword=${param.keyword})}">난이도 역순(하->순)</a>
         <a href="#" th:href="@{/mountains(region=${param.region}, sort='likes,DESC', keyword=${param.keyword})}">추천수 순</a>
       </div>
     </div>
@@ -113,7 +113,7 @@
 
 
     <!-- 사진 스크롤 iframe -->
-    <iframe src="moutainInfoPhoto.html" th:src="@{/mountains/iframe(region=${param.region}, sort=${param.sort})}" class="photos"></iframe>
+    <iframe src="moutainInfoPhoto.html" th:src="@{/mountains/iframe(region=${param.region}, sort=${param.sort}, keyword=${param.keyword})}" class="photos"></iframe>
 
   </div>
 </section>

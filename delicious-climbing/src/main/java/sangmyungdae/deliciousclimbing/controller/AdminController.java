@@ -32,6 +32,16 @@ public class AdminController {
         return null;
     }
 
+    @GetMapping("/mapping/famous-mountain/region")
+    public ResponseEntity<List<Map<String, Object>>> mappingFamousMountainRegion() {
+        try {
+            return ResponseEntity.ok(adminService.mappingFamousMountainRegion());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @PostMapping("/register")
     public ResponseEntity<UserRegister> adminRegister(@RequestBody UserRegister dto) {
         try {

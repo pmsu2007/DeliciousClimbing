@@ -109,8 +109,8 @@ public class FamousMountainController {
         return "redirect:/mountains/{mountainId}";
     }
 
-    @PostMapping(value = "/recommend")
-    public String createRecommend(RecommendDto dto) {
-        return null;
-    }
+//    @PostMapping(value = "/recommend")
+//    public String createRecommend(RecommendDto dto) {
+//        return null;
+//    }
 }

@@ -98,12 +98,12 @@ public class FamousMountainService {
         tbFamousMountain.updateLike(tbFamousMountain.getLikes() - 1);
     }
 
-    // 산 추천
-    @Transactional
-    public List<FamousMountain> getRecommendFamousMountains(RecommendDto dto) {
-
-        return null;
-    }
+//    // 산 추천
+//    @Transactional
+//    public List<FamousMountain> getRecommendFamousMountains(RecommendDto dto) {
+//
+//        return null;
+//    }
 
     /**
      * List<TbAddress>를 이용하여 상세주소 문자열로 변환

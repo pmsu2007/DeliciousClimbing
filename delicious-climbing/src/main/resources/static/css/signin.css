@@ -15,7 +15,7 @@ a {
   text-decoration: none;
 }
 hr {
-  
+
 }
 /* HEADER */
 header {
@@ -84,7 +84,7 @@ section .inner {
 }
 
 section .inner .signin {
-  
+
   width: 380px;
   height: 625px;
   /* background-color: darkgoldenrod;  */
@@ -102,11 +102,11 @@ section .inner .signin .title {
   font-size: 30px;
   font-weight: bold;
   padding: 40px;
-  
+
 }
 /*이메일만 사이즈 때문에*/
 section .inner .signin .email {
-  margin-left: -17px;
+
   width:240px;
   height: 45px;
   border-radius: 10px;
@@ -118,13 +118,27 @@ section .inner .signin .check {
   font-size: 14px;
   width:110px;
   height: 45px;
+  line-height: 45px;
   border-radius: 10px;
   background-color: #11D700;
   border: #11D700;
   color:#FFF;
   /* padding: 5px 5px 0 5px; */
-  margin-right: -15px;
+
 }
+
+.input-email-box {
+  width: 100%;
+  height: 45px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
 section .inner .signin input {
   width:360px;
   height: 45px;
@@ -132,10 +146,18 @@ section .inner .signin input {
   border-width: 1px;
   border-color: #B2B2B2;
   font-size: 14px;
-  
+
 }
 
+section .inner .signin select {
+  width:360px;
+  height: 45px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #B2B2B2;
+  font-size: 14px;
 
+}
 
 section .inner .signin .ok {
   font-size: 20px;
@@ -145,5 +167,16 @@ section .inner .signin .ok {
   border-width: 1px;
   background-color: #11D700;
   border: #11D700;
+  color:#FFF;
+}
+
+button[disabled=disabled], button:disabled {
+  font-size: 20px;
+  width:360px;
+  height: 45px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #323832;
+  border: #323832;
   color:#FFF;
 }

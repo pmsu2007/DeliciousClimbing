@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>커뮤니티 게시글보기</title>
+    <link rel="stylesheet" href="/css/communityDetail.css" />
+    <script src="../static/js/account.js"></script>
+    <link rel="stylesheet" href="../static/css/reviewListPage.css">
+  </head>
+  <body>
+    <div class="board_wrap">
+      <div class="board_view_wrap">
+        <div class="board_view">
+          <div class="category" th:text="${post.type.name}">게시판 종류</div>
+          <div class="board_view_top">
+            <div class="title" th:text="${post.title}">글 제목이 들어갑니다.</div>
+            <div class="view_btn">
+              <div class="box">
+                <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
+                <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
+                <form th:action="@{/posts/delete/{type}/{id}(type=${post.type}, id=${post.id})}" method="post">
+                  <button type="submit">삭제</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div style = "text-align: right; padding-right: 40px;">
+            <form th:action="@{/posts/likes/{postId} (postId=${post.id})}" method="post">
+              <button type="submit">좋아요</button>
+            </form>
+          </div>
+          <div class="cont" th:text="${post.content}">글 내용</div>
+          <!-- 이미지 정렬 부탁드려요 -->
+          <div th:each="file : ${post.files}">
+            <img id = "content_img" th:src="@{/posts/files/{filename}(filename=${file.storeFileName})}" width="200px" height="200px" style="border-color: black; border-style: solid; border-width: thin; margin-left: 30px;"/>
+          </div>
+          <div class="info">
+            <dl>
+              <dt>작성일</dt>
+              <dd th:text="${post.createdAt}" >2023 02 17</dd>
+            </dl>
+            <dl>
+              <dt>조회</dt>
+              <dd th:text="${post.hits}">33</dd>
+            </dl>
+            <dl>
+              <dt>좋아요</dt>
+              <dd th:text="${post.likes}">11</dd>
+            </dl>
+            <dl class="borad_view_date" style="float: right">
+              <dt th:text="${post.user.author}">김상명</dt>
+            </dl>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <form style = "margin-top:-80px;" th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}" th:object="${commentDto}" method="post">
+    <div class="board_wrap">
+      <div class="board_view_wrap">
+        <div class="board_view">
+          <div class="comment">
+            <div class="comment_write">
+                <dd class="comment_write_detail">
+                  <input style = "margin-left:15px;"type="text" placeholder=" 댓글을 입력하세요" th:field="*{content}"/>
+                </dd>
+                <dt class="comment_btn">
+                  <button type="submit" class="on">댓글 달기</button>
+                </dt>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
+      <div class="comment" th:each="comment : ${post.comments}">
+        <div class="board_wrap">
+          <div class="board_view_wrap">
+            <div class="board_view" style = "margin-top: -80px;">
+              <div class = "comment_writer" >
+                <div  th:if="${comment.user.imageUrl == null}">
+                  <img class="comment-profile-img" src="/img/profile.png" />
+                </div>
+                <div th:unless="${comment.user.imageUrl == null}">
+                  <img class="comment-profile-img" th:src="@{/user/image/{filename}(filename=${comment.user.imageUrl})}" />
+                </div>
+
+                <div th:text="${comment.user.author}"></div>
+              </div>
+              <div class = "comment_content" style="display: inline-block; max-width: 80%; margin-left:20px; margin-top:15px; margin-bottom:10px; font-size:15px;">
+                <div th:text="${comment.content}"></div>
+              </div>
+              <form style = "float: right; margin-right: 10px; margin-top: 15px;" th:action="@{/posts/delete/{type}/{postId}/comment/{commentId}
+              (type=${post.type}, postId=${post.id}, commentId=${comment.id})}" method="post">
+                <button type="submit">삭제</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </body>
+</html>

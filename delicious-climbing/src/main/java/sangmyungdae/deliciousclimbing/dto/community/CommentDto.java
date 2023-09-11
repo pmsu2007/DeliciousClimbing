@@ -11,14 +11,10 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 @Setter
 public class CommentDto {
     private String content;
-    private Long postId;
-    private Long userId;
 
     @Builder
-    public CommentDto(String content, Long postId, Long userId) {
+    public CommentDto(String content) {
         this.content = content;
-        this.postId = postId;
-        this.userId = userId;
     }
 
     public TbComment toEntity(TbPost post, TbUser user) {

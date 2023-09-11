@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>커뮤니티</title>
+    <link rel="stylesheet" href="/css/communityList.css" />
+  </head>
+  <body>
+    <div class="board_wrap">
+      <div class="board_menu">
+        <a href="/posts/free">자유게시판</a>
+        <a href="/posts/age">연령대별 게시판</a>
+        <a href="/posts/region">지역별 게시판</a>
+        <a href="/posts/review">등산 후기</a>
+      </div>
+      <div class="board_title">
+        <strong th:text="${type.name}">자유게시판</strong>
+      </div>
+      <!-- 게시글 정렬 + 게시글 검색 HTML & CSS & JS -->
+      <div style="margin-bottom: 10px;">
+        <form th:action="@{/posts/{type}(type=${type})}" method="get">
+          <select class="board_list_sort" name="sort">
+            <option value="">전체</option>
+            <option value="likes">추천순</option>
+            <option value="hits">조회순</option>
+          </select>
+          <input type="text" name="title"/>
+          <button style="width:50px; height:20px; background-color:#1DC800; text-align: center; border:none; border-radius:5px;" type="submit">조회</button>
+        </form>
+      </div>
+
+
+      <div class="board_list_wrap">
+        <div class="board_list">
+          <div class="top">
+            <div class="num">No</div>
+            <div class="title">제목</div>
+            <div class="writer">작성자</div>
+            <div class="date">작성일</div>
+            <div class="count">조회수</div>
+            <div class="like">좋아요</div>
+          </div>
+          <div th:each="post : ${posts}">
+            <div class="num" th:text="${post.id}">5</div>
+            <div class="title">
+              <a style="float:left;" th:href="@{/posts/{type}/{id}(type=${type}, id=${post.id})}" th:text="${post.title}">글 제목이 들어갑니다.</a>
+              <!-- 빨간색 CSS - 피그마 참고 -->
+              <div style="color:red;" th:text="|[ ${post.comments.size()} ]|">댓글 수</div>
+            </div>
+            <div class="writer" th:text="${post.user.author}"></div>
+            <div class="date" th:text="${#strings.substring(post.createdAt, 0, 11)}"></div>
+            <div class="count" th:text="${post.hits}"></div>
+            <div class="like" th:text="${post.likes}"></div>
+          </div>
+        </div>
+        <!-- 페이징 -->
+        <div class="foot" th:if="${!posts.isEmpty()}">
+          <!-- 전역 변수 선언 -->
+          <nav
+                th:with="
+                pageNumber = ${posts.pageable.pageNumber},
+                pageSize = ${posts.pageable.pageSize},
+                totalPages = ${posts.totalPages},
+                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                tempEndPage = ${startPage + pageSize - 1},
+                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+          >
+            <div class="board_page">
+              <!-- 처음으로 이동 -->
+              <div th:classappend="${pageNumber < pageSize} ? 'disabled'" class="bt first">
+                <a th:href="@{/posts/{type}(page=0, type=${type})}">
+                  &laquo;
+                </a>
+              </div>
+
+              <!-- 이전으로 이동 -->
+              <div th:classappend="${posts.first} ? 'disabled'" class="bt prev" th:if="${!posts.first}">
+                <a th:href="@{/posts/{type}(page=${pageNumber - 1}, type=${type})}">
+                  <span aria-hidden="true">&lt;</span>
+                </a>
+              </div>
+
+              <!-- 특정 페이지로 이동 -->
+              <div th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="num">
+                <a th:text="${page}" th:href="@{/posts/{type}(page=${page - 1}, type=${type})}"></a>
+              </div>
+
+              <!-- 다음으로 이동 -->
+              <div th:classappend="${posts.last} ? 'disabled'" class="bt next" th:if="${!posts.last}">
+                <a th:href="@{/posts/{type}(page=${pageNumber + 1}, type=${type})}">
+                  <span aria-hidden="true">&gt;</span>
+                </a>
+              </div>
+
+              <!-- 마지막으로 이동 -->
+              <div th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'" class="bt last">
+                <a th:href="@{/posts/{type}(page=${totalPages - 1}, type=${type})}">
+                  <span>&raquo;</span>
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div> <!-- /container -->
+        <div class="bt_wrap">
+          <a th:href="@{/posts/create}" class="on">글쓰기</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

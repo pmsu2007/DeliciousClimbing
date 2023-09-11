@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import sangmyungdae.deliciousclimbing.domain.entity.TbPost;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import sangmyungdae.deliciousclimbing.domain.enums.BoardType;
+import sangmyungdae.deliciousclimbing.dto.common.File;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 public class Post {
-    private long id;
+    private Long id;
     private BoardType type;
     private String title;
     private String content;
     private int likes;
     private int hits;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private User user;
     private List<Comment> comments = new ArrayList<>();
     private List<File> files = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Post {
         public User(TbUser user) {
             this.id = user.getId();
             this.author = user.getNickname();
-            this.imageUrl = user.getImageUrl();
+            this.imageUrl = user.getStoreFileName();
         }
     }
     @Builder

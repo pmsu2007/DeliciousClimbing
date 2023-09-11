@@ -26,16 +26,23 @@
                 <button type ="submit" class="basisLogin">로그인</button>
             </form>
 
-            <br>
-            <input id="checkbox" type="checkbox">로그인 상태 유지
-            <button type ='button' class="passwordBtn" onclick="location.href= 'checkpass.html'">비밀번호 찾기</button><br>
-            <br>
+<!--            <br>-->
+<!--            <input id="checkbox" type="checkbox">로그인 상태 유지-->
+<!--            <button type ='button' class="passwordBtn" onclick="location.href= 'checkpass.html'">비밀번호 찾기</button><br>-->
+<!--            <br>-->
 
-            <button type ='button' class="kakaoLogin"><img src="/img/kakao.png" style="position : absolute; left:10%; " alt="kakao">카카오 로그인</button><br>
-            <button type ='button' class="naverLogin"><img class="naverImage" src="/img/naver.png"  alt="naver">네이버 로그인</button>
-            <br>
-            <h3><br>계정이 없으신가요?</h3>
-            <button type = 'button' class="signUp" onclick="location.href= 'signin.html'">회원가입</button>
+<!--            <button type ='button' class="kakaoLogin"><img src="/img/kakao.png" style="position : absolute; left:10%; " alt="kakao">카카오 로그인</button><br>-->
+<!--            <button type ='button' class="naverLogin"><img class="naverImage" src="/img/naver.png"  alt="naver">네이버 로그인</button>-->
+<!--            <br>-->
+
+            <div class="register-box">
+                <div class="register-title">계정이 없으신가요?</div>
+                <a type = 'button' class="signUp" th:href="@{/register}">회원가입</a>
+            </div>
+
+            <div class="login-error" th:if="${error} == true">
+                아이디와 비밀번호를 다시 입력해주세요
+            </div>
         </div>
     </body>
 </html>

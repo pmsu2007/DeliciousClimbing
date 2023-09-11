@@ -1,9 +1,6 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMateComment;
 
 import java.time.LocalDateTime;
@@ -13,10 +10,11 @@ import java.time.LocalDateTime;
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class MateComment {
     private Long id;
     private String content;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     private Long userId;
     private String nickName;
@@ -29,6 +27,6 @@ public class MateComment {
         this.updatedAt = entity.getUpdatedAt();
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
-        this.userImageUrl = entity.getUser().getImageUrl();
+        this.userImageUrl = entity.getUser().getStoreFileName();
     }
 }

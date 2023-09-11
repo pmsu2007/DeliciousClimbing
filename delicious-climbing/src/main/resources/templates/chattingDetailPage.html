@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chating</title>
+    <link  rel="stylesheet" href="/css/chattingDetailPage.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+
+
+<!-- 채팅창과 입력창 -->
+<div class="chatting-container">
+    <div class="chatting-container-wrap">
+            <div class="chatting-title-box">
+                <div class="chatting-title" th:text="${room.roomName}"></div>
+                <div id="chat-leave" class="chatting-delete-box">채팅방 나가기</div>
+            </div>
+            <div id="chat-list" class="chatting-message-container">
+                <div th:each="message : ${room.messages}">
+                    <!-- 나의 채팅 -->
+                    <div th:if="${user.nickname == message.user.author}" class="chatting-me">
+                        <div class="chatting-text-box">
+                            <div class="chatting-text-time" th:text="${#strings.substring(message.createdAt, 10, 16)}"></div>
+                            <div class="chatting-text" th:text="${message.content}"> </div>
+                        </div>
+                    </div>
+                    <!-- 상대방 채팅 -->
+                    <div th:if="${user.nickname != message.user.author}" class="chatting-other">
+                        <div class="chatting-name" th:text="${message.user.author}"></div>
+                        <div class="chatting-text-box">
+                            <div class="chatting-text" th:text="${message.content}"></div>
+                            <div class="chatting-text-time" th:text="${#strings.substring(message.createdAt, 10, 16)}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <br>
+        <div class="input-container">
+            <input type="text" class="chatting-input" id="chatInput" placeholder="메시지를 입력하세요.">
+            <button type="button" class="chatting-input-btn" id="button-send">전송</button>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $(document).ready(function(){
+
+        var roomName = [[${room.roomName}]];
+        var roomId = [[${room.id}]];
+        var nickname = [[${user.nickname}]];
+        var username = [[${user.email}]];
+
+        console.log(roomName + ", " + roomId + ", " + nickname);
+
+        var sockJs = new SockJS("/stomp/chat");
+        //1. SockJS를 내부에 들고있는 stomp를 내어줌
+        var stomp = Stomp.over(sockJs);
+
+        //2. connection이 맺어지면 실행
+        stomp.connect({}, function (){
+            console.log("STOMP Connection")
+
+            //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+            stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                var data = JSON.parse(chat.body);
+                var writer = data.user.author;
+                var message = data.content
+                var createdAt = data.createdAt.substring(10, 16)
+                var str = '';
+
+                if(writer === username){
+                    str = "<div class='chatting-me'>";
+                    str += "<div class='chatting-text-box'>";
+                    str += "<div class='chatting-text-time'>" + createdAt + "</div>";
+                    str += "<div class='chatting-text'>" + message + "</div>";
+                    str += "</div></div>";
+                }
+                else{
+                    str = "<div class='chatting-other'>";
+                    str += "<div class='chatting-name'>" + writer + "</div>";
+                    str += "<div class='chatting-text-box'>";
+                    str += "<div class='chatting-text'>" + message + "</div>";
+                    str += "<div class='chatting-text-time'>" + createdAt + "</div>";
+                    str += "</div></div>";
+                }
+
+                $("#chat-list").append(str);
+            });
+
+            //3. send(path, header, message)로 메세지를 보낼 수 있음
+            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId,
+                type:"ENTER",
+                content: "",
+                username: username}))
+        });
+
+        $("#button-send").on("click", function(e){
+            var msg = document.getElementById("chatInput");
+
+            console.log(username + ":" + msg.value);
+
+            stomp.send('/pub/chat/message', {}, JSON.stringify(
+                {
+                    roomId: roomId,
+                    type: "CHAT",
+                    content: msg.value,
+                    username: username
+                }));
+            msg.value = '';
+        });
+
+        $("#chat-leave").on("click", function(e){
+            stomp.send('/pub/chat/message', {}, JSON.stringify(
+                {
+                    roomId: roomId,
+                    type: "LEAVE",
+                    content: "",
+                    username: username
+                }
+            ))
+            window.location.replace("/chat/rooms");
+        })
+    });
+</script>
+</body>
+</html>
+

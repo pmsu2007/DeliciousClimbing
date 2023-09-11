@@ -7,6 +7,10 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import sangmyungdae.deliciousclimbing.config.csv.CSVAddressReader;
+import sangmyungdae.deliciousclimbing.config.csv.CSVAddressWriter;
+import sangmyungdae.deliciousclimbing.config.csv.CSVFamousMountainReader;
+import sangmyungdae.deliciousclimbing.config.csv.CSVFamousMountainWriter;
 import sangmyungdae.deliciousclimbing.domain.entity.TbAddress;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 
@@ -34,7 +38,7 @@ public class FileReaderJobConfig {
                 .<TbAddress, TbAddress>chunk(CHUNKSIZE)
                 .reader(csvAddressReader.csvAddressFileReader())
                 .writer(csvAddressWriter)
-                //.allowStartIfComplete(true)
+                .allowStartIfComplete(true)
                 .build();
     }
 
@@ -51,7 +55,7 @@ public class FileReaderJobConfig {
                 .<TbFamousMountain, TbFamousMountain>chunk(CHUNKSIZE)
                 .reader(csvFamousMountainReader.csvFamousMountainFileReader())
                 .writer(csvFamousMountainWriter)
-                //.allowStartIfComplete(true)
+                .allowStartIfComplete(true)
                 .build();
     }
 }

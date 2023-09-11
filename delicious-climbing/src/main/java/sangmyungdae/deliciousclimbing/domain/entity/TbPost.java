@@ -29,6 +29,7 @@ public class TbPost extends TbDateEntity{
     @Column(nullable = false)
     private String content;
 
+
     @Column(columnDefinition = "integer default 0")
     private int hits;
 
@@ -42,7 +43,7 @@ public class TbPost extends TbDateEntity{
     @OneToMany(mappedBy = "post")
     private List<TbComment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TbFile> files = new ArrayList<>();
 
 
@@ -52,6 +53,13 @@ public class TbPost extends TbDateEntity{
         this.title = title;
         this.content = content;
         this.user = user;
+    }
+
+    public void addFile(TbFile file) {
+        this.files.add(file);
+        if (file.getPost() != this) {
+            file.addPost(this);
+        }
     }
 
     public void update(String title, String content) {

@@ -19,12 +19,12 @@ public class User {
     private String password;
     private LoginType type;
     private String nickname;
-    private String imageUrl;
     private String introduction;
     private Difficulty difficulty;
     private String sns;
     private Gender gender;
     private LocalDate birthday;
+    private String imageUrl;
     private String createdAt;
     private FamousMountain famousMountain;
     private Address address;
@@ -54,13 +54,13 @@ public class User {
         this.password = entity.getPassword();
         this.type = entity.getType();
         this.nickname = entity.getNickname();
-        this.imageUrl = entity.getImageUrl();
         this.introduction = entity.getIntroduction();
         this.difficulty = entity.getDifficulty();
         this.sns = entity.getSns();
         this.gender = entity.getGender();
         this.birthday = entity.getBirthday();
-        this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.createdAt = entity.getCreatedAt();
+        this.imageUrl = entity.getStoreFileName();
         this.famousMountain = new FamousMountain(entity.getFamousMountain());
         this.address = new Address(entity.getAddress());
    }

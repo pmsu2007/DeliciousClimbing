@@ -17,20 +17,25 @@ public class TbEquipmentFile extends TbDateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "file_name", nullable = false)
-    private String fileName;
+    @Column(name = "upload_file_name", nullable = false)
+    private String uploadFileName;
+
+    @Column(name = "store_file_name", nullable = false)
+    private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "equipment_id")
     private TbEquipment equipment;
 
     @Builder
-    public TbEquipmentFile(String fileName, TbEquipment equipment) {
-        this.fileName = fileName;
+    public TbEquipmentFile(TbEquipment equipment, String uploadFileName, String storeFileName) {
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
         this.equipment = equipment;
     }
 
-    public void update(String fileName) {
-        this.fileName = fileName;
+
+    public void addPost(TbEquipment equipment){
+        this.equipment = equipment;
     }
 }

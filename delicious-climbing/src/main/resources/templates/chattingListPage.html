@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chating</title>
+    <link  rel="stylesheet" href="/css/chattingListPage.css">
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+    <link rel="stylesheet" href="../static/css/chattingDetailPage.css">
+
+</head>
+<body>
+    <!-- chatting list start -->
+    <div class="chatting-container">
+        <div class="chatting-container-wrap">
+            <div class="chatting-title">채팅방 목록</div>
+            <div class="chatting-item-box" th:each="room : ${rooms}">
+                <div class="chatting-item-wrap">
+                    <a class="chatting-item" th:href="@{/chat/room/{roomId}(roomId=${room.id})}" th:text="${room.roomName}"></a>
+                    <div class="chatting-count" th:text="|${room.currentCount} / ${room.totalCount}|"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

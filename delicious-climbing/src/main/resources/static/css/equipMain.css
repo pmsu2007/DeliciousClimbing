@@ -1,0 +1,248 @@
+h3{
+  font-size: 40px;
+  margin-left: 70px;
+}
+.mainBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 1113px;
+  height: 130px;
+  margin : auto;
+
+
+  background: #C4E7CE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+.wrapper{
+  width: 1200px;
+  margin: 0 auto;
+}
+select {
+  position: relative;
+  width: 270px;
+  height: 40px;
+  border-radius: 5px;
+  margin:20px;
+  background: #FFFFFF;
+  color: #666666;
+  border-color: transparent;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+p{
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 31px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  color: #000000;
+  border-color : gray;
+  border-width: 1px;
+}
+
+.e{
+  position: relative;
+  float :right;
+  right : 8%;
+  display:flex;
+ text-align: center;
+}
+
+#joiningBtn{
+  box-sizing: border-box;
+  background: #F7FAFC;
+  border: 1px solid #E8E8E8;
+  margin-right:10px;
+}
+
+a{
+  color: #000000;
+  text-decoration: none;
+}
+.filterBtn{
+  position: relative;
+  width: 80px;
+  height: 30px;
+  margin: auto;
+  margin-left:5px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 31px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  color: #000000;
+  border-color : gray;
+  border-width: 1px;
+  border: 0;
+}
+.filterBtn:hover,
+.filterBtn.active {
+  background: #84B592;
+  color: white;
+}
+.filterBtn:visited {
+  background: #7ea338;
+  color: white;
+}
+
+#create-link{
+  font-size: 15px;
+  line-height: 35px;
+  margin-left:15px;
+
+}
+.button{
+  position: relative;
+  width: 130px;
+  height: 36px;
+  margin: auto;
+  margin-left:15px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 31px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  color: #000000;
+  border-color : gray;
+  border-width: 1px;
+}
+
+.button:hover,
+.button.active {
+background: #84B592;
+color: white;
+}
+.button:visited {
+background: #7ea338;
+color: white;
+}
+.button {
+border: 0;
+}
+
+section {
+  margin-top:5%;
+
+}
+
+.box1 {
+  display: inline-block;
+  position: relative;
+  width: 1113px;
+  height: 200px;
+  margin-bottom: 3%;
+  margin-top: 0.5%;
+
+  background: #C4E7CE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.box1 p {
+
+  background-color: transparent;
+}
+.box1 .photo {
+  position: absolute;
+  width: 155px;
+  height: 155px;
+  left: 1.5%;
+  top: 10%;
+}
+
+.box1 .compass {
+  position: relative;
+  float:left;
+  /*transform:scale(1.5,1.5);*/
+  /*right: 11.5%;*/
+  top: 25px;
+  margin-left:30px;
+  width: 150px;
+  height: 150px;
+
+}
+
+.box1 .location {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 1000;
+  right: 4%;
+  top: 10%;
+  background-color: #84B592;
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.box1 .state {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 1000;
+  right: 5%;
+  top: 40%;
+
+}
+
+.box1 .price {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 1000;
+  right: 5%;
+  top: 80%;
+}
+
+.box1 h1 {
+  position: absolute;
+
+  left: 20%;
+  top: 8%;
+  font-size: 30px;
+}
+
+.box1 .profilePhoto {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: #484848;
+  border-radius: 20px;
+  left: 20%;
+  top: 77%;
+}
+
+.box1 .name {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 1000;
+  left: 24%;
+  top: 80%;
+}
+
+.container {
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
+  /*white-space: nowrap;*/
+   margin : 0 auto;
+  width: 1200px;
+  text-align: center;
+}
+
+
+.falseComponent{
+  display:block;
+}
+
+

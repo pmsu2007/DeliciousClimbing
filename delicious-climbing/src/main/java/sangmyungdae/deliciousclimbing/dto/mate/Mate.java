@@ -6,6 +6,7 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 등산 메이트 생성, 수정 Response DTO
@@ -42,11 +43,12 @@ public class Mate {
         this.recruitCount = entity.getRecruitCount();
         this.recruitStatus = entity.isRecruitStatus();
         this.recruitDate = entity.getRecruitDate();
-        this.updatedAt = entity.getUpdatedAt();
+        this.updatedAt = LocalDateTime.parse(entity.getUpdatedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
-        this.userImageUrl = entity.getUser().getImageUrl();
+        this.userImageUrl = entity.getUser().getStoreFileName();
         this.mountainId = entity.getFamousMountain().getId();
         this.mountainName = entity.getFamousMountain().getName();
+
     }
 }

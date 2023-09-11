@@ -23,6 +23,9 @@
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"
     ></script>
+    <script src="../static/js/account.js"></script>
+    <script src="../static/js/signin.js"></script>
+    <link rel="stylesheet" href="../static/css/chattingDetailPage.css">
   </head>
   <body class="container">
     <div class="account_main">
@@ -48,7 +51,7 @@
           <p id="account_title">Register Since</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.createdAt}"></p>
+          <p id="account_detail" th:text="${#strings.substring(user.createdAt, 0, 11)}"></p>
         </div>
       </div>
 
@@ -85,7 +88,7 @@
           <p id="account_title">Residence</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.address.toString()}"></p>
+          <p id="account_detail" th:text="${user.address.sidoSigungu}"></p>
         </div>
       </div>
       <div class="account_btn6">
@@ -96,7 +99,8 @@
           <p id="account_title">Preffered Difficulty</p>
         </div>
         <div>
-          <p id="account_detail" th:text="${user.difficulty}"></p>
+          <p th:if="${user.difficulty} == null" id="account_detail"></p>
+          <p th:if="${user.difficulty} != null" id="account_detail" th:text="${user.difficulty.name}"></p>
         </div>
       </div>
       <div class="account_btn7">
@@ -123,8 +127,11 @@
       </div>
     </div>
     <div class="profile">
-      <div>
+      <div th:if="${user.imageUrl == null}">
         <img id="profile_img" src="/img/profile.png" />
+      </div>
+      <div th:unless="${user.imageUrl == null}">
+        <img id="profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
       </div>
       <div>
         <p id="Name"></p>
@@ -149,7 +156,7 @@
             <p id="profile_title">Gender</p>
           </div>
           <div>
-            <p id="profile_detail3"th:text="${user.gender}"></p>
+            <p id="profile_detail3"th:text="${user.gender.name}"></p>
           </div>
         </div>
       </div>
@@ -170,23 +177,23 @@
             <span class="close-button" data-modal="#modal-1">&times;</span>
             <!-- 회원 정보 수정 -->
             <div class="modal-update-info">
-              <form th:action="@{/update/{id}(id=${user.id})}" th:object="${userDto}" method="post">
+              <form th:action="@{/user/update}" th:object="${userDto}" method="post">
                 <h1>회원 정보 수정</h1>
                 <br />
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">닉네임</label>
-                  <input class="modal-input" type="text" th:field="*{nickname}"/><br />
+                  <input class="modal-input" type="text" th:field="*{nickname}" th:value="${user.nickname}"/><br />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">소개글</label>
-                  <input class="modal-input" type="text" th:field="*{introduction}"/><br />
+                  <input class="modal-input" type="text" th:field="*{introduction}" th:value="${user.introduction}"/><br />
                   <label></label>
                 </div>
                 <div class="modal-input-wrap">
                   <label class="modal-label">선호 난이도</label>
-                  <select class="modal-select" th:field="*{difficulty}">
+                  <select class="modal-select" th:field="*{difficulty}" th:value="${user.difficulty}">
                     <option value="UPPER">상</option>
                     <option value="MIDDLE">중</option>
                     <option value="LOWER">하</option>
@@ -195,13 +202,13 @@
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label">선호하는 산</label>
-                  <select class="modal-select" th:field="*{famousMountainId}">
+                  <select class="modal-select" th:field="*{famousMountainId}" th:value="${user.famousMountain}">
                   </select>
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label class="modal-label" >SNS</label>
-                  <input class="modal-input" type="text" th:field="*{sns}"/><br />
+                  <input class="modal-input" type="text" th:field="*{sns}" th:value="${user.sns}"/><br />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
@@ -217,17 +224,20 @@
             </div>
             <!-- 프로필 이미지 변경-->
             <div class="modal-update-img">
-              <form>
+              <form th:action="@{/user/update/image}" method="post" enctype="multipart/form-data">
                 <h1>프로필 이미지 변경</h1>
                 <br />
                 <br />
-                <div>
-                  <img id="profile_img" src="/img/profile.png" />
+                <div th:if="${user.imageUrl == null}">
+                  <img id="upload_profile_img" src="/img/profile.png" />
+                </div>
+                <div th:unless="${user.imageUrl == null}">
+                  <img id="upload_profile_img" th:src="@{/user/image/{filename}(filename=${user.imageUrl})}" />
                 </div>
                 <br />
                 <div class="modal-input-wrap">
                   <label>이미지</label>
-                  <input type="file" />
+                  <input id="profile_img_input" type="file" name="file"/>
                 </div>
                 <br />
                 <button class="request-button" type="submit">
@@ -238,7 +248,7 @@
             </div>
             <!-- 비밀번호 변경 -->
             <div class="modal-update-password">
-              <form id="change-password" th:action="@{/update/password/{id}(id=${user.id})}" th:object="${userPassword}" method="post">
+              <form id="change-password" th:action="@{/user/update/password}" th:object="${userPassword}" method="post">
                 <h1>비밀번호 변경</h1>
                 <br />
                 <br />
@@ -264,7 +274,7 @@
             </div>
             <!-- 회원 탈퇴 -->
             <div class="modal-delete-user">
-              <form th:action="@{/delete/{id}(id=${user.id})}" th:object="${userPassword}" method="post">
+              <form th:action="@{/user/delete}" th:object="${userPassword}" method="post">
                 <h1>회원 탈퇴</h1>
                 <br />
                 <br />
@@ -285,122 +295,3 @@
     </div>
   </body>
 </html>
-
-<!-- <div class ="account_btn6">
-            <div>
-                <img id = "account_img" src = "/img/RecommendedMountain.png">
-            </div>
-            <div>
-                <p id = "account_title">Recommended Mountain</p>
-            </div>
-            <div>
-                <p id = "account_detail">지리산</p>
-            </div>
-        </div> -->
-
-<!-- <div class="modal" id="modal-3">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>거주지 설정</h1><br>
-                  <br>
-                  <h2>현재 비밀번호</h2>
-                  <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                  <br>
-                  <br>
-                  <h2>거주지 설정</h2>
-                  <select name="sido1" id="sido1"></select>
-                  <select name="gugun1" id="gugun1"></select>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>거주지 설정</h3></button>
-                  <br>
-                </div>
-              </div> 
-              <button class="open-button" data-modal="#modal-3"></button> -->
-
-<!-- <div class="modal" id="modal-5">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>회원 탈퇴</h1><br>
-                  <br>
-                  <h2>현재 비밀번호</h2>
-                  <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>회원 탈퇴</h3></button><br>
-                </div>
-              </div> 
-              <button class="open-button" data-modal="#modal-5"></button> -->
-
-<!-- <div class="modal" id="modal-4">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                  <br>
-                  <h1>소개글 설정</h1><br>
-                  <br>
-                  <br>
-                  <br>
-                  <h2>소개글</h2>
-                  <input class="introduce" type="text" maxlength='20' placeholder="20자 내로 소개하세요." oninput="handleInputLength(this,20)" id="searchKeyword" name="searchKeyword">
-                  <input class="introuduce_Count" type="text" placeholder="글자 수" id="textLengthCheck"> 
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <button class="passwordCheck" type="button"><h3>소개글 설정</h3></button>
-                <br>
-                </div>
-              </div>
-              <button class="open-button" data-modal="#modal-4"></button> -->
-
-<!-- <div class="modal" id="modal-2">
-                <div class="modal-content">
-                  <span class="close-button">&times;</span>
-                  <br>
-                    <br>
-                    <h1>닉네임 설정</h1><br>
-                    <br>
-                    <h2>현재 비밀번호</h2>
-                    <input id="password" type="password" placeholder="비밀번호(8자~12자, 영문+숫자+특수문자 사용)"><br>
-                    <br>
-                    <br>
-                    <h2>변경하고 싶은 닉네임</h2>
-                    <input id="text" type="text" maxlength="10" placeholder="변경하고 싶은 닉네임을 입력해주세요."><br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <button class="passwordCheck" type="button"><h3>닉네임 변경</h3></button>
-                    <br>
-                </div>
-              </div>
-              <button class="open-button" data-modal="#modal-2"></button> -->
-
-<!-- <div class ="account_btn3" >
-            
-            <div>
-                <img id = "account_img" src = "/img/Password.png">
-            </div>
-            <div>
-                <p id = "account_title">Password</p>
-            </div>
-            <div>
-                <p id = "account_detail">dl********</p>
-            </div>
-</div> -->

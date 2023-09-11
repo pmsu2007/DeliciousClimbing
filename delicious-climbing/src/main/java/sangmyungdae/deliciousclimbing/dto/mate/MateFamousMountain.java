@@ -2,7 +2,6 @@ package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
 import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
-import sangmyungdae.deliciousclimbing.dto.famousMountain.FamousMountainList;
 
 import java.util.List;
 import java.util.stream.Collectors;

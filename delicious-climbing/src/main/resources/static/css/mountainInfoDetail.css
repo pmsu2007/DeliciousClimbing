@@ -1,0 +1,187 @@
+/* COMMON */
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+header .inner {
+  width:1200px;
+  height: 150px;
+  margin: 0 auto;
+/* background-color: orange; */
+  position: relative;
+}
+
+section .inner {
+  position: relative;
+  width: 1200px;
+  height: 1600px;
+  margin: 0 auto;
+  /* background-color: violet;  */
+}
+
+section .inner .mountain img{
+  position: absolute;
+  width: 1200px;
+  height: 400px;
+}
+
+section .inner .mountain .feature {
+  position: absolute;
+  width: 450px;
+  height: 400px;
+  z-index: 1;
+  background-color: #333;
+  right: 0;
+  opacity: 0.9;
+  
+}
+
+section .inner .mountain .feature .mtname {
+  position: absolute;
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 2;
+  color: #FFFFFF;
+  left: 10%;
+  top: 17%;
+  
+  /*
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  */
+}
+
+section .inner .mountain .feature span {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 1000;
+  z-index: 2;
+  color: #898989;
+  left:9%;
+  top: 31%;
+
+}
+
+section .inner .mountain .feature .featureInfo {
+  position: absolute;
+  font-size: 17px;
+  font-weight: 100;
+  z-index: 2;
+  color: #FFFFFF;
+  width:400px;
+  height: 180px;
+  /*background-color: bisque;*/
+  left:7%;
+  top: 40%;
+}
+
+section .inner .mountain .feature .weatherButton {
+  position: absolute;
+  top: 85%;
+  right: 10%;
+  width: 170px;
+  height: 27px;
+  border: 1px solid #FFFFFF;
+  border-radius: 8px;
+  text-align: center;
+  
+}
+
+section .inner .mountain .feature .weatherButton a{
+  font-size: 17px;
+  font-weight: 100;
+  text-decoration: none;
+  color: #FFFFFF;
+ 
+  
+}
+
+
+section .inner .info {
+  position: absolute;
+  /* background-color: #898989; */
+  width: 600px;
+  height: 400px;
+  top: 30%;
+  
+}
+
+section .inner .info .head {
+  position: absolute;
+  font-size: 25px;
+  left: 10%;
+  top: 10%;
+  font-weight: 900;
+}
+
+section .inner .info .details {
+  position: absolute;
+  /* display: none; */
+  left: 10%;
+  top: 25%;
+  font-weight: 500;
+  width: 500px;
+}
+
+section .inner .attribution {
+  position: absolute;
+  font-size: 19px;
+  font-weight: 700;
+  width: 600px;
+  left: 60%;
+  top: 33%;
+  color: #8E8E8E;
+}
+
+/* 밑줄들 */
+section .inner .attribution .height::after {
+  content: "";
+  display: block;
+  width: 400px;
+  border-bottom: 2px solid #8E8E8E;
+  margin: 10px 0px;
+}
+
+section .inner .attribution .level::after {
+  content: "";
+  display: block;
+  width: 400px;
+  border-bottom: 2px solid #8E8E8E;
+  margin: 10px 0px;
+}
+
+section .inner .attribution .weather::after {
+  content: "";
+  display: block;
+  width: 400px;
+  border-bottom: 2px solid #8E8E8E;
+  margin: 10px 0px;
+}
+
+section .inner .attribution .time::after {
+  content: "";
+  display: block;
+  width: 400px;
+  border-bottom: 2px solid #8E8E8E;
+  margin: 10px 0px;
+}
+
+section .inner .attribution .location::after {
+  content: "";
+  display: block;
+  width: 400px;
+  border-bottom: 2px solid #8E8E8E;
+  margin: 10px 0px;
+}
+
+/* 카카오맵 */
+section .inner #map {
+  top: 60%;
+  left: 4%;
+  
+}

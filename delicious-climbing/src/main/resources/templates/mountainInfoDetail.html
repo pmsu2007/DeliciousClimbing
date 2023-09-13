@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicous Mountain</title>
+
+  <!--로고-->
+  <link rel="icon" href="/img/Logo.png" />
+   <!--브라우저 스타일 초기화-->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
+  <!--Google Fonts - 나눔고딕-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+  <!--Google Material Icons-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+ 
+  <link rel="stylesheet" href="/css/mountainInfoDetail.css" />
+
+  <script defer src="/js/mountainInfoDetail.js"></script>
+</head>
+</head>
+<body> 
+  <header>
+    <div class="inner"></div>
+  </header>
+
+  <section>
+    
+    <div class="inner">
+
+      <!-- 산 이미지 및 설명들 -->
+      <div class="mountain">
+        <img src="/img/재약산.jpg" alt="mountain">
+
+        <div class="feature">
+          <div class="mtname" th:text="${famousMountain.getName()}">
+            재약산
+          </div>
+          <span >특징 및 선정이유</span>
+          <div class="featureInfo" th:text="${famousMountain.getReason()}">산세가 부드러우면서도 정상 일대에는 거대한 암벽을 갖추고 있어 경관이 아름다우며 우리나라에서 가장 넓은 억새밭인 사자평이 있는 점 등을 고려하여 선정, 삼복 더위에 얼음이 어는 천연기념물 제224호 얼음골이 있음. 신라 진덕여왕때 창건하고 서산대사가 의병을 모집한 곳인 표충사가 유명</div>
+          <div class="weatherButton">
+           <a th:href="'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=' + ${famousMountain.getName()} + ' 날씨&oquery=' + ${famousMountain.getName()} + '날씨&tqi=inmHNlprvhGssBoMP0wssssstOd-394366'" th:text="${famousMountain.getName()} + ' 날씨 확인하기'">재약산 날씨 확인하기</a>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="info">
+        <div class="head">상세 정보</div>
+        <div class="details" th:text="${famousMountain.getInfo()}">재약산은 영남 알프스 산군중의 하나로 영남 밀양 청도 일대에 위치해 있다. 해발 1,000미터 이상의 준봉들로 이루어진 재약산(사자봉)은 산세가 부드러우면서도 정상 일대에는 거대한 암벽을 갖추고 있다.
+
+            125만평에 이르는 재약산 동쪽의 사자평 고원은 광할한 분지가 온통 억새풀로 뒤덮혀 있다. 우리나라에서 가장 넓은 억새벌판이다. 억새풀이 밀집해 자라는 곳만도 5만평에 이른다. 재약산은 해발 1,108m의 수미봉과 1,189m의 사자봉으로 이루어져 있다. 사자평고원은 두 봉우리 사이의 해발 800m 지점부터 완만한 타원형의 언덕들로 이어진다.사자평 억새는 어른 가슴정도 밖에 안 올 정도로 키가 작다.
+            
+            산아래 밭둑이나 길가의 억새에 비하면 절반밖에 되지 않는다. 잎새도 가늘고 투박하다. 꽃이삭은 거친 산정의 바람에 닳아서인지 뭉툭하고 짧다. 그래서 가는 바람에는 이삭 끝의 낭창거림을 보기 어렵다.
+        </div>
+      </div>
+
+      <div class="attribution">
+        <p class="height" th:text="'산 높이: ' + ${famousMountain.getHeight() + 'm'}">산 높이: 1100m ~1200m미만</p>
+        <br>
+        <p class="level" th:text="'난이도: ' + ${famousMountain.getDifficulty().getName()}">난이도: 상</p>
+        <br>
+        <p class="weather" th:text="'계절: ' + ${famousMountain.getSeason()}">계절: 봄, 가을</p>
+        <br>
+        <p class="time" th:text="'산행기간: ' + ${famousMountain.getPeriod()}">산행기간: 4시간30분~5시간미만</p>
+        <br>
+        <p class="location" th:text="'지역: ' + ${famousMountain.getDetailRegion()}">지역: 경상남도, 울산광역시</p>
+      </div>
+
+     
+      <!-- 카카오멥 시작 -->
+      <div id="map" style="width:1100px;height:540px;"></div>
+      
+      <div id="clickLatlng"></div>
+      
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a701f25bc6276f9a84ae59549e3cfee7"></script>
+      <script>
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+          mapOption = { 
+              center: new kakao.maps.LatLng(35.5547878, 128.979464), // 지도의 중심좌표
+              level: 10 // 지도의 확대 레벨
+          };
+      
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+      
+      // 지도를 클릭한 위치에 표출할 마커입니다
+      var marker = new kakao.maps.Marker({ 
+          // 지도 중심좌표에 마커를 생성합니다 
+          position: map.getCenter() 
+      }); 
+      // 지도에 마커를 표시합니다
+      marker.setMap(map);
+      
+      // 지도에 클릭 이벤트를 등록합니다
+      // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+      kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+          
+          // 클릭한 위도, 경도 정보를 가져옵니다 
+          var latlng = mouseEvent.latLng; 
+          
+          // 마커 위치를 클릭한 위치로 옮깁니다
+          marker.setPosition(latlng);
+          
+          /*var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+          message += '경도는 ' + latlng.getLng() + ' 입니다'; */
+          
+          var resultDiv = document.getElementById('clickLatlng'); 
+          resultDiv.innerHTML = message;
+          
+      });
+      </script>
+      
+      
+        
+
+        
+
+    </div>
+  </section>
+
+</body>
+</html>

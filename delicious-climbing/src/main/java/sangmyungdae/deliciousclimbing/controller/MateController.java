@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
+import sangmyungdae.deliciousclimbing.dto.user.User;
 import sangmyungdae.deliciousclimbing.service.MateService;
 import sangmyungdae.deliciousclimbing.service.UserService;
 
@@ -53,10 +54,12 @@ public class MateController {
     @GetMapping(value = "/{mateId}")
     public String mateDetailPage(@PathVariable Long mateId, @ModelAttribute("mateComment") MateCommentDto mateCommentDto, Model model) {
 
+        User user = userService.getUser();
+        model.addAttribute("currentUser", user);
+
+
         MatePost matePost = service.getPostDetail(mateId);
         model.addAttribute("matePost", matePost);
-
-        log.info("recruitDate={}, updatedAt={}", matePost.getMate().getRecruitDate(), matePost.getMate().getUpdatedAt());
 
         return "mateDetail";
     }
@@ -77,9 +80,9 @@ public class MateController {
 
     @PostMapping(value = "/write")
     public String createPost(@ModelAttribute("mateInfo") MateDto dto, RedirectAttributes redirectAttributes) {
-        //세션에서 사용자 정보를 갖고와야함, userId
-        //Todo: 나머지 코드 작성
         log.info("mateInfo={}", dto);
+
+        User user = userService.getUser();
 
         //임시 코드
         MateDto mateDto = MateDto.builder().recruitCount(dto.getRecruitCount())
@@ -91,7 +94,7 @@ public class MateController {
                 .recruitCount(dto.getRecruitCount())
                 .build();
 
-        Mate mate = service.createPost(1L, mateDto);
+        Mate mate = service.createPost(user.getId(), mateDto);
         redirectAttributes.addAttribute("mateId", mate.getId());
 
         return "redirect:/mate/{mateId}";
@@ -113,12 +116,9 @@ public class MateController {
 
     @PostMapping(value = "/{mateId}/comment/write")
     public String createComment(@PathVariable Long mateId, @ModelAttribute("mateComment") MateCommentDto dto) {
-        //세션에서 사용자 정보를 갖고와야함, userId
-        //Todo: 나머지 코드 작성
-//        service.createComment(mateId, userId, dto)
 
-        // 임시 코드
-        service.createComment(mateId, 1L, dto);
+        User user = userService.getUser();
+        service.createComment(mateId, user.getId(), dto);
 
         log.info("content={}", dto.getContent());
 

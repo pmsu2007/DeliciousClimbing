@@ -38,12 +38,19 @@
                     <div class="main_2_modal">
                         <div class="stateModal">
                             <div class="modal_profile">
-                                <div class ="modal_profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
+
+                                <div class ="modal_profilePhoto" th:if="${matePost.getMate().getUserImageUrl() == null}">
+                                    <img class="comment-profile-img" src="/img/profile.png" />
+                                </div>
+                                <div class ="modal_profilePhoto" th:unless="${matePost.getMate().getUserImageUrl() == null}">
+                                    <img class="comment-profile-img" th:src="@{/user/image/{filename}(filename=${matePost.getMate().getUserImageUrl()})}" />
+                                </div>
+
                                 <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
                             </div>
                             <!-- 게시글 삭제 수정 버튼  -->
-                            <button type="submit" class="update" th:onclick="|location.href='@{/mate/edit/{mateId}(mateId=${matePost.getMate().getId()})}'|">수정</button>
-                            <form method="post" th:action="@{/mate/delete/{mateId}(mateId=${matePost.getMate().getId()})}">
+                            <button th:if="${currentUser.getId()} == ${matePost.getMate().getUserId()}" type="submit" class="update" th:onclick="|location.href='@{/mate/edit/{mateId}(mateId=${matePost.getMate().getId()})}'|">수정</button>
+                            <form th:if="${currentUser.getId()} == ${matePost.getMate().getUserId()}" method="post" th:action="@{/mate/delete/{mateId}(mateId=${matePost.getMate().getId()})}">
                                 <button type="submit" class="delete">삭제</button>
                             </form>
                         </div>
@@ -68,10 +75,17 @@
                     </form>
                     <div class="otherCommentmodal" th:each="comment : ${matePost.getComments()}">
                         <div class = "modal_profile2">
-                            <div class ="modal_profilePhoto2"><img src="/img/profilePhoto.png" alt="profile"></div>
+<!--                            <div class ="modal_profilePhoto2"><img src="/img/profilePhoto.png" alt="profile"></div>-->
+                            <div class ="modal_profilePhoto2" th:if="${comment.getUserImageUrl() == null}">
+                                <img class="comment-profile-img" src="/img/profile.png" />
+                            </div>
+                            <div class ="modal_profilePhoto2" th:unless="${comment.getUserImageUrl() == null}">
+                                <img class="comment-profile-img" th:src="@{/user/image/{filename}(filename=${matePost.getMate().getUserImageUrl()})}" />
+                            </div>
+
                             <h2 th:text="${comment.getNickName()}">이은지</h2>
-                            <button type="button" class="update2">수정</button>
-                            <form method="post" th:action="@{/mate/{mateId}/comment/delete/{commentId}(mateId=${matePost.getMate().getId()}, commentId=${comment.getId()})}">
+                            <button th:if="${currentUser.getId()} == ${comment.getUserId()}" type="button" class="update2">수정</button>
+                            <form th:if="${currentUser.getId()} == ${comment.getUserId()}" method="post" th:action="@{/mate/{mateId}/comment/delete/{commentId}(mateId=${matePost.getMate().getId()}, commentId=${comment.getId()})}">
                                 <button type="submit" class="delete2">삭제</button>
                             </form>
                         </div>

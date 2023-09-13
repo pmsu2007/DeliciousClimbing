@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>등산 메이트 메인화면</title>
     <link  rel="stylesheet" href="/css/mateMain.css">
-    <link rel="stylesheet" href="/css/communityList.css" />
     <script defer src="/js/setting.js"></script>
     <script defer src="/js/mateMain.js"></script>
 
@@ -49,7 +48,12 @@
 
             </div>
             <div class="profile">
-                <div class ="profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
+                <div class ="profilePhoto" th:if="${matePost.getMate().getUserImageUrl() == null}">
+                    <img class="comment-profile-img" src="/img/profile.png" />
+                </div>
+                <div class ="profilePhoto" th:unless="${matePost.getMate().getUserImageUrl() == null}">
+                    <img class="comment-profile-img" th:src="@{/user/image/{filename}(filename=${matePost.getMate().getUserImageUrl()})}" />
+                </div>
                 <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
                 <div class ="recruitment" th:if="${matePost.getMate().getRecruitStatus()}"><h3>모집완료</h3></div>
                 <div class ="recruitment" th:unless="${matePost.getMate().getRecruitStatus()}"><h3>모집중</h3></div>

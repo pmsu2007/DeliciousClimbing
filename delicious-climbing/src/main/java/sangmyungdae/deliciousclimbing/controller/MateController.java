@@ -67,7 +67,7 @@ public class MateController {
     @GetMapping(value = "/edit/{mateId}")
     public String mateEditPage(@PathVariable Long mateId, Model model) {
         Mate mate = service.getPostDetail(mateId).getMate();
-        model.addAttribute("mate", mate);
+        model.addAttribute("mateInfo", mate);
 
         return "mateUpdate";
     }

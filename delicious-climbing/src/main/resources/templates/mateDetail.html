@@ -49,9 +49,9 @@
                                 <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
                             </div>
                             <!-- 게시글 삭제 수정 버튼  -->
-                            <button th:if="${currentUser.getId()} == ${matePost.getMate().getUserId()}" type="submit" class="update" th:onclick="|location.href='@{/mate/edit/{mateId}(mateId=${matePost.getMate().getId()})}'|">수정</button>
+                            <button th:if="${currentUser.getId()} == ${matePost.getMate().getUserId()}" type="submit" class="update2" style="margin-top: 10px" th:onclick="|location.href='@{/mate/edit/{mateId}(mateId=${matePost.getMate().getId()})}'|">수정</button>
                             <form th:if="${currentUser.getId()} == ${matePost.getMate().getUserId()}" method="post" th:action="@{/mate/delete/{mateId}(mateId=${matePost.getMate().getId()})}">
-                                <button type="submit" class="delete">삭제</button>
+                                <button type="submit" class="delete2" style="margin-top: 10px">삭제</button>
                             </form>
                         </div>
                         <div class = "title">
@@ -84,7 +84,7 @@
                             </div>
 
                             <h2 th:text="${comment.getNickName()}">이은지</h2>
-                            <button th:if="${currentUser.getId()} == ${comment.getUserId()}" type="button" class="update2">수정</button>
+                            <button th:if="${currentUser.getId()} == ${comment.getUserId()}" type="button" disabled class="update2" th:text="''">삭제</button>
                             <form th:if="${currentUser.getId()} == ${comment.getUserId()}" method="post" th:action="@{/mate/{mateId}/comment/delete/{commentId}(mateId=${matePost.getMate().getId()}, commentId=${comment.getId()})}">
                                 <button type="submit" class="delete2">삭제</button>
                             </form>

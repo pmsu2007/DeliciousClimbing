@@ -47,7 +47,7 @@ public class TbMate extends TbDateEntity {
 //    private TbMountain mountain;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "famousMountain_id")
+    @JoinColumn(name = "mountain_id")
     private TbFamousMountain famousMountain;
 
     @OneToMany(mappedBy = "mate")

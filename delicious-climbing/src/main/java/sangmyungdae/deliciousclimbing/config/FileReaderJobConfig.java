@@ -38,7 +38,7 @@ public class FileReaderJobConfig {
                 .<TbAddress, TbAddress>chunk(CHUNKSIZE)
                 .reader(csvAddressReader.csvAddressFileReader())
                 .writer(csvAddressWriter)
-                .allowStartIfComplete(true)
+                //.allowStartIfComplete(true)
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class FileReaderJobConfig {
                 .<TbFamousMountain, TbFamousMountain>chunk(CHUNKSIZE)
                 .reader(csvFamousMountainReader.csvFamousMountainFileReader())
                 .writer(csvFamousMountainWriter)
-                .allowStartIfComplete(true)
+                //.allowStartIfComplete(true)
                 .build();
     }
 }

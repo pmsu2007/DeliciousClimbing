@@ -17,7 +17,7 @@ public class FamousMountain {
     private int height;
     private String info;
     private Difficulty difficulty;
-    private int period;
+    private String period;
     private int likes;
     private Boolean likeCheck; // 0: unlike, 1: like
     private String imageUrl;

@@ -32,6 +32,36 @@ public class AdminController {
         return null;
     }
 
+    @GetMapping("/mapping/famous-mountain/etc")
+    public ResponseEntity<List<Map<String, Object>>> mappingFamousMountainEtc() {
+        try {
+            return ResponseEntity.ok(adminService.mappingFamousMountainEtc());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GetMapping("/mapping/famous-mountain/reason")
+    public ResponseEntity<List<Map<String, Object>>> mappingFamousMountainReason() {
+        try {
+            return ResponseEntity.ok(adminService.mappingFamousMountainReason());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GetMapping("/mapping/famous-mountain/info")
+    public ResponseEntity<List<Map<String, Object>>> mappingFamousMountainInfo() {
+        try {
+            return ResponseEntity.ok(adminService.mappingFamousMountainInfo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @GetMapping("/mapping/famous-mountain/region")
     public ResponseEntity<List<Map<String, Object>>> mappingFamousMountainRegion() {
         try {

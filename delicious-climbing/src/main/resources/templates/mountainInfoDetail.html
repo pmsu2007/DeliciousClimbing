@@ -60,9 +60,9 @@
       <div class="attribution">
         <p class="height" th:text="'산 높이: ' + ${famousMountain.getHeight() + 'm'}">산 높이: 1100m ~1200m미만</p>
         <br>
-        <p class="level" th:text="'난이도: ' + ${famousMountain.getDifficulty()}">난이도: 상</p>
+        <p class="level" th:text="'난이도: ' + ${famousMountain.getDifficulty().getName()}">난이도: 상</p>
         <br>
-        <p class="weather" th:text="'날씨: ' + ${famousMountain.getSeason()}">날씨: 봄, 가을</p>
+        <p class="weather" th:text="'계절: ' + ${famousMountain.getSeason()}">계절: 봄, 가을</p>
         <br>
         <p class="time" th:text="'산행기간: ' + ${famousMountain.getPeriod()}">산행기간: 4시간30분~5시간미만</p>
         <br>

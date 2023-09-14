@@ -46,11 +46,11 @@
         정렬 기준
       </button>
       <div class="dropdown-content">
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='name,ASC', keyword=${param.keyword})}">가나다 순</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='height,DESC', keyword=${param.keyword})}">높이 순</a>
+        <a href="#" th:href="@{/mountains(region=${param.region}, sort='name,ASC', sort='name,ASC', keyword=${param.keyword})}">가나다 순</a>
+        <a href="#" th:href="@{/mountains(region=${param.region}, sort='height,DESC', sort='name,ASC', keyword=${param.keyword})}">높이 순</a>
         <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,DESC', sort='name,ASC', keyword=${param.keyword})}">난이도 순(상->하)</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,ASC', keyword=${param.keyword})}">난이도 역순(하->순)</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='likes,DESC', keyword=${param.keyword})}">추천수 순</a>
+        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,ASC', sort='name,DESC', keyword=${param.keyword})}">난이도 역순(하->순)</a>
+<!--        <a href="#" th:href="@{/mountains(region=${param.region}, sort='likes,DESC', sort='name,ASC', keyword=${param.keyword})}">추천수 순</a>-->
       </div>
     </div>
     <!-- 지도시작 -->

@@ -11,7 +11,7 @@ header .inner {
   width:1200px;
   height: 150px;
   margin: 0 auto;
-/* background-color: orange; */
+  /* background-color: orange; */
   position: relative;
 }
 
@@ -37,7 +37,7 @@ section .inner .mountain .feature {
   background-color: #333;
   right: 0;
   opacity: 0.9;
-  
+
 }
 
 section .inner .mountain .feature .mtname {
@@ -48,7 +48,7 @@ section .inner .mountain .feature .mtname {
   color: #FFFFFF;
   left: 10%;
   top: 17%;
-  
+
   /*
   width: 100px;
   height: 100px;
@@ -89,7 +89,7 @@ section .inner .mountain .feature .weatherButton {
   border: 1px solid #FFFFFF;
   border-radius: 8px;
   text-align: center;
-  
+
 }
 
 section .inner .mountain .feature .weatherButton a{
@@ -97,18 +97,15 @@ section .inner .mountain .feature .weatherButton a{
   font-weight: 100;
   text-decoration: none;
   color: #FFFFFF;
- 
-  
 }
 
 
 section .inner .info {
   position: absolute;
   /* background-color: #898989; */
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  height: 1000px;
   top: 30%;
-  
 }
 
 section .inner .info .head {
@@ -123,9 +120,9 @@ section .inner .info .details {
   position: absolute;
   /* display: none; */
   left: 10%;
-  top: 25%;
+  top: 15%;
   font-weight: 500;
-  width: 500px;
+  width: 700px;
 }
 
 section .inner .attribution {
@@ -133,7 +130,7 @@ section .inner .attribution {
   font-size: 19px;
   font-weight: 700;
   width: 600px;
-  left: 60%;
+  left: 67%;
   top: 33%;
   color: #8E8E8E;
 }
@@ -181,7 +178,9 @@ section .inner .attribution .location::after {
 
 /* 카카오맵 */
 section .inner #map {
-  top: 60%;
+  top: 75%;
   left: 4%;
-  
+  /* background-color: #898989;
+  width: 600px;
+  height: 1000px; */
 }

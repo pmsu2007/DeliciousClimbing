@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등산 메이트 상세화면
+    </title>
+    <link  rel="stylesheet" href="/css/mateDetail1.css">
+    <script defer src="/js/setting.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="box">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close"></span>
+                <div class="topModal">
+                    <div class="modal_mountain">
+                        <div class ="modal_roadView"><img src="/img/roadView.png" alt="roadview"></div>
+                        <h1 th:text="${matePost.getMate().getMountainName()}">무등산</h1>
+                    </div>
+                    <div class ="modal_recruitmentComplete" th:if="${matePost.getMate().getRecruitStatus()}"><h2>모집완료</h2></div>
+                    <div class ="modal_recruitmentComplete" th:unless="${matePost.getMate().getRecruitStatus()}"><h2>모집중</h2></div>
+                    <div class="recruitCount"><h2 th:text="${matePost.getMate().getRecruitCount()}">6명</h2></div>
+                    <span class="modal_close"></span>
+                </div>
+                <div class="mainModal">
+                    <div class="main_2_modal">
+                        <div class="stateModal">
+                            <div class="modal_profile">
+                                <div class ="modal_profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
+                                <h2 th:text="${matePost.getMate().getNickName()}">상명 산악회</h2>
+                            </div>
+
+                                <!-- 게시글 삭제 수정 버튼  -->
+                            <button type="submit" class="update" th:onclick="|location.href='@{/mate/edit/{mateId}(mateId=${matePost.getMate().getId()})}'|">수정</button>
+                            <form method="post" th:action="@{/mate/delete/{mateId}(mateId=${matePost.getMate().getId()})}">
+                                <button type="submit" class="delete">삭제</button>
+                            </form>
+
+                        </div>
+                        <div class = "title">
+                            <h1 th:text="${matePost.getMate().getTitle()}">존잘남 급구</h1>
+                        </div>
+                        <div class="textModal">
+                            <h1 th:text="${matePost.getMate().getContent()}">안녕하세요~!! 상명산악회입니다.<br>이번 산행은 무등산입니다 ~~<br>같이 재밌게 등산하실 분 찾아요 !!<br>인원은 총 6명 정도로 생각하고 있습니다.<br>많은 연락 주세요~
+                            </h1>
+                        </div >
+                        <div class="modal_date" ><h1 th:text="${#temporals.format(matePost.getMate().getRecruitDate(), 'yyyy년 MM월 dd일 (E)')}">2023년 2월 24일 (금)</h1>
+                        </div>
+                        <div class="views">
+                            <h1 th:text="${#temporals.format(matePost.getMate().getUpdatedAt(), 'yyyy.MM.dd HH:mm')} + '  조회수 ' + ${matePost.getMate().getHits()}" >2023.02.20 조회수 1217</h1>
+                        </div>
+                    </div>
+                    <form th:action="@{/mate/{mateId}/comment/write(mateId = ${mateId})}" method="post" th:object="${mateComment}"}+>
+                        <div class="commentModal">
+                            <input type="text" th:field="*{content}" id="text" >
+                            <button type="submit" class="posting">게시</button>
+                        </div>
+                    </form>
+                    <div class="otherCommentmodal" th:each="comment : ${matePost.getComments()}">
+                        <div class = "modal_profile2">
+                            <div class ="modal_profilePhoto2"><img src="/img/profilePhoto.png" alt="profile"></div>
+                            <h2 th:text="${comment.getNickName()}">이은지</h2>
+                        </div>
+                        <div class="otherComment">
+                            <h1 th:text="${comment.getContent()}">산악회에 잘생긴 사람들 많나요?? 키 187cm이상만요. 얼굴도 강동원 급이면 좋을거같아요</h1>
+                        </div>
+                    </div>
+                    <button type="button" class="chatingBtn"><h1>채팅하기</h1></button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="content">
+            <!-- 페이지 내용을 여기에 추가합니다. -->
+        </div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

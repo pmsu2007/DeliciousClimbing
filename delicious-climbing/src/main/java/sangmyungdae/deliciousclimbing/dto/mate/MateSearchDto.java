@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class MateSearchDto {
 
     private Long mountainId;
-    private Boolean recruitStatusFiltering; //0: 모든 글 보기, 1: 모집중인 글만 보기
+    private boolean recruitStatusFiltering; //0: 모든 글 보기, 1: 모집중인 글만 보기
 
     @Builder
-    public MateSearchDto(Long mountainId, Boolean recruitStatusFiltering) {
+    public MateSearchDto(Long mountainId, boolean recruitStatusFiltering) {
         this.mountainId = mountainId;
         this.recruitStatusFiltering = recruitStatusFiltering;
     }

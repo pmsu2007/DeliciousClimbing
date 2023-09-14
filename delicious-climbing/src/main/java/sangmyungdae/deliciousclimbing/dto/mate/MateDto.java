@@ -1,10 +1,14 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
+import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMountain;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -12,18 +16,21 @@ import java.time.LocalDateTime;
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class MateDto {
 
     private String title;
     private String content;
+    @Value("0")
     private Integer recruitCount;
     private Boolean recruitStatus;
-    private LocalDateTime recruitDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate recruitDate;
 
     private Long mountainId;
 
     @Builder
-    public MateDto(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDateTime recruitDate,  Long mountainId) {
+    public MateDto(String title, String content, Integer recruitCount, Boolean recruitStatus, LocalDate recruitDate,  Long mountainId) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;
@@ -32,7 +39,7 @@ public class MateDto {
         this.mountainId = mountainId;
     }
 
-    public TbMate toEntity(TbUser user, TbMountain mountain) {
+    public TbMate toEntity(TbUser user, TbFamousMountain famousMountain) {
         return TbMate.builder()
                 .title(this.title)
                 .content(this.content)
@@ -40,7 +47,7 @@ public class MateDto {
                 .recruitStatus(this.getRecruitStatus())
                 .recruitDate(this.getRecruitDate())
                 .user(user)
-                .mountain(mountain)
+                .famousMountain(famousMountain)
                 .build();
     }
 }

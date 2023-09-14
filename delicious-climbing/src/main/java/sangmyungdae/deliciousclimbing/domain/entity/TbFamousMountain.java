@@ -21,16 +21,18 @@ public class TbFamousMountain {
 
     private int height;
 
+    @Column(length = 3000)
     private String info;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    private int period;
+    private String period;
 
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(length = 1000)
     private String reason;
 
     private String season;
@@ -43,7 +45,7 @@ public class TbFamousMountain {
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();
   
     @Builder
-    public TbFamousMountain(Long id, String name, int height, String info, Difficulty difficulty, int period,
+    public TbFamousMountain(Long id, String name, int height, String info, Difficulty difficulty, String period,
                             String imageUrl, String reason, String season) {
         this.id = id;
         this.name = name;

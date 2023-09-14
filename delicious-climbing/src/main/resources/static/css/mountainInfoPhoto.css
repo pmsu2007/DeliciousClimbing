@@ -1,0 +1,35 @@
+/* COMMON */
+body {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+img {
+  width: 150px;
+  height: 100px;
+  padding: 5px;
+  display: block;
+ 
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+section .inner {
+  width: 330px;
+  /* height:980px;
+  background-color: orange;  */
+  /*height: 1000px;*/
+  display: grid;
+	grid-template-rows: ;
+	grid-template-columns: 150px 150px;
+  grid-gap:10px;
+  margin: auto;
+}
+

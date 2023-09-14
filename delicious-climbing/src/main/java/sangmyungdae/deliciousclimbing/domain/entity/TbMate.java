@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +37,18 @@ public class TbMate extends TbDateEntity {
     private boolean recruitStatus;
 
     @Column(name = "recruit_date", nullable = false)
-    private LocalDateTime recruitDate;
+    private LocalDate recruitDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
     private TbUser user;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    private TbMountain mountain;
+
     @OneToOne(fetch = FetchType.LAZY)
-    private TbMountain mountain;
+    @JoinColumn(name = "mountain_id")
+    private TbFamousMountain famousMountain;
 
     @OneToMany(mappedBy = "mate")
     private List<TbMateComment> mateComments = new ArrayList<>();
@@ -53,7 +58,7 @@ public class TbMate extends TbDateEntity {
 
     @Builder
     public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
-                  LocalDateTime recruitDate, TbUser user, TbMountain mountain) {
+                  LocalDate recruitDate, TbUser user, TbFamousMountain famousMountain) {
         this.title = title;
         this.content = content;
         this.hits = hits;
@@ -61,15 +66,20 @@ public class TbMate extends TbDateEntity {
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
         this.user = user;
-        this.mountain = mountain;
+        this.famousMountain = famousMountain;
     }
 
 
-    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDateTime recruitDate) {
+    public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDate recruitDate, TbFamousMountain famousMountain) {
         this.title = title;
         this.content = content;
         this.recruitCount = recruitCount;
         this.recruitStatus = recruitStatus;
         this.recruitDate = recruitDate;
+        this.famousMountain = famousMountain;
+    }
+
+    public void updateHit(int hits) {
+        this.hits = hits;
     }
 }

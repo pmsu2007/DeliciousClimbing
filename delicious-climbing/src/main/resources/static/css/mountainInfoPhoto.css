@@ -25,7 +25,7 @@ section .inner {
   width: 330px;
   /* height:980px;
   background-color: orange;  */
-  height: 1000px;
+  /*height: 1000px;*/
   display: grid;
 	grid-template-rows: ;
 	grid-template-columns: 150px 150px;

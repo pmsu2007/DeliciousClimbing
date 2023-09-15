@@ -1,0 +1,287 @@
+/*-----------------------------공통------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Hi+Melody&family=Spinnaker&display=swap');
+article{
+    display: flex;
+    flex-direction: column;
+}
+.question{
+    display: none;
+    color: #D47B3A;
+}
+.result{
+    display: none;
+}
+.container{
+    background-color: #FFFFFF;
+    margin: auto;
+    width: 1440px;
+    height: 1024px;
+}
+/* ---------------------등산추천 메인화면---------------------- */
+.start{
+    margin:auto;
+    width:950px;
+    height:582px;
+    border: 5px solid #27733D;
+    border-radius: 10px;
+}
+#MainIcon{
+    margin:auto;
+    width:100px;
+    height: 100px;
+}
+#MainTitle{
+    margin: auto;
+    margin-top: -25px;
+    font-weight: bolder;
+    color: #0FB900;
+    font-size:55px;
+}
+#MainExp{
+    margin: auto;
+    color: #27733D;
+    font-size: 20px;
+    margin-bottom:-20px;
+    margin-top:16px;
+}
+#Mainimg{
+    margin: auto;
+    margin-top:3vh;
+}
+
+#cssbutton{
+    margin: auto;
+    margin-top: 3%;
+    width: 195px;
+    height: 50px;
+	background-color:#3cae5c27;
+	border-radius:15px;
+    border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#27733D;
+	font-size:25px;
+	text-decoration:none;
+    box-shadow: 0px 0px 6px 0.2px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+
+
+
+
+/*--------------------------질문------------------------*/
+.question{
+    margin:auto;
+}
+.question_main{
+    text-align: center;
+}
+#PreQ{
+    width: 200px;
+    height: 35px;
+    margin-top: 10px;
+    color: #27733D;
+    font-weight: bold;
+    background-color: #3cae5c2a;
+    border: none;
+    border-radius: 10px;
+}
+#qnum{
+    margin-top:20px;
+    text-align:center;
+    color: #27733D;
+    font-size: 35px;
+    font-weight:bold;
+}
+#ques_img{
+    width: 30%;
+    height: 32%;
+    margin: 0 auto;
+    margin-bottom: -5vh;
+}
+#logoimg{
+    float: left;
+    width: 13vh;
+}
+#clogoimg{
+    float: right;
+    width: 10vh;
+    margin-top: 4.5vh;
+}
+#title{
+    font-weight: Bold;
+    font-size: 30px;
+    margin-top: 2vh; 
+    margin-bottom: -8vh;
+    color: #27733D;
+    padding-left:4vw;
+    padding-right:4vw;
+    padding-top:2vw;
+    padding-bottom:2vw;
+}
+#A{
+    font-weight: Bold;
+    font-size: 25px;
+    text-align: center;
+    text-decoration:none;
+    color: #27733D;
+    padding-left: 0.3vw;
+    padding-right: 0.3vw;
+    background-color: white;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 1);
+    opacity: 0.9;
+    border-radius: 0.5vh;
+    width: 750px;
+    height: 60px;
+    margin:auto;
+    border-color: #27733D;
+    cursor:pointer;
+}
+#B{
+    font-weight: Bold;
+    font-size: 25px;
+    text-align: center;
+    text-decoration:none;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 1);
+    color: #27733D;
+    padding-left: 3.3vw;
+    padding-right: 3.3vw;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 0.5vh;
+    width: 750px;
+    height: 60px;
+    margin: auto;
+    border-color: #27733D;
+    cursor:pointer;
+}
+#C{
+    font-weight: Bold;
+    font-size: 25px;
+    text-align: center;
+    text-decoration:none;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 1);
+    color: #27733D;
+    padding-left: 3.3vw;
+    padding-right: 3.3vw;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 0.5vh;
+    width: 750px;
+    height: 60px;
+    margin: auto;
+    border-color: #27733D;
+    cursor:pointer;
+}
+#D{
+    font-weight: Bold;
+    font-size: 25px;
+    text-align: center;
+    text-decoration:none;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 1);
+    color: #27733D;
+    padding-left: 3.3vw;
+    padding-right: 3.3vw;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 0.5vh;
+    width: 750px;
+    height: 60px;
+    margin: auto;
+    border-color: #27733D;
+    cursor:pointer;
+}
+#runningman{
+    margin-top:20px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    position: relative;
+}
+#barimg{
+    margin-top:0px;
+    float:right;
+    z-index: 1;
+    position: absolute;
+    right:3.8%;
+    top: 62%;
+}
+.progress-bar{
+    margin-top:5px;
+    width:400px;
+    color:#C4E7CE;
+    z-index: 1;
+}
+/*------------------------결과---------------------------*/
+#ResultRecommand{
+    color:#27733D;
+    font-weight:bolder;
+    padding-top: 5vh;
+    margin-bottom: 5vh;
+}
+.ResultImg{
+    width:260px;
+    height:274px;
+}
+#ResultName{
+    margin-top:10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+#ResultAddress{
+    margin-top:10px;
+    font-size: 15px;
+}
+#ResultLevel{
+    color:yellow;
+    font-size: 14px;
+}
+#ResultMore{
+    text-align: right;
+    font-size:12px;
+    padding-top:10px;
+    padding-right:10px;
+}
+#ResultFloat{
+    margin:auto;
+}
+#resultBox1{
+    float:left;
+    box-shadow: 0px 0px 7px 2px rgba(0,0,0,0.5);
+    width:300px;
+    height:432px;
+    margin:10px;
+    padding-left:20px;
+    margin-right: 20px;
+}
+#resultBox2{
+    float:left;
+    box-shadow: 0px 0px 7px 2px rgba(0,0,0,0.5);
+    width:300px;
+    height:432px;
+    margin:10px;
+    padding-left:20px;
+    margin-right: 20px;
+}
+#resultBox3{
+    float:left;
+    box-shadow: 0px 0px 7px 2px rgba(0,0,0,0.5);
+    width:300px;
+    height:432px;
+    margin:10px;
+    padding-left:20px;
+}
+
+#Restart{
+    margin:auto;
+    width:10vw;
+    height:5vh;
+    font-size: 20px;
+    font-weight:bolder;
+    color:#27733D;
+    background-color: #3cae5c23;
+    border:none;
+    margin-top:5vh;
+    border-radius: 10px;
+    box-shadow: 0px 0px 7px 2px rgba(0,0,0,0.5);
+}

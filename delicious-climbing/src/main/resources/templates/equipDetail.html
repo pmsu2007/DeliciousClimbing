@@ -22,9 +22,12 @@
                     <h1   th:text="${equipment.address.sidoSigungu }">시도</h1>
 <!--                    <h1 class="address_label" th:field="${equipment.address.getSigungu()}">시군구</h1>-->
                 </div>
-                <form th:action="@{/equipment/tradeStatus/{postId}(postId=${equipment.id})}"  method="post">
+                <form th:action="@{/equipment/tradeStatus/{postId}(postId=${equipment.id})}"  method="post" th:if="${#authentication != null and #authentication.name == equipment.user.email}" >
                 <button  class ="modal_recruitmentComplete" type="submit" th:text="${equipment.tradeStatusString}"><h2>거래완료</h2></button>
                 </form>
+                <div  method="post" th:if="${ #authentication.name != equipment.user.email}" >
+                    <div  class ="modal_recruitmentComplete" th:text="${equipment.tradeStatusString}"><h2>거래완료</h2></div>
+                </div>
 <!--                <span class="modal_close"></span>-->
             </div>
             <div class="mainModal">

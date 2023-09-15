@@ -35,9 +35,9 @@ public class TbFamousMountain {
 
     private String season;
 
+
     @Column(columnDefinition = "integer default 0")
     private int likes;
-
 
     @OneToMany(mappedBy = "famousMountain")
     private List<TbFamousMountainAddress> famousMountainAddresses = new ArrayList<>();

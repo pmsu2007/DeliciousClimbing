@@ -1,9 +1,12 @@
 package sangmyungdae.deliciousclimbing.dto.mate;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 등산 메이트 생성, 수정 Response DTO
@@ -19,8 +22,10 @@ public class Mate {
     private Integer hits;
     private Integer recruitCount;
     private Boolean recruitStatus;
-    private LocalDateTime recruitDate;
-    private String updatedAt;
+    @DateTimeFormat(pattern = "yyyy년 MM월 dd일 (E)")
+    private LocalDate recruitDate;
+    @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
+    private LocalDateTime updatedAt;
 
     private Long userId;
     private String nickName;
@@ -38,11 +43,12 @@ public class Mate {
         this.recruitCount = entity.getRecruitCount();
         this.recruitStatus = entity.isRecruitStatus();
         this.recruitDate = entity.getRecruitDate();
-        this.updatedAt = entity.getUpdatedAt();
+        this.updatedAt = LocalDateTime.parse(entity.getUpdatedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
         this.userImageUrl = entity.getUser().getStoreFileName();
-        this.mountainId = entity.getMountain().getId();
-        this.mountainName = entity.getMountain().getName();
+        this.mountainId = entity.getFamousMountain().getId();
+        this.mountainName = entity.getFamousMountain().getName();
+
     }
 }

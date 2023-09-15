@@ -21,4 +21,5 @@ public interface FamousMountainRepository extends JpaRepository<TbFamousMountain
     // 산 랜덤 추출 -> 1개만 뽑 -> 나는 3개
     @Query(value = "SELECT * FROM TB_FAMOUSMOUNTAIN order by RAND() limit 3",nativeQuery = true)
     List<TbFamousMountain> findAllRand();
+    List<TbFamousMountain> findByIdIn(List<Long> ids);
 }

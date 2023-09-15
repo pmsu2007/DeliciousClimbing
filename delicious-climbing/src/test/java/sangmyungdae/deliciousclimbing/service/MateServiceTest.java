@@ -64,7 +64,6 @@
 //                .role(Role.USER)
 //                .nickname("user1")
 //                .gender(Gender.MALE)
-//                .birthday(LocalDateTime.now())
 //                .build();
 //        TbUser user2 = TbUser.builder()
 //                .type(LoginType.SINGIN)
@@ -619,64 +618,33 @@
 //        mateFileRepository.save(file);
 //
 //        //when
-//        MateFile result = mateService.updateFile(file.getId(), MateFileDto.builder()
-//                .fileName("updateFile")
-//                .build());
-//        MateFile actual = MateFile.builder().entity(mateFileRepository.findById(file.getId()).get()).build();
-//
-//        //then
-//        assertThat("updateFile").isEqualTo(result.getFileName());
-//        assertThat(actual).usingRecursiveComparison().isEqualTo(result);
-//
-//    }
-//
-//    @Test
-//    void deleteFile() {
-//        //given
-//        TbMate mate1 = TbMate.builder()
-//                .title("mate1")
-//                .content("test")
-//                .recruitCount(3)
-//                .recruitStatus(true)
-//                .recruitDate(LocalDateTime.now())
-//                .build();
-//        mateRepository.save(mate1);
-//
-//        MateFile file = mateService.createFile(mate1.getId(), MateFileDto.builder().fileName("testFile").build());
-//
-////        TbMateFile file = TbMateFile.builder()
-////                .fileName("testFile")
-////                .mate(mate1)
-////                .build();
-////        mateFileRepository.save(file);
-//
-//        //when
 //        mateService.deleteFile(mate1.getId(), file.getId());
 //
 //        //then
 //        assertThat(mateFileRepository.findById(file.getId())).isEmpty();
 //    }
 //}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

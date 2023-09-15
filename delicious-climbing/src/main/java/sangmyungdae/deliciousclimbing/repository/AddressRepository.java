@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface AddressRepository extends JpaRepository<TbAddress, Long> {
     Optional<TbAddress> findByCode(Long code);
+    Optional<TbAddress> findBySidoAndSigungu(String sido, String sigungu);
 }

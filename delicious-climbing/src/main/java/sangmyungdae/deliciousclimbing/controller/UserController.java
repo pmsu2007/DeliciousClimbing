@@ -24,9 +24,12 @@ public class UserController {
     private final FileStore fileStore;
 
     @GetMapping("/login")
-    public String userLoginPage(Model model, UserSign userSign) {
+    public String userLoginPage(Model model,
+                                UserSign userSign,
+                                @RequestParam(required = false) boolean error) {
         // UserSign DTO 전달
         model.addAttribute("userSign", userSign);
+        model.addAttribute("error", error);
         return "loginPage";
     }
 

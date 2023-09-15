@@ -70,7 +70,7 @@
                   </div>
                   <div class="review-content-box">
                       <div class="review-content" th:text="${review.content}">화성 갈끄니까!!</div>
-                      <div class="review-content-delete" th:if="${#authentication != null and #authentication.name == review.reviewer.nickname}">
+                      <div class="review-content-delete" th:if="${#authentication != null and #authentication.name == review.reviewer.email}">
                           <form th:action="@{/reviews/{userId}/delete/{reviewId}(userId=${user.id}, reviewId=${review.id})}" method="post">
                               <button type="submit" >삭제</button>
                           </form>
@@ -83,7 +83,7 @@
           <!-- review list end-->
 
           <!-- review create form start -->
-          <form class="review-form" th:action="@{/reviews/{userId}/create(userId=${user.id})}" th:object="${reviewDto}" method="post">
+          <form th:if="${#authentication != null and #authentication.name != user.email}"  class="review-form" th:action="@{/reviews/{userId}/create(userId=${user.id})}" th:object="${reviewDto}" method="post">
               <select class="review-type-select" th:field="*{type}">
                   <option value="">게시판을 선택해주세요</option>
                   <option th:each="type : ${types}" th:value="${type}" th:text="${type}"/>

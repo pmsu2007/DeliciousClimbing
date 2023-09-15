@@ -1,22 +1,18 @@
-function count(type)  {
-    // 결과를 표시할 element
+// 버튼 클릭 시 호출되는 함수
+function count(type) {
     const resultElement = document.getElementById('result');
-    
-    // 현재 화면에 표시된 값
     let number = resultElement.innerText;
-    
-    // 더하기/빼기
-    if(parseInt(number)>=0){
-        if(type === 'plus') {
-        number = parseInt(number) + 1;
-        }else if(type === 'minus')  {
-        number = parseInt(number) - 1;
+
+    if (parseInt(number) >= 0) {
+        if (type === 'plus') {
+            number = parseInt(number) + 1;
+        } else if (type === 'minus') {
+            number = parseInt(number) - 1;
+        }
     }
-    }
-    
-    // 결과 출력
-    if(parseInt(number)>=0){
-    resultElement.innerText = number;
+
+    if (parseInt(number) >= 0) {
+        resultElement.innerText = number;
     }
 }
 
@@ -29,7 +25,7 @@ var yyyy = today.getFullYear();
 var minDate = yyyy + '-' + mm + '-' + dd;
 
 // HTML 요소에 min 속성 설정
-document.getElementById('date-input').min = String(minDate);
+document.getElementById('date-input').min = minDate;
 
 
 
@@ -43,4 +39,11 @@ function validateForm() {
         alert("날짜를 모두 입력해주세요.");
         return false; // 폼 제출을 중단합니다.
     }
+}
+
+function submitData() {
+    const counterInput = document.getElementById('counterInput');
+    const resultElement = document.getElementById('result');
+    counterInput.value = resultElement.innerText;
+    document.forms[0].submit();
 }

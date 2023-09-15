@@ -4,7 +4,7 @@
     height: 93px;
     left: 0px;
     top: 15px;
-    
+
 }
 
 .loginImage {
@@ -21,7 +21,7 @@
     height: 527px;
     left: 913px;
     top: 253px;
-    
+
 
 }
 
@@ -89,8 +89,6 @@ input[type="checkbox"]:hover {
 .basisLogin {
     height: 50px;
     width: 347px;
-    left: 0px;
-    top: 0px;
     border-radius: 5px;
     background-color: #04C35C;
 
@@ -102,7 +100,7 @@ input[type="checkbox"]:hover {
     color: white;
     border:none;
 
-    margin-top:10px;
+    margin-top:20px;
 }
 
 .basisLogin:hover {
@@ -158,9 +156,6 @@ input[type="checkbox"]:hover {
 }
 
 .signUp {
-    position:absolute;
-    left : 71%;
-    top: 103.2%;
     color : #2C5282;
     background-color: rgba(0,0,0,0);
     border:none;
@@ -183,7 +178,28 @@ h3 {
 
 
 .naverImage {
-    position : absolute; 
-    left:8%;  
+    position : absolute;
+    left:8%;
     width:10%;
+}
+
+.register-box {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.register-title {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.login-error {
+    width: 347px;
+    height: 50px;
+    margin: 20px 0;
+    text-align:center;
+    line-height: 50px;
+    background-color: #F8D6D6FF;
+    border: 2px solid #FA4343FF;
 }

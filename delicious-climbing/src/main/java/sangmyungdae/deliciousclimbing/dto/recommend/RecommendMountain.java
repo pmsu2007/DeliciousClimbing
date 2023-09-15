@@ -18,6 +18,7 @@ public class RecommendMountain {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
+
     @Builder
     public RecommendMountain(TbFamousMountain entity){
         this.id = entity.getId();

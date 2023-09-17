@@ -2,6 +2,7 @@ package sangmyungdae.deliciousclimbing.config.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +12,13 @@ import java.util.Collection;
 
 @Builder
 @AllArgsConstructor
+@ToString
 public class AuthUser implements UserDetails {
 
-    private final String username;
+    private final String username; // email
     private final String password;
     private String role;
+    private String nickname;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -33,6 +36,8 @@ public class AuthUser implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+    public String getNickname() { return  nickname; }
 
     @Override
     public boolean isAccountNonExpired() {

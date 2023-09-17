@@ -61,9 +61,15 @@
                     </div>
                 </div>
                 </div>
-
-                <button onClick="location.href='chating.html'" type="button" class="chatingBtn"><h1>채팅하기</h1></button>
-
+                <form th:if="${#authentication != null and #authentication.name != equipment.user.email}"
+                      th:action="@{/equipment/chat/{equipmentId}(equipmentId=${equipment.id})}" method="post">
+                    <button type="submit" class="chatingBtn"><h1>채팅하기</h1></button>
+                </form>
+                <button th:if="${#authentication != null and #authentication.name == equipment.user.email}"
+                     th:onclick="|location.href='/chat/rooms'|"
+                     class="chatingBtn">
+                    <h1>채팅하기</h1>
+                </button>
             </div>
 
         </div>

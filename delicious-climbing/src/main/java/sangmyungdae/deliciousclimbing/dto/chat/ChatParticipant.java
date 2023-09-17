@@ -2,7 +2,7 @@ package sangmyungdae.deliciousclimbing.dto.chat;
 
 import lombok.Builder;
 import lombok.Data;
-import sangmyungdae.deliciousclimbing.domain.entity.TbChatRoom;
+import sangmyungdae.deliciousclimbing.domain.entity.TbMateChatRoom;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 
 @Data
@@ -18,7 +18,7 @@ public class ChatParticipant {
         private int currentCount;
         private int totalCount;
 
-        public ChatRoom(TbChatRoom chatRoom) {
+        public ChatRoom(TbMateChatRoom chatRoom) {
             this.id = chatRoom.getId();
             this.roomName = chatRoom.getRoomName();
             this.currentCount = chatRoom.getCurrentCount();
@@ -40,7 +40,7 @@ public class ChatParticipant {
     }
 
     @Builder
-    public ChatParticipant(Long id, TbChatRoom chatRoom, TbUser creator) {
+    public ChatParticipant(Long id, TbMateChatRoom chatRoom, TbUser creator) {
         this.id = id;
         this.chatRoom = new ChatRoom(chatRoom);
         this.creator = new Creator(creator);

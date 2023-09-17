@@ -1,0 +1,61 @@
+
+<!-- HEADER start -->
+<div th:fragment="header"  class="header-container">
+  <div class="header-top-box">
+    <div class="header-logo">
+      <img src="/img/grayLogo.png" alt="LOGO">
+    </div>
+    <div sec:authorize="isAnonymous()" class="header-account-box">
+      <div th:onclick="|location.href='/register'|" class="header-account-btn">
+        Sign In
+      </div>
+      <div th:onclick="|location.href='/login'|" class="header-account-btn">
+        Login
+      </div>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="header-account-box">
+      <div th:onclick="|location.href='/profile'|" th:text="|${#authentication.principal.nickname}님|" class="header-account"></div>
+      <div th:onclick="|location.href='/logout'|" class="header-account-btn">
+        Logout
+      </div>
+    </div>
+  </div>
+
+  <div class="header-menu-container">
+    <div class="header-menu-item" th:onclick="|location.href='/mountains'|">
+      등산 정보
+    </div>
+    <div class="header-menu-item" th:onclick="|location.href='/recommend'|">
+      등산 추천
+    </div>
+    <div class="header-menu-item" th:onclick="|location.href='/mate'|">
+      등산 메이트
+    </div>
+    <div class="header-menu-item" th:onclick="|location.href='/posts/free'|">
+      커뮤니티
+    </div>
+    <div class="header-menu-item" th:onclick="|location.href='/equipment/list'|">
+      등산 장비 거래
+    </div>
+  </div>
+
+  <!-- 검색 창 제거
+  <div class="search">
+    <form>
+      <select name="select" >
+        <option value="option">선택</option>
+        <option value="info">등산 정보</option>
+        <option value="recommand">등산 추천</option>
+        <option value="mate">등산 메이트</option>
+        <option value="community">커뮤니티</option>
+        <option value="trade">등산 장비 거래</option>
+      </select>
+    </form>
+    <input type="text" />
+    <div class="material-icons">search</div>
+  </div>
+  -->
+</div>
+
+<!-- HEADER end -->
+</html>

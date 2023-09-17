@@ -976,4 +976,3 @@ var addressLabel = document.getElementById("addressLabel");
 var addressCode = parseInt(addressLabel.textContent); // Thymeleaf로부터 전달된 주소 코드를 정수로 변환
 var sigungu = getAddressSigungu(addressCode);
 addressLabel.textContent = sigungu;
-

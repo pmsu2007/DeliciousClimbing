@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.domain.entity.TbEquipment;
 import sangmyungdae.deliciousclimbing.domain.enums.EquipmentType;
+import sangmyungdae.deliciousclimbing.dto.chat.ChatRoom;
 import sangmyungdae.deliciousclimbing.dto.equipment.Equipment;
 import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentDto;
 import sangmyungdae.deliciousclimbing.dto.equipment.EquipmentSearchDto;
@@ -113,5 +114,12 @@ public class EquipmentController {
 
         return "redirect:/equipment/detail/"+postId;
 
+    }
+
+    @PostMapping("/chat/{equipmentId}")
+    public String createChatRoom(@PathVariable Long equipmentId) {
+        ChatRoom chatRoom = equipmentService.createChatting(equipmentId);
+
+        return "redirect:/chat/room/" + chatRoom.getType() + "/" + chatRoom.getId();
     }
 }

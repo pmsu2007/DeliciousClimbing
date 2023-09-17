@@ -3,15 +3,10 @@ package sangmyungdae.deliciousclimbing.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
-import sangmyungdae.deliciousclimbing.domain.entity.TbChatMessage;
-import sangmyungdae.deliciousclimbing.domain.entity.TbChatParticipant;
-import sangmyungdae.deliciousclimbing.domain.entity.TbChatRoom;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.domain.entity.*;
+import sangmyungdae.deliciousclimbing.domain.enums.ChatRoomType;
 import sangmyungdae.deliciousclimbing.dto.chat.*;
-import sangmyungdae.deliciousclimbing.repository.ChatMessageRepository;
-import sangmyungdae.deliciousclimbing.repository.ChatParticipantRepository;
-import sangmyungdae.deliciousclimbing.repository.ChatRoomRepository;
-import sangmyungdae.deliciousclimbing.repository.UserRepository;
+import sangmyungdae.deliciousclimbing.repository.*;
 import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
 import java.util.List;
@@ -20,9 +15,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ChattingService {
-    private final ChatRoomRepository chatRoomRepository;
-    private final ChatParticipantRepository chatParticipantRepository;
-    private final ChatMessageRepository chatMessageRepository;
+    private final MateChatRoomRepository mateChatRoomRepository;
+    private final MateChatRepository mateChatRepository;
+    private final MateChatMessageRepository mateChatMessageRepository;
+
+    private final EquipmentChatRoomRepository equipmentChatRoomRepository;
+    private final EquipmentChatRepository equipmentChatRepository;
+    private final EquipmentChatMessageRepository equipmentChatMessageRepository;
+
     private final UserRepository userRepository;
 
     private TbUser findUser(String username) {
@@ -30,80 +30,161 @@ public class ChattingService {
                 .orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
     }
 
-    private TbChatRoom findChatRoom(Long roomId) {
-        return chatRoomRepository.findById(roomId)
-                .orElseThrow(() -> ExceptionUtil.id(roomId, TbChatRoom.class.getName()));
+    private TbMateChatRoom findMateChatRoom(Long roomId) {
+        return mateChatRoomRepository.findById(roomId)
+                .orElseThrow(() -> ExceptionUtil.id(roomId, TbMateChatRoom.class.getName()));
     }
 
-    public List<ChatRoom> getChatRoomList() {
+    private TbEquipmentChatRoom findEquipmentChatRoom(Long roomId) {
+        return equipmentChatRoomRepository.findById(roomId)
+                .orElseThrow(() -> ExceptionUtil.id(roomId, TbMateChatRoom.class.getName()));
+    }
+
+    public List<ChatRoom> getMateChatRoomList() {
         TbUser user = findUser(AuthUtil.getAuthUser());
 
-        List<TbChatParticipant> chats = chatParticipantRepository.findByCreator(user);
+        List<TbMateChat> chats = mateChatRepository.findByCreator(user);
 
-        List<TbChatRoom> chatRooms = chats.stream()
-                .map(TbChatParticipant::getRoom)
+        List<TbMateChatRoom> chatRooms = chats.stream()
+                .map(TbMateChat::getRoom)
                 .collect(Collectors.toList());
 
-        return chatRooms.stream().map(ChatRoom::new).collect(Collectors.toList());
+        return chatRooms.stream().map(mate -> ChatRoom.builder()
+                .type(ChatRoomType.MATE)
+                .mate(mate)
+                .build()).collect(Collectors.toList());
     }
 
-    public ChatRoom getChatDetail(Long roomId) {
-        TbChatRoom chatRoom = findChatRoom(roomId);
+    public List<ChatRoom> getEquipmentChatRoomList() {
+        TbUser user = findUser(AuthUtil.getAuthUser());
 
-        return ChatRoom.builder()
-                .entity(chatRoom)
-                .build();
+        List<TbEquipmentChat> chats = equipmentChatRepository.findByCreator(user);
+
+        List<TbEquipmentChatRoom> chatRooms = chats.stream()
+                .map(TbEquipmentChat::getRoom)
+                .collect(Collectors.toList());
+
+        return chatRooms.stream().map(equipment -> ChatRoom.builder()
+                .type(ChatRoomType.EQUIPMENT)
+                .equipment(equipment)
+                .build()).collect(Collectors.toList());
     }
 
-    public void deleteChatRoom(Long roomId) {
+    public ChatRoom getChatDetail(ChatRoomType type, Long roomId) {
 
+        if (type.equals(ChatRoomType.MATE)) {
+            TbMateChatRoom chatRoom = findMateChatRoom(roomId);
+
+            return ChatRoom.builder()
+                    .type(type)
+                    .mate(chatRoom)
+                    .build();
+        } else {
+            TbEquipmentChatRoom chatRoom = findEquipmentChatRoom(roomId);
+
+            return ChatRoom.builder()
+                    .type(type)
+                    .equipment(chatRoom)
+                    .build();
+        }
     }
 
     public boolean enterChatRoom(ChatMessageDto dto) {
-        TbChatRoom room = findChatRoom(dto.getRoomId());
         TbUser user = findUser(dto.getUsername());
 
-        boolean isEntered = chatParticipantRepository.existsByCreator(user);
+        if(dto.getChatRoomType().equals(ChatRoomType.MATE)) {
+            TbMateChatRoom room = findMateChatRoom(dto.getRoomId());
 
-        if(!isEntered && room.getCurrentCount() + 1 <= room.getTotalCount()) {
-            TbChatParticipant participant = TbChatParticipant.builder()
-                    .creator(user)
-                    .room(room)
-                    .build();
+            boolean isEntered = mateChatRepository.existsByCreatorAndRoom(user, room);
 
-            room.updateCurrentCount(room.getCurrentCount() + 1);
-            chatRoomRepository.save(room);
+            if(!isEntered && room.getCurrentCount() + 1 <= room.getTotalCount()) {
+                TbMateChat participant = TbMateChat.builder()
+                        .creator(user)
+                        .room(room)
+                        .build();
 
-            chatParticipantRepository.save(participant);
+                room.updateCurrentCount(room.getCurrentCount() + 1);
+                mateChatRoomRepository.save(room);
+
+                mateChatRepository.save(participant);
+            }
+
+            return isEntered;
+        } else {
+            TbEquipmentChatRoom room = findEquipmentChatRoom(dto.getRoomId());
+
+            boolean isEntered = equipmentChatRepository.existsByCreatorAndRoom(user, room);
+
+            if(!isEntered && room.getCurrentCount() + 1 <= room.getTotalCount()) {
+                TbEquipmentChat participant = TbEquipmentChat.builder()
+                        .creator(user)
+                        .room(room)
+                        .build();
+
+                room.updateCurrentCount(room.getCurrentCount() + 1);
+                equipmentChatRoomRepository.save(room);
+
+                equipmentChatRepository.save(participant);
+            }
+
+            return isEntered;
         }
-
-        return isEntered;
     }
 
     public void leaveChatRoom(ChatMessageDto dto) {
-        TbChatRoom room = findChatRoom(dto.getRoomId());
+
         TbUser user = findUser(dto.getUsername());
 
-        TbChatParticipant participant = chatParticipantRepository.findByCreatorAndRoom(user, room);
+        if (dto.getChatRoomType().equals(ChatRoomType.MATE)) {
+            TbMateChatRoom room = findMateChatRoom(dto.getRoomId());
 
-        room.updateCurrentCount(room.getCurrentCount() - 1);
-        chatRoomRepository.save(room);
+            TbMateChat participant = mateChatRepository.findByCreatorAndRoom(user, room);
 
-        chatParticipantRepository.delete(participant);
+            room.updateCurrentCount(room.getCurrentCount() - 1);
+            mateChatRoomRepository.save(room);
+
+            mateChatRepository.delete(participant);
+        } else {
+            TbEquipmentChatRoom room = findEquipmentChatRoom(dto.getRoomId());
+
+            TbEquipmentChat participant = equipmentChatRepository.findByCreatorAndRoom(user, room);
+
+            room.updateCurrentCount(room.getCurrentCount() - 1);
+            equipmentChatRoomRepository.save(room);
+
+            equipmentChatRepository.delete(participant);
+        }
     }
 
     public ChatMessage sendMessage(ChatMessageDto dto) {
         TbUser user = findUser(dto.getUsername());
-        TbChatRoom chatRoom = findChatRoom(dto.getRoomId());
 
-        TbChatMessage message = TbChatMessage.builder()
-                .room(chatRoom)
-                .user(user)
-                .content(dto.getContent())
-                .build();
+        if(dto.getChatRoomType().equals(ChatRoomType.MATE)) {
+            TbMateChatRoom chatRoom = findMateChatRoom(dto.getRoomId());
 
-        return ChatMessage.builder()
-                .entity(chatMessageRepository.save(message))
-                .build();
+            TbMateChatMessage message = TbMateChatMessage.builder()
+                    .room(chatRoom)
+                    .user(user)
+                    .content(dto.getContent())
+                    .build();
+
+            return ChatMessage.builder()
+                    .type(dto.getChatRoomType())
+                    .mate(mateChatMessageRepository.save(message))
+                    .build();
+        } else {
+            TbEquipmentChatRoom chatRoom = findEquipmentChatRoom(dto.getRoomId());
+
+            TbEquipmentChatMessage message = TbEquipmentChatMessage.builder()
+                    .room(chatRoom)
+                    .user(user)
+                    .content(dto.getContent())
+                    .build();
+
+            return ChatMessage.builder()
+                    .type(dto.getChatRoomType())
+                    .equipment(equipmentChatMessageRepository.save(message))
+                    .build();
+        }
     }
 }

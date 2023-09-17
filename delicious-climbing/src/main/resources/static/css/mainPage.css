@@ -1,0 +1,312 @@
+.background_1 {
+    position: absolute;
+    width: 1200px;
+    height: 271px;
+    left: 140px;
+    top: 210px;
+    background: #000000;
+}
+
+@font-face {
+    font-family: 'Calistoga';
+    src: url("/font/Calistoga-Regular.ttf");
+}
+
+
+h1{
+    position: absolute;
+    width: 316.04px;
+    height: 155.9px;
+    left: 30px;
+    top: 20px;
+    
+    font-family: 'Calistoga';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 78px;
+    
+    color: #FFFFFF;
+
+    text-shadow : 4px 4px 1px #0FB900;
+}
+
+.mountainImage{
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    left: 521px;
+    top: 245px;
+
+    background: url(응봉산.jpg);
+}
+
+h2{ /*응봉산*/
+    position: absolute;
+    width: 112.66px;
+    height: 70.2px;
+    left: 1140px;
+    top: 420px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 59px;
+
+    color: #FFFFFF;
+
+    text-shadow : 4px 4px 1px #424242;
+}
+
+.moreBtn{
+    position: absolute;
+    width: 104px;
+    height: 35px;
+    left: 1215px;
+    top: 596px;
+
+    font-family: 'Calistoga';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 32px;
+
+    color: #000000;
+
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 45%;
+}
+
+.moreBtn:hover {
+    cursor: pointer;
+    background-color: #D8D8D8;
+
+}
+
+.background_2 {
+
+    position: absolute;
+    width: 1200px;
+    height: 887px;
+    left: 140px;
+    top: 870px;
+
+    background: linear-gradient(180deg, #000000 24.37%, #000000 42.6%, rgba(0, 0, 0, 0) 93.1%, rgba(0, 0, 0, 0) 93.11%);
+}
+
+h3{
+    position: absolute;
+    width: 696px;
+    height: 63px;
+    left: 173px;
+    top: 1005px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 61px;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.recommandBtn {
+    position: absolute;
+    width: 251px;
+    height: 64px;
+    left: 933px;
+    top: 1289px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #FFFFFF;
+
+    background-color: #71C98D;
+    border-color: transparent;
+    border-radius: 50px
+}
+
+.recommandBtn:hover {
+    cursor : pointer;
+    filter : brightness(85%);
+}
+
+h4{
+    position: absolute;
+    width: 1005px;
+    height: 144px;
+    left: 217px;
+    top: 1977px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 60px;
+    line-height: 73px;
+
+    color: #4FEE7C;
+}
+
+.mainPage_1{
+    position: absolute;
+    width: 335px;
+    height: 35px;
+    left: 354px;
+    top: 2446px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #00B934;
+}
+
+.mainPage_2{
+    position: absolute;
+    width: 270px;
+    height: 35px;
+    left: 840px;
+    top: 2441px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #00B934;
+}
+
+.mainPage_4{
+    position: absolute;
+    width: 335px;
+    height: 34px;
+    left: 354px;
+    top: 2792px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #00B934;
+}
+
+.mainPage_5 {
+    position: absolute;
+    width: 119.1px;
+    height: 26.17px;
+    left: 905.64px;
+    top: 2799.38px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #00B934;
+}
+
+.dotted_1 {
+    position: absolute;
+    width: 207.31px;
+    height: 0px;
+    left: 600px;
+    top: 2310px;
+    border-top: 1.5px dashed #000000;
+    transform: rotate(-90deg);
+}
+
+.dotted_2 {
+    position: absolute;
+    width: 290px;
+    height: 0px;
+    left: 280px;
+    top: 2520px;
+    
+    border-top: 1.5px dashed #000000;
+}
+
+.dotted_3 {
+    position: absolute;
+    width: 290px;
+    height: 0px;
+    left: 880px;
+    top: 2520px;
+    
+    border-top: 1.5px dashed #000000;
+}
+
+.dotted_4 {
+    position: absolute;
+    width: 207.31px;
+    height: 0px;
+    left: 600px;
+    top: 2700px;
+    
+    border-top: 1.5px dashed #000000;
+    transform: rotate(-90deg);
+}
+
+.background_3{
+    position: absolute;
+    width: 1183px;
+    height: 240px;
+    left: 265px;
+    top: 3132px;
+
+    background: #000000;
+}
+
+h5{
+    position: absolute;
+    width: 800px;
+    height: 75px;
+    left: 317px;
+    top: 3216px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 61px;
+
+    color: #FFFFFF;
+}
+
+.communityBtn{
+    position: absolute;
+    width: 600px;
+    height: 39px;
+    left: 836px;
+    top: 3387px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    
+    color: #000000;
+
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 45%;
+}
+
+.communityBtn:hover {
+    cursor: pointer;
+    background-color: #D8D8D8;
+}

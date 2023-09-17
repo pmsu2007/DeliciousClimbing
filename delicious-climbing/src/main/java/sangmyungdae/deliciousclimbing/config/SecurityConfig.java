@@ -40,8 +40,10 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                     .authorizeRequests()
+                        .antMatchers("/").permitAll()
                         .antMatchers("/login").permitAll()
                         .antMatchers("/register").permitAll()
+                        .antMatchers("/main").permitAll()
                         .antMatchers("/admin/login").permitAll()
                         .antMatchers("/admin").hasRole("ADMIN")
                         //.anyRequest().authenticated()
@@ -57,7 +59,7 @@ public class SecurityConfig {
                 .and()
                     .logout()
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/main")
                 .and()
                     .authenticationProvider(authenticationProvider());
 

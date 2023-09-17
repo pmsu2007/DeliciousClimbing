@@ -1,8 +1,10 @@
 package sangmyungdae.deliciousclimbing.dto.chat;
 
 import lombok.*;
-import sangmyungdae.deliciousclimbing.domain.entity.TbChatMessage;
+import sangmyungdae.deliciousclimbing.domain.entity.TbEquipmentChatMessage;
+import sangmyungdae.deliciousclimbing.domain.entity.TbMateChatMessage;
 import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.domain.enums.ChatRoomType;
 
 @Data
 public class ChatMessage {
@@ -25,10 +27,17 @@ public class ChatMessage {
     }
 
     @Builder
-    public ChatMessage(TbChatMessage entity) {
-        this.id = entity.getId();
-        this.content = entity.getContent();
-        this.user = new User(entity.getUser());
-        this.createdAt = entity.getCreatedAt();
+    public ChatMessage(TbMateChatMessage mate, TbEquipmentChatMessage equipment, ChatRoomType type) {
+        if (type.equals(ChatRoomType.MATE)) {
+            this.id = mate.getId();
+            this.content = mate.getContent();
+            this.user = new User(mate.getUser());
+            this.createdAt = mate.getCreatedAt();
+        } else {
+            this.id = equipment.getId();
+            this.content = equipment.getContent();
+            this.user = new User(equipment.getUser());
+            this.createdAt = equipment.getCreatedAt();
+        }
     }
 }

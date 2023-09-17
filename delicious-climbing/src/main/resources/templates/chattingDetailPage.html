@@ -20,7 +20,10 @@
     <div class="chatting-container-wrap">
             <div class="chatting-title-box">
                 <div class="chatting-title" th:text="${room.roomName}"></div>
-                <div id="chat-leave" class="chatting-delete-box">채팅방 나가기</div>
+                <div class="chatting-control-container">
+                    <div id="chat-leave" class="chatting-leave-box">채팅 목록</div>
+                    <div id="chat-delete" class="chatting-delete-box">채팅방 나가기</div>
+                </div>
             </div>
             <div id="chat-list" class="chatting-message-container">
                 <div th:each="message : ${room.messages}">
@@ -55,6 +58,7 @@
     $(document).ready(function(){
 
         var roomName = [[${room.roomName}]];
+        var roomType = [[${room.type}]]
         var roomId = [[${room.id}]];
         var nickname = [[${user.nickname}]];
         var username = [[${user.email}]];
@@ -97,10 +101,14 @@
             });
 
             //3. send(path, header, message)로 메세지를 보낼 수 있음
-            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId,
-                type:"ENTER",
-                content: "",
-                username: username}))
+            stomp.send('/pub/chat/message', {}, JSON.stringify(
+                {
+                    roomId: roomId,
+                    chatRoomType: roomType,
+                    messageType:"ENTER",
+                    content: "",
+                    username: username
+                }))
         });
 
         $("#button-send").on("click", function(e){
@@ -111,22 +119,28 @@
             stomp.send('/pub/chat/message', {}, JSON.stringify(
                 {
                     roomId: roomId,
-                    type: "CHAT",
+                    chatRoomType: roomType,
+                    messageType: "CHAT",
                     content: msg.value,
                     username: username
                 }));
             msg.value = '';
         });
 
-        $("#chat-leave").on("click", function(e){
+        $("#chat-delete").on("click", function(e){
             stomp.send('/pub/chat/message', {}, JSON.stringify(
                 {
                     roomId: roomId,
-                    type: "LEAVE",
+                    chatRoomType: roomType,
+                    messageType: "LEAVE",
                     content: "",
                     username: username
                 }
             ))
+            window.location.replace("/chat/rooms");
+        })
+
+        $("#chat-leave").on("click", function (e) {
             window.location.replace("/chat/rooms");
         })
     });

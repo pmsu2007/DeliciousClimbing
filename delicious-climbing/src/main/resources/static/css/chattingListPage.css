@@ -40,6 +40,11 @@
 
 }
 
+.chatting-item-container {
+    display: flex;
+
+}
+
 .chatting-item-box {
     width: 550px;
     height: 80px;

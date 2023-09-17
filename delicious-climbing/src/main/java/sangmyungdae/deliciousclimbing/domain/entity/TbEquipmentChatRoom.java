@@ -1,5 +1,6 @@
 package sangmyungdae.deliciousclimbing.domain.entity;
 
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_CHATROOM")
-public class TbChatRoom extends TbDateEntity{
+@Table(name = "TB_EQUIPMENT_CHATROOM")
+public class TbEquipmentChatRoom extends TbDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +33,23 @@ public class TbChatRoom extends TbDateEntity{
     @JoinColumn(name = "creator_id")
     private TbUser creator;
 
-    @OneToMany(mappedBy = "room")
-    private List<TbChatParticipant> chatParticipants = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "equipment_id")
+    private TbEquipment equipment;
 
     @OneToMany(mappedBy = "room")
-    private List<TbChatMessage> chatMessages = new ArrayList<>();
+    private List<TbEquipmentChat> chats = new ArrayList<>();
+
+    @OneToMany(mappedBy = "room")
+    private List<TbEquipmentChatMessage> messages = new ArrayList<>();
 
     @Builder
-    public TbChatRoom(String roomName, int currentCount, int totalCount, TbUser creator) {
+    public TbEquipmentChatRoom(String roomName, int currentCount, int totalCount, TbUser creator, TbEquipment equipment) {
         this.roomName = roomName;
         this.currentCount = currentCount;
         this.totalCount = totalCount;
         this.creator = creator;
+        this.equipment = equipment;
     }
 
     public void updateCurrentCount(int count) {

@@ -10,24 +10,28 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "TB_CHAT")
-public class TbChatParticipant extends TbDateEntity{
+@Table(name = "TB_MATE_CHAT_MESSAGE")
+public class TbMateChatMessage extends TbDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id")
-    private TbUser creator;
+    @Column(nullable = false)
+    private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "room_id")
-    private TbChatRoom room;
+    private TbMateChatRoom room;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private TbUser user;
 
     @Builder
-    public TbChatParticipant(TbUser creator, TbChatRoom room) {
-        this.creator = creator;
+    public TbMateChatMessage(String content, TbMateChatRoom room, TbUser user) {
+        this.content = content;
         this.room = room;
+        this.user = user;
     }
 }

@@ -20,13 +20,14 @@ public class ChatController {
     // /sub/chat/message/{roomId} 에 구독한 Client에게 해당 message를 전달
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto dto) {
-        if(dto.getType().equals(MessageType.ENTER)) {
+        if(dto.getMessageType().equals(MessageType.ENTER)) {
+            // 처음 채팅방에 들어갔다면
             if(!chattingService.enterChatRoom(dto)) {
                 dto.setContent(dto.getUsername() + "님이 입장하셨습니다.");
                 ChatMessage message = chattingService.sendMessage(dto);
                 template.convertAndSend("/sub/chat/room/" + dto.getRoomId(), message);
             }
-        } else if (dto.getType().equals(MessageType.LEAVE)) {
+        } else if (dto.getMessageType().equals(MessageType.LEAVE)) {
             dto.setContent(dto.getUsername() + "님이 퇴장하셨습니다.");
             chattingService.leaveChatRoom(dto);
             ChatMessage message = chattingService.sendMessage(dto);

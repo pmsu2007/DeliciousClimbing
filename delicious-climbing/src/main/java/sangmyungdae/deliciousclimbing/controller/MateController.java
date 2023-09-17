@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sangmyungdae.deliciousclimbing.dto.chat.ChatRoom;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.dto.user.User;
 import sangmyungdae.deliciousclimbing.service.MateService;
@@ -195,5 +196,12 @@ public class MateController {
         pw.print(jsonArray.toString());
         pw.flush();
         pw.close();
+    }
+
+    @PostMapping("/chat/{mateId}")
+    public String createChatRoom(@PathVariable Long mateId) {
+        ChatRoom chatRoom = service.createChatting(mateId);
+
+        return "redirect:/chat/room/" + chatRoom.getType() + "/" + chatRoom.getId();
     }
 }

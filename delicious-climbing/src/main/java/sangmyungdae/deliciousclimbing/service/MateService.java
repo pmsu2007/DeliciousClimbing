@@ -6,9 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sangmyungdae.deliciousclimbing.config.auth.AuthUtil;
+import sangmyungdae.deliciousclimbing.domain.enums.ChatRoomType;
+import sangmyungdae.deliciousclimbing.dto.chat.ChatRoom;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
 import sangmyungdae.deliciousclimbing.repository.*;
+import sangmyungdae.deliciousclimbing.util.ExceptionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,16 @@ public class MateService {
     private final AddressRepository addressRepository;
     private final FamousMountainAddressRepository fmtAddressRepository;
     private final UserRepository userRepository;
+    private final MateChatRepository mateChatRepository;
+    private final MateChatRoomRepository mateChatRoomRepository;
+
+    private TbUser findUser(String username) {
+        return userRepository.findByEmail(username).orElseThrow(() -> ExceptionUtil.id(username, TbUser.class.getName()));
+    }
+
+    private TbMate findMate(Long mateId) {
+        return mateRepository.findById(mateId).orElseThrow(() -> ExceptionUtil.id(mateId, TbEquipment.class.getName()));
+    }
 
     // 게시글 목록 조회 → Pagination 구현
     @Transactional
@@ -188,5 +202,36 @@ public class MateService {
     public void deleteFile(Long mateId, Long fileId) {
 
         fileRepository.deleteById(fileId);
+    }
+
+
+    @Transactional
+    public ChatRoom createChatting(Long mateId) {
+        TbMate mate = findMate(mateId);
+        TbUser customer = findUser(AuthUtil.getAuthUser());
+
+        // 이미 개설된 방이 있을 때 로직,
+        if (mateChatRoomRepository.existsByCreatorAndMate(customer, mate)) {
+            TbMateChatRoom room = mateChatRoomRepository.findByCreatorAndMate(customer, mate)
+                    .orElseThrow(() -> ExceptionUtil.available("You have no chatting room this post"));
+
+            return ChatRoom.builder()
+                    .type(ChatRoomType.MATE)
+                    .mate(room)
+                    .build();
+        } else {
+            TbMateChatRoom chatRoom = TbMateChatRoom.builder()
+                    .creator(customer)
+                    .mate(mate)
+                    .roomName(mate.getTitle())
+                    .currentCount(0)
+                    .totalCount(mate.getRecruitCount())
+                    .build();
+
+            return ChatRoom.builder()
+                    .type(ChatRoomType.EQUIPMENT)
+                    .mate(mateChatRoomRepository.save(chatRoom))
+                    .build();
+        }
     }
 }

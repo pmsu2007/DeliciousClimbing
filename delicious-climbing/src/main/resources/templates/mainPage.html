@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
   <!--Google Material Icons-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
- 
+
+  <link rel="stylesheet" href="/css/header.css" />
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/mainPage.css" />
   
@@ -23,62 +25,8 @@
 </head>
 <body>
 
-  <!-- HEADER -->
- <header>
-  <div class="inner">
-    
-    
-    <a href="/" class="logo">
-      <img src="/img/grayLogo.png" alt="LOGO">
-    </a>
-   
-    <div class="top-menu">
-        
-      <ul class="main-menu">
-        <li>
-          <a href="/info">등산 정보</a>
-        </li>
-        <li>
-          <a href="/recommand">등산 추천</a>
-        </li>
-        <li>
-          <a href="/recommand">등산 메이트</a>
-        </li>
-        <li>
-          <a href="/community/free">커뮤니티</a>
-        </li>
-        <li>
-          <a href="/equipment/list">등산 장비 거래</a>
-        </li>
-      </ul>
-      
-      <div class="search">
-        <form>
-          <select name="select" >
-            <option value="option">선택</option>
-            <option value="info">등산 정보</option>
-            <option value="recommand">등산 추천</option>
-            <option value="mate">등산 메이트</option>
-            <option value="community">커뮤니티</option>
-            <option value="trade">등산 장비 거래</option>
-          </select>
-        </form>
-        <input type="text" />
-        <div class="material-icons">search</div>
-      </div>
+<div th:replace="header :: header"></div>
 
-      <ul class="account">
-        <li>
-          <a href="/signin">Sign In</a>
-        </li>
-        <li>
-          <a href="/template/login.html">Login</a>
-        </li>
-      </ul>
-      <hr />
-    </div>
-  </div>
- </header>
  <div class="background_1">
   <div class="background_ment">
     <h1>Mountain of the week</h1>
@@ -86,12 +34,14 @@
 </div>
 <img class="mountainImage" src="/img/응봉산.png">
 <h2>응봉산</h2>
+<!-- 등산 정보 mapping -->
 <button onClick="location.href='recommand.html'" type="button" class="moreBtn">more>></button>
 
 <div class="background_2">
   <img class="greenbar" src="/img/greenbar.png" style="width: 1200px;">
 </div>
 <h3>오늘 <span style="color:#4FEE7C">어느 산</span>을 갈 지 <span style="color:#4FEE7C">고민</span>된다면?</h3>
+<!-- 등산 추천으로 mapping-->
 <button onClick="location.href='recommand.html'" type="button" class="recommandBtn">간단 TEST하러가기>></button>
 
 <h4>Delicious Climbing <span style="color:black">에서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -121,6 +71,7 @@
 
 <div class="background_3"></div>
 <h5>함께 할 <span style="color:#4FEE7C">등산 메이트</span>가 필요하다면?</h5>
+  <!-- 등산 메이트로 mapping -->
 <button onClick="location.href='recommand.html'" type="button" class="communityBtn">Delicious Climbing 에서 만나 보세요! ></button> 
 
 </body>

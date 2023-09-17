@@ -25,6 +25,7 @@ public class AuthUserService implements UserDetailsService {
         return AuthUser.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
+                .nickname(user.getNickname())
                 .role(user.getRole().getName())
                 .build();
     }

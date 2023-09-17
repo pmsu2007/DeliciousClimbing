@@ -29,10 +29,32 @@
     text-align: center;
 }
 
+.chatting-control-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 230px;
+    height: 100px;
+}
+
 .chatting-delete-box {
     width: 100px;
     height: 30px;
     background: red;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.15);
+    padding: 5px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.chatting-leave-box {
+    width: 100px;
+    height: 30px;
+    background: #C4E7CE;
     font-size: 15px;
     font-weight: bold;
     border-radius: 12px;

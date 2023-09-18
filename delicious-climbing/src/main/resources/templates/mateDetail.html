@@ -94,7 +94,10 @@
                             <h1 th:text="${comment.getContent()}">산악회에 잘생긴 사람들 많나요?? 키 187cm이상만요. 얼굴도 강동원 급이면 좋을거같아요</h1>
                         </div>
                     </div>
-                    <button type="button" class="chatingBtn"><h1>채팅하기</h1></button>
+                    <button th:onclick="|location.href='/chat/room/MATE/${matePost.mate.roomId}'|"
+                            class="chatingBtn">
+                        <h1>채팅하기</h1>
+                    </button>
                 </div>
 
             </div>

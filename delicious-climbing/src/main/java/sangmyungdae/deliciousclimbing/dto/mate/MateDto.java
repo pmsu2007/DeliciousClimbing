@@ -3,10 +3,7 @@ package sangmyungdae.deliciousclimbing.dto.mate;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-import sangmyungdae.deliciousclimbing.domain.entity.TbFamousMountain;
-import sangmyungdae.deliciousclimbing.domain.entity.TbMate;
-import sangmyungdae.deliciousclimbing.domain.entity.TbMountain;
-import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
+import sangmyungdae.deliciousclimbing.domain.entity.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,7 +36,7 @@ public class MateDto {
         this.mountainId = mountainId;
     }
 
-    public TbMate toEntity(TbUser user, TbFamousMountain famousMountain) {
+    public TbMate toEntity(TbUser user, TbFamousMountain famousMountain, TbMateChatRoom mateChatRoom) {
         return TbMate.builder()
                 .title(this.title)
                 .content(this.content)
@@ -48,6 +45,7 @@ public class MateDto {
                 .recruitDate(this.getRecruitDate())
                 .user(user)
                 .famousMountain(famousMountain)
+                .mateChatRoom(mateChatRoom)
                 .build();
     }
 }

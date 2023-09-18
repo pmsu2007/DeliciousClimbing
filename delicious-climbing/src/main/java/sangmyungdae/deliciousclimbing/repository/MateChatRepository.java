@@ -8,7 +8,7 @@ import sangmyungdae.deliciousclimbing.domain.entity.TbUser;
 import java.util.List;
 
 public interface MateChatRepository extends JpaRepository<TbMateChat, Long> {
-    List<TbMateChat> findByCreator(TbUser creator);
-    boolean existsByCreatorAndRoom(TbUser creator, TbMateChatRoom room);
-    TbMateChat findByCreatorAndRoom(TbUser creator, TbMateChatRoom room);
+    List<TbMateChat> findByParticipant(TbUser participant);
+    boolean existsByParticipantAndRoom(TbUser participant, TbMateChatRoom room);
+    TbMateChat findByParticipantAndRoom(TbUser participant, TbMateChatRoom room);
 }

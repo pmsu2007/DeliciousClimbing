@@ -27,12 +27,7 @@ public class TbMateChatRoom extends TbDateEntity{
 
     @Column(name = "total_count")
     private int totalCount;
-
-    @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private TbUser creator;
-
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mate_id")
     private TbMate mate;
 
@@ -43,15 +38,16 @@ public class TbMateChatRoom extends TbDateEntity{
     private List<TbMateChatMessage> messages = new ArrayList<>();
 
     @Builder
-    public TbMateChatRoom(String roomName, int currentCount, int totalCount, TbUser creator, TbMate mate) {
+    public TbMateChatRoom(String roomName, int currentCount, int totalCount, TbMate mate) {
         this.roomName = roomName;
         this.currentCount = currentCount;
         this.totalCount = totalCount;
-        this.creator = creator;
         this.mate = mate;
     }
 
     public void updateCurrentCount(int count) {
         this.currentCount = count;
     }
+
+    public void addMate(TbMate mate) { this.mate = mate; }
 }

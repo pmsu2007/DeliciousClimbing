@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sangmyungdae.deliciousclimbing.dto.chat.ChatRoom;
 import sangmyungdae.deliciousclimbing.dto.mate.*;
 import sangmyungdae.deliciousclimbing.dto.user.User;
+import sangmyungdae.deliciousclimbing.service.ChattingService;
 import sangmyungdae.deliciousclimbing.service.MateService;
 import sangmyungdae.deliciousclimbing.service.UserService;
 
@@ -31,6 +32,7 @@ import java.util.List;
 public class MateController {
     private final MateService service;
     private final UserService userService;
+    private final ChattingService chattingService;
 
     @GetMapping
     public String mateListPage(@RequestParam(required = false) Long mountainId,

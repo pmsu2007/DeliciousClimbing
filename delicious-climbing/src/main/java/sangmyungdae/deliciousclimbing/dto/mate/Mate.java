@@ -30,7 +30,9 @@ public class Mate {
     private Long userId;
     private String nickName;
     private String userImageUrl;
+    private String userEmail;
 
+    private Long roomId;
     private Long mountainId;
     private String mountainName;
 
@@ -47,8 +49,9 @@ public class Mate {
         this.userId = entity.getUser().getId();
         this.nickName = entity.getUser().getNickname();
         this.userImageUrl = entity.getUser().getStoreFileName();
+        this.userEmail = entity.getUser().getEmail();
         this.mountainId = entity.getFamousMountain().getId();
         this.mountainName = entity.getFamousMountain().getName();
-
+        this.roomId = entity.getMateChatRoom().getId();
     }
 }

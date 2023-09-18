@@ -72,7 +72,7 @@ public class TbUser extends TbDateEntity {
     @OneToMany(mappedBy = "user")
     private List<TbFamousMountainLike> famousMountainLikes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "participant")
     private List<TbMateChat> chatList = new ArrayList<>();
 
     @OneToMany(mappedBy = "creator")

@@ -11,25 +11,35 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
     <link rel="stylesheet" href="../static/css/chattingDetailPage.css">
-
+    <link rel="stylesheet" href="/css/header.css" />
 </head>
 <body>
+    <div th:replace="header :: header"></div>
     <!-- chatting list start -->
     <div class="chatting-container">
         <div class="chatting-container-wrap">
             <div class="chatting-title">채팅방 목록</div>
             <div class="chatting-item-container">
-                <div class="chatting-item-box" th:each="room : ${mateRooms}">
-                    <div class="chatting-item-wrap">
-                        <a class="chatting-item" th:href="@{/chat/room/{type}/{roomId}(type=${room.type}, roomId=${room.id})}" th:text="${room.roomName}"></a>
-                        <div class="chatting-count" th:text="|${room.currentCount} / ${room.totalCount}|"></div>
+                <div class="chatting-item-container-wrap">
+                    <div class="chatting-item-container-title">
+                        등산 메이트
+                    </div>
+                    <div class="chatting-item-box" th:each="room : ${mateRooms}">
+                        <div class="chatting-item-wrap">
+                            <a class="chatting-item" th:href="@{/chat/room/{type}/{roomId}(type=${room.type}, roomId=${room.id})}" th:text="${room.roomName}"></a>
+                            <div class="chatting-count" th:text="|${room.currentCount} / ${room.totalCount}|"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="chatting-item-box" th:each="room : ${equipmentRooms}">
-                    <div class="chatting-item-wrap">
-                        <a class="chatting-item" th:href="@{/chat/room/{type}/{roomId}(type=${room.type}, roomId=${room.id})}" th:text="${room.roomName}"></a>
-                        <div class="chatting-count" th:text="|${room.currentCount} / ${room.totalCount}|"></div>
+                <div class="chatting-item-container-wrap">
+                    <div class="chatting-item-container-title">
+                        등산 장비거래
+                    </div>
+                    <div class="chatting-item-box" th:each="room : ${equipmentRooms}">
+                        <div class="chatting-item-wrap">
+                            <a class="chatting-item" th:href="@{/chat/room/{type}/{roomId}(type=${room.type}, roomId=${room.id})}" th:text="${room.roomName}"></a>
+                            <div class="chatting-count" th:text="|${room.currentCount} / ${room.totalCount}|"></div>
+                        </div>
                     </div>
                 </div>
             </div>

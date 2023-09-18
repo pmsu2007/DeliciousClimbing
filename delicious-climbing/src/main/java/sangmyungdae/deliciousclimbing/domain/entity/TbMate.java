@@ -43,9 +43,6 @@ public class TbMate extends TbDateEntity {
     @JoinColumn (name = "user_id")
     private TbUser user;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private TbMountain mountain;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mountain_id")
     private TbFamousMountain famousMountain;
@@ -56,9 +53,12 @@ public class TbMate extends TbDateEntity {
     @OneToMany(mappedBy = "mate")
     private List<TbMateFile> mateFiles = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "room_id")
+    private TbMateChatRoom mateChatRoom;
+
     @Builder
-    public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus,
-                  LocalDate recruitDate, TbUser user, TbFamousMountain famousMountain) {
+    public TbMate(String title, String content, int hits, int recruitCount, boolean recruitStatus, LocalDate recruitDate, TbUser user, TbFamousMountain famousMountain, TbMateChatRoom mateChatRoom) {
         this.title = title;
         this.content = content;
         this.hits = hits;
@@ -67,8 +67,8 @@ public class TbMate extends TbDateEntity {
         this.recruitDate = recruitDate;
         this.user = user;
         this.famousMountain = famousMountain;
+        this.mateChatRoom = mateChatRoom;
     }
-
 
     public void update(String title, String content, int recruitCount, boolean recruitStatus, LocalDate recruitDate, TbFamousMountain famousMountain) {
         this.title = title;

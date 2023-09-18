@@ -2,7 +2,7 @@
 <!-- HEADER start -->
 <div th:fragment="header"  class="header-container">
   <div class="header-top-box">
-    <div class="header-logo">
+    <div class="header-logo" th:onclick="|location.href='/main'|">
       <img src="/img/grayLogo.png" alt="LOGO">
     </div>
     <div sec:authorize="isAnonymous()" class="header-account-box">
@@ -25,7 +25,7 @@
     <div class="header-menu-item" th:onclick="|location.href='/mountains'|">
       등산 정보
     </div>
-    <div class="header-menu-item" th:onclick="|location.href='/recommend'|">
+    <div class="header-menu-item" th:onclick="|location.href='/recommend/main'|">
       등산 추천
     </div>
     <div class="header-menu-item" th:onclick="|location.href='/mate'|">
@@ -36,6 +36,9 @@
     </div>
     <div class="header-menu-item" th:onclick="|location.href='/equipment/list'|">
       등산 장비 거래
+    </div>
+    <div class="header-menu-item" th:onclick="|location.href='/chat/rooms'|">
+      채팅
     </div>
   </div>
 

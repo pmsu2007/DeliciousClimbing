@@ -101,10 +101,28 @@ public class MateService {
         TbFamousMountain findMountain = fmtRepository.getReferenceById(dto.getMountainId());
         TbUser findUser = userRepository.getReferenceById(userId);
 
-        TbMate entity = mateRepository.save(dto.toEntity(findUser, findMountain));
+        TbMateChatRoom chatRoom = TbMateChatRoom.builder()
+                .roomName(dto.getTitle())
+                .currentCount(0)
+                .totalCount(dto.getRecruitCount())
+                .build();
+
+        TbMate mate = TbMate.builder()
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .recruitCount(dto.getRecruitCount())
+                .recruitDate(dto.getRecruitDate())
+                .recruitStatus(dto.getRecruitStatus())
+                .hits(0)
+                .mateChatRoom(chatRoom)
+                .famousMountain(findMountain)
+                .user(findUser)
+                .build();
+
+        chatRoom.addMate(mate);
 
         return Mate.builder()
-                .entity(entity)
+                .entity(mateRepository.save(mate))
                 .build();
     }
 
@@ -207,31 +225,24 @@ public class MateService {
 
     @Transactional
     public ChatRoom createChatting(Long mateId) {
+        // 메이트 상세 게시글에서 채팅 버튼 눌렀을 때 처리 메소드
+
         TbMate mate = findMate(mateId);
-        TbUser customer = findUser(AuthUtil.getAuthUser());
+        TbUser user = findUser(AuthUtil.getAuthUser());
+        TbMateChatRoom chatRoom = mateChatRoomRepository.findByMate(mate)
+                .orElseThrow(() -> ExceptionUtil.id(mate, TbMate.class.getName()));
 
-        // 이미 개설된 방이 있을 때 로직,
-        if (mateChatRoomRepository.existsByCreatorAndMate(customer, mate)) {
-            TbMateChatRoom room = mateChatRoomRepository.findByCreatorAndMate(customer, mate)
-                    .orElseThrow(() -> ExceptionUtil.available("You have no chatting room this post"));
-
-            return ChatRoom.builder()
-                    .type(ChatRoomType.MATE)
-                    .mate(room)
-                    .build();
-        } else {
-            TbMateChatRoom chatRoom = TbMateChatRoom.builder()
-                    .creator(customer)
-                    .mate(mate)
-                    .roomName(mate.getTitle())
-                    .currentCount(0)
-                    .totalCount(mate.getRecruitCount())
-                    .build();
-
-            return ChatRoom.builder()
-                    .type(ChatRoomType.EQUIPMENT)
-                    .mate(mateChatRoomRepository.save(chatRoom))
-                    .build();
+        // 채팅방에 참여하지 않았을 때
+        if (!mateChatRepository.existsByParticipantAndRoom(user, chatRoom)) {
+            mateChatRepository.save(TbMateChat.builder()
+                    .participant(user)
+                    .room(chatRoom)
+                    .build());
         }
+
+        return ChatRoom.builder()
+                .type(ChatRoomType.MATE)
+                .mate(chatRoom)
+                .build();
     }
 }

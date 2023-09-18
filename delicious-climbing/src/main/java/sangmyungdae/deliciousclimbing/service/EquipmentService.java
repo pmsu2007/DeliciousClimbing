@@ -149,11 +149,11 @@ public class EquipmentService {
     @Transactional
     public ChatRoom createChatting(Long equipmentId) {
         TbEquipment equipment = findEquipment(equipmentId);
-        TbUser customer = findUser(AuthUtil.getAuthUser());
+        TbUser user = findUser(AuthUtil.getAuthUser());
 
         // 이미 개설된 방이 있을 때 로직,
-        if (equipmentChatRoomRepository.existsByCreatorAndEquipment(customer, equipment)) {
-            TbEquipmentChatRoom room = equipmentChatRoomRepository.findByCreatorAndEquipment(customer, equipment)
+        if (equipmentChatRoomRepository.existsByCreatorAndEquipment(user, equipment)) {
+            TbEquipmentChatRoom room = equipmentChatRoomRepository.findByCreatorAndEquipment(user, equipment)
                     .orElseThrow(() -> ExceptionUtil.available("You have no chatting room this post"));
 
             return ChatRoom.builder()
@@ -162,12 +162,19 @@ public class EquipmentService {
                     .build();
         } else {
             TbEquipmentChatRoom chatRoom = TbEquipmentChatRoom.builder()
-                    .creator(customer)
+                    .creator(user)
                     .equipment(equipment)
                     .roomName(equipment.getTitle())
                     .currentCount(0)
                     .totalCount(2)
                     .build();
+
+            TbEquipmentChat equipmentChat = TbEquipmentChat.builder()
+                    .creator(equipment.getUser())
+                    .room(chatRoom)
+                    .build();
+
+            chatRoom.addEquipmentChat(equipmentChat);
 
             return ChatRoom.builder()
                     .type(ChatRoomType.EQUIPMENT)

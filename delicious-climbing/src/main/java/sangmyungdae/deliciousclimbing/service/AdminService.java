@@ -1,6 +1,7 @@
 package sangmyungdae.deliciousclimbing.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sangmyungdae.deliciousclimbing.domain.entity.*;
@@ -46,9 +47,9 @@ public class AdminService {
         List<String> headerList = new ArrayList<String>();
 
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/csv/famousMountainAddress.csv";
+            ClassPathResource resource = new ClassPathResource("/csv/famousMountainAddress.csv");
 
-            BufferedReader br = Files.newBufferedReader(Paths.get(path));
+            BufferedReader br = Files.newBufferedReader(Paths.get(resource.getURI()));
             String line = "";
 
             while ((line = br.readLine()) != null) {
@@ -99,9 +100,9 @@ public class AdminService {
         List<String> headerList = new ArrayList<String>();
 
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/csv/famousMountainRegion.csv";
+            ClassPathResource resource = new ClassPathResource("/csv/famousMountainRegion.csv");
 
-            BufferedReader br = Files.newBufferedReader(Paths.get(path));
+            BufferedReader br = Files.newBufferedReader(Paths.get(resource.getURI()));
             String line = "";
 
             while ((line = br.readLine()) != null) {
@@ -151,9 +152,9 @@ public class AdminService {
         List<String> headerList = new ArrayList<String>();
 
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/csv/famousMountain_etc.csv";
+            ClassPathResource resource = new ClassPathResource("/csv/famousMountain_etc.csv");
 
-            BufferedReader br = Files.newBufferedReader(Paths.get(path));
+            BufferedReader br = Files.newBufferedReader(Paths.get(resource.getURI()));
             String line = "";
 
             while ((line = br.readLine()) != null) {
@@ -199,9 +200,9 @@ public class AdminService {
         List<String> headerList = new ArrayList<String>();
 
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/csv/famousMountain_reason.csv";
+            ClassPathResource resource = new ClassPathResource("/csv/famousMountain_reason.csv");
 
-            BufferedReader br = Files.newBufferedReader(Paths.get(path));
+            BufferedReader br = Files.newBufferedReader(Paths.get(resource.getURI()));
             String line = "";
 
             while ((line = br.readLine()) != null) {
@@ -247,9 +248,9 @@ public class AdminService {
         List<String> headerList = new ArrayList<String>();
 
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/csv/famousMountain_info.csv";
+            ClassPathResource resource = new ClassPathResource("/csv/famousMountain_info.csv");
 
-            BufferedReader br = Files.newBufferedReader(Paths.get(path));
+            BufferedReader br = Files.newBufferedReader(Paths.get(resource.getURI()));
             String line = "";
 
             while ((line = br.readLine()) != null) {

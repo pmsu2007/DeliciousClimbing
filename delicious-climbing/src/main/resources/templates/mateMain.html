@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>등산 메이트 메인화면</title>
     <link  rel="stylesheet" href="/css/mateMain.css">
+    <link rel="stylesheet" href="/css/header.css" />
     <script defer src="/js/setting.js"></script>
     <script defer src="/js/mateMain.js"></script>
 
@@ -13,6 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 <body>
+<div th:replace="header :: header"></div>
 <div class = "mainBox">
     <form th:action="@{/mate}" method="get" >
         <div class ="selectBox">

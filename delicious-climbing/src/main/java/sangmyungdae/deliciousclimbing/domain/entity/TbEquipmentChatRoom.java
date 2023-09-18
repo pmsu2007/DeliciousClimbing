@@ -37,7 +37,7 @@ public class TbEquipmentChatRoom extends TbDateEntity {
     @JoinColumn(name = "equipment_id")
     private TbEquipment equipment;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<TbEquipmentChat> chats = new ArrayList<>();
 
     @OneToMany(mappedBy = "room")
@@ -54,5 +54,9 @@ public class TbEquipmentChatRoom extends TbDateEntity {
 
     public void updateCurrentCount(int count) {
         this.currentCount = count;
+    }
+
+    public void addEquipmentChat(TbEquipmentChat equipmentChat) {
+        chats.add(equipmentChat);
     }
 }

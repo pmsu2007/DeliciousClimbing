@@ -26,8 +26,11 @@
     <script src="../static/js/account.js"></script>
     <script src="../static/js/signin.js"></script>
     <link rel="stylesheet" href="../static/css/chattingDetailPage.css">
+    <link rel="stylesheet" href="/css/header.css" />
   </head>
   <body class="container">
+  <div th:replace="header :: header"></div>
+  <div class="account-container">
     <div class="account_main">
       <!-- Email Component-->
       <div class="account_btn1">
@@ -293,5 +296,6 @@
         <button class="open-button" data-modal="#modal-1"></button>
       </div>
     </div>
+  </div>
   </body>
 </html>

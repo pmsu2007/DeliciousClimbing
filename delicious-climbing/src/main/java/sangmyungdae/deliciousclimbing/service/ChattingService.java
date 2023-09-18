@@ -43,7 +43,7 @@ public class ChattingService {
     public List<ChatRoom> getMateChatRoomList() {
         TbUser user = findUser(AuthUtil.getAuthUser());
 
-        List<TbMateChat> chats = mateChatRepository.findByCreator(user);
+        List<TbMateChat> chats = mateChatRepository.findByParticipant(user);
 
         List<TbMateChatRoom> chatRooms = chats.stream()
                 .map(TbMateChat::getRoom)
@@ -95,11 +95,11 @@ public class ChattingService {
         if(dto.getChatRoomType().equals(ChatRoomType.MATE)) {
             TbMateChatRoom room = findMateChatRoom(dto.getRoomId());
 
-            boolean isEntered = mateChatRepository.existsByCreatorAndRoom(user, room);
+            boolean isEntered = mateChatRepository.existsByParticipantAndRoom(user, room);
 
             if(!isEntered && room.getCurrentCount() + 1 <= room.getTotalCount()) {
                 TbMateChat participant = TbMateChat.builder()
-                        .creator(user)
+                        .participant(user)
                         .room(room)
                         .build();
 
@@ -138,12 +138,12 @@ public class ChattingService {
         if (dto.getChatRoomType().equals(ChatRoomType.MATE)) {
             TbMateChatRoom room = findMateChatRoom(dto.getRoomId());
 
-            TbMateChat participant = mateChatRepository.findByCreatorAndRoom(user, room);
+            TbMateChat chat = mateChatRepository.findByParticipantAndRoom(user, room);
 
             room.updateCurrentCount(room.getCurrentCount() - 1);
             mateChatRoomRepository.save(room);
 
-            mateChatRepository.delete(participant);
+            mateChatRepository.delete(chat);
         } else {
             TbEquipmentChatRoom room = findEquipmentChatRoom(dto.getRoomId());
 

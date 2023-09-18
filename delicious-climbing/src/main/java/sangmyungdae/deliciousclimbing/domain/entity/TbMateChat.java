@@ -18,16 +18,16 @@ public class TbMateChat extends TbDateEntity{
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id")
-    private TbUser creator;
+    @JoinColumn(name = "participant_id")
+    private TbUser participant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private TbMateChatRoom room;
 
     @Builder
-    public TbMateChat(TbUser creator, TbMateChatRoom room) {
-        this.creator = creator;
+    public TbMateChat(TbUser participant, TbMateChatRoom room) {
+        this.participant = participant;
         this.room = room;
     }
 }

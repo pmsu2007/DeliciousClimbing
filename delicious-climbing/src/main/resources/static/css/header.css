@@ -4,6 +4,8 @@
 
     display: flex;
     flex-direction: column;
+
+    margin-bottom: 20px;
 }
 .header-top-box {
     width: 100%;

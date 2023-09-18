@@ -16,6 +16,8 @@ article{
     margin: auto;
     width: 1440px;
     height: 1024px;
+    display: flex;
+    flex-direction: column;
 }
 /* ---------------------등산추천 메인화면---------------------- */
 .start{

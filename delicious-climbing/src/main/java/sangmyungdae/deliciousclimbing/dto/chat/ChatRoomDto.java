@@ -18,12 +18,11 @@ public class ChatRoomDto {
         this.totalCount = totalCount;
     }
 
-    public TbMateChatRoom toEntity(TbUser creator) {
+    public TbMateChatRoom toEntity() {
         return TbMateChatRoom.builder()
                 .roomName(this.roomName)
                 .currentCount(this.currentCount)
                 .totalCount(this.totalCount)
-                .creator(creator)
                 .build();
     }
 }

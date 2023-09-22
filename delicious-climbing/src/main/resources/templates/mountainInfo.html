@@ -17,16 +17,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <link rel="stylesheet" href="/css/mountainInfo.css" />
-  <link rel="stylesheet" href="/css/header.css" />
+  <link rel="stylesheet" href="/css/header.css"/>
   <script defer src="/js/mountainInfo.js"></script>
 </head>
 </head>
 <body>
 <div th:replace="header :: header"></div>
 
-<header>
-  <div class="inner"></div>
-</header>
 
 <section>
 
@@ -45,78 +42,88 @@
     <div class="dropdown">
       <button class="dropbtn">
         <span class="dropbtn_icon">more_horiz</span>
-        정렬 기준
+        난이도
       </button>
       <div class="dropdown-content">
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='name,ASC', sort='name,ASC', keyword=${param.keyword})}">가나다 순</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='height,DESC', sort='name,ASC', keyword=${param.keyword})}">높이 순</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,DESC', sort='name,ASC', keyword=${param.keyword})}">난이도 순(상->하)</a>
-        <a href="#" th:href="@{/mountains(region=${param.region}, sort='difficulty,ASC', sort='name,DESC', keyword=${param.keyword})}">난이도 역순(하->순)</a>
-<!--        <a href="#" th:href="@{/mountains(region=${param.region}, sort='likes,DESC', sort='name,ASC', keyword=${param.keyword})}">추천수 순</a>-->
+        <a href="#"
+           th:href="@{/mountains(region=${param.region}, sort='name,ASC', sort='name,ASC', keyword=${param.keyword})}">가나다
+          순</a>
+        <a href="#"
+           th:href="@{/mountains(region=${param.region}, sort='height,DESC', sort='name,ASC', keyword=${param.keyword})}">높이
+          순</a>
+        <a href="#"
+           th:href="@{/mountains(region=${param.region}, sort='difficulty,DESC', sort='name,ASC', keyword=${param.keyword})}">난이도
+          순(상->하)</a>
+        <a href="#"
+           th:href="@{/mountains(region=${param.region}, sort='difficulty,ASC', sort='name,DESC', keyword=${param.keyword})}">난이도
+          역순(하->순)</a>
+        <!--        <a href="#" th:href="@{/mountains(region=${param.region}, sort='likes,DESC', sort='name,ASC', keyword=${param.keyword})}">추천수 순</a>-->
       </div>
     </div>
     <!-- 지도시작 -->
-    <img src="/img/map.png" alt="map" class="map"  />
-    <div class="seoul">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <br>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='SEOUL_GYEONGGI', sort=${param.sort})}">서울/경기</a>
+    <div class="map_and_lable">
+      <img src="/img/map.png" alt="map" class="map"  />
+      <div class="seoul">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <br>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='SEOUL_GYEONGGI', sort=${param.sort})}">서울/경기</a>
+      </div>
+      <div class="gangwon">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GANGWON', sort=${param.sort})}">강원도</a>
+      </div>
+      <div class="chungbuk">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='CHUNGCHEONGBUKDO', sort=${param.sort})}">충청북도</a>
+      </div>
+      <div class="chungnam">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='CHUNGCHEONGNAMDO', sort=${param.sort})}">충청남도</a>
+      </div>
+      <div class="jeonbuk">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEOLLABUKDO', sort=${param.sort})}">전라북도</a>
+      </div>
+      <div class="jeonnam">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEOLLANAMDO', sort=${param.sort})}">전라남도</a>
+      </div>
+      <div class="gyungbuk">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GYEONGSANGBUKDO', sort=${param.sort})}">경상북도</a>
+      </div>
+      <div class="gyungnam">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GYEONGSANGNAMDO', sort=${param.sort})}">경상남도</a>
+      </div>
+      <div class="jeju">
+            <span class="material-icons">
+              arrow_drop_down
+              </span>
+        <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEJU', sort=${param.sort})}">제주도</a>
+      </div>
     </div>
-    <div class="gangwon">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GANGWON', sort=${param.sort})}">강원도</a>
-    </div>
-    <div class="chungbuk">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='CHUNGCHEONGBUKDO', sort=${param.sort})}">충청북도</a>
-    </div>
-    <div class="chungnam">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='CHUNGCHEONGNAMDO', sort=${param.sort})}">충청남도</a>
-    </div>
-    <div class="jeonbuk">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEOLLABUKDO', sort=${param.sort})}">전라북도</a>
-    </div>
-    <div class="jeonnam">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEOLLANAMDO', sort=${param.sort})}">전라남도</a>
-    </div>
-    <div class="gyungbuk">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GYEONGSANGBUKDO', sort=${param.sort})}">경상북도</a>
-    </div>
-    <div class="gyungnam">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='GYEONGSANGNAMDO', sort=${param.sort})}">경상남도</a>
-    </div>
-    <div class="jeju">
-          <span class="material-icons">
-            arrow_drop_down
-            </span>
-      <a href="javascriptLvoid(0)" th:href="@{/mountains(region='JEJU', sort=${param.sort})}">제주도</a>
-    </div>
-
 
     <!-- 사진 스크롤 iframe -->
-    <iframe src="moutainInfoPhoto.html" th:src="@{/mountains/iframe(region=${param.region}, sort=${param.sort}, keyword=${param.keyword})}" class="photos"></iframe>
-
+    <div class="scroll">
+      <iframe src="moutainInfoPhoto_Thyme.html" th:src="@{/mountains/iframe(region=${param.region}, sort=${param.sort}, keyword=${param.keyword})}" class="photos"></iframe>
+    </div>
   </div>
 </section>
 

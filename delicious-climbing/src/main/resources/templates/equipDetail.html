@@ -34,9 +34,14 @@
                 <div class="main_2_modal">
                     <div class="stateModal">
                         <div class="modal_profile">
-<!--                            이미지 추가 필요 -->
-                            <div class ="modal_profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
-                            <h2 th:text="${equipment.user.author}">상명 산악회</h2>
+                            <div class="modal_profilePhoto" th:if="${equipment.getUser().getImageUrl() == null}">
+                                <img class="user_profile_img" src="/img/profile.png">
+                            </div>
+                            <div class ="modal_profilePhoto" th:if="${equipment.getUser().getImageUrl() != null}">
+                                <img  class="user_profile_img" th:src="@{/user/image/{filename}(filename=${equipment.getUser().getImageUrl()})}">
+                            </div>
+
+                           <h2 th:text="${equipment.user.author}">상명 산악회</h2>
                         </div>
                         <!-- <div class="modal_date"><h1>2023년 2월 24일 (금)</h1>
                         </div> -->

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div sec:authorize="isAuthenticated()" class="header-account-box">
-      <div th:onclick="|location.href='/profile'|" th:text="|${#authentication.principal.nickname}님|" class="header-account"></div>
+      <div th:onclick="|location.href='/profile'|" th:text="|${#authentication.principal.username}님|" class="header-account"></div>
       <div th:onclick="|location.href='/logout'|" class="header-account-btn">
         Logout
       </div>

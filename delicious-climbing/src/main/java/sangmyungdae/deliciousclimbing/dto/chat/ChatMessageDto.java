@@ -12,12 +12,15 @@ public class ChatMessageDto {
     private MessageType messageType;
     private String content;
     private String username;
+    private String nickname;
 
-    public ChatMessageDto(Long roomId, ChatRoomType chatRoomType, MessageType messageType, String content, String username) {
+    public ChatMessageDto(Long roomId, ChatRoomType chatRoomType, MessageType messageType, String content, String username,
+                          String nickname) {
         this.roomId = roomId;
         this.chatRoomType = chatRoomType;
         this.messageType = messageType;
         this.content = content;
         this.username = username;
+        this.nickname = nickname;
     }
 }

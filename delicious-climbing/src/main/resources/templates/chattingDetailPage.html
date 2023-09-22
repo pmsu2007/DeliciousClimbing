@@ -107,7 +107,8 @@
                     chatRoomType: roomType,
                     messageType:"ENTER",
                     content: "",
-                    username: username
+                    username: username,
+                    nickname: nickname
                 }))
         });
 
@@ -122,7 +123,8 @@
                     chatRoomType: roomType,
                     messageType: "CHAT",
                     content: msg.value,
-                    username: username
+                    username: username,
+                    nickname: nickname
                 }));
             msg.value = '';
         });
@@ -134,7 +136,8 @@
                     chatRoomType: roomType,
                     messageType: "LEAVE",
                     content: "",
-                    username: username
+                    username: username,
+                    nickname: nickname
                 }
             ))
             window.location.replace("/chat/rooms");

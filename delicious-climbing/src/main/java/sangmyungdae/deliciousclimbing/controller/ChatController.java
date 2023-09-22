@@ -23,12 +23,12 @@ public class ChatController {
         if(dto.getMessageType().equals(MessageType.ENTER)) {
             // 처음 채팅방에 들어갔다면
             if(!chattingService.enterChatRoom(dto)) {
-                dto.setContent(dto.getUsername() + "님이 입장하셨습니다.");
+                dto.setContent(dto.getNickname() + "님이 입장하셨습니다.");
                 ChatMessage message = chattingService.sendMessage(dto);
                 template.convertAndSend("/sub/chat/room/" + dto.getRoomId(), message);
             }
         } else if (dto.getMessageType().equals(MessageType.LEAVE)) {
-            dto.setContent(dto.getUsername() + "님이 퇴장하셨습니다.");
+            dto.setContent(dto.getNickname() + "님이 퇴장하셨습니다.");
             chattingService.leaveChatRoom(dto);
             ChatMessage message = chattingService.sendMessage(dto);
             template.convertAndSend("/sub/chat/room/" + dto.getRoomId(), message);

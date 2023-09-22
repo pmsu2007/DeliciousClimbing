@@ -3,6 +3,10 @@ package sangmyungdae.deliciousclimbing.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,20 +35,30 @@ public class EquipmentController {
     @GetMapping("/list")
     public String equipmentListPage(@RequestParam(required = false) EquipmentType type,
                                     @RequestParam(required = false) Long addressCode,
-//                                    @RequestParam(required = false) String latest,
+                                    @RequestParam(required = false,defaultValue = "false") Boolean latest,
                                     Model model) {
-        EquipmentSearchDto dto = EquipmentSearchDto.builder()
-                .equipmentType(type)
-                .adressCode(addressCode)
-//                .latest(latest)
-                .build();
-        List<Equipment> equipments = equipmentService.getPostList(dto);
+        if(latest){
+            EquipmentSearchDto dto = EquipmentSearchDto.builder()
+                    .equipmentType(type)
+                    .adressCode(addressCode)
+                    .build();
+            List<Equipment> equipments = equipmentService.getLatestPostList(dto);
+            model.addAttribute("equipments", equipments);
+        } else{
+            EquipmentSearchDto dto = EquipmentSearchDto.builder()
+                    .equipmentType(type)
+                    .adressCode(addressCode)
+                    .build();
+            List<Equipment> equipments = equipmentService.getPostList(dto);
+            model.addAttribute("equipments", equipments);
+        }
         model.addAttribute("type",type);
         model.addAttribute("addressCode",addressCode);
-        model.addAttribute("equipments", equipments);
+
 //        model.addAttribute("latest",latest);
         return "equipMain";
     }
+
 
 
     @GetMapping("/detail/{postId}")

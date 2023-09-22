@@ -26,6 +26,7 @@ public class FamousMountainService {
     private final FamousMountainRegionRepository famousMountainRegionRepository;
     private final UserRepository userRepository;
 
+
     // 산 목록 조회
     @Transactional
     public List<FamousMountainList> getMountainList(FamousMountainSearchDto dto, Pageable pageable) {

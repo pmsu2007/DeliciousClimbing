@@ -32,7 +32,7 @@
 
       <!-- 산 이미지 및 설명들 -->
       <div class="mountain">
-        <img src="/img/재약산.jpg" alt="mountain">
+        <img src="/img/재약산.jpg" alt="mountain" th:src="'/img/mountains/'+${famousMountain.getId()}+'.jpg'">
 
         <div class="feature">
           <div class="mtname" th:text="${famousMountain.getName()}">
@@ -60,7 +60,7 @@
       <div class="attribution">
         <p class="height" th:text="'산 높이: ' + ${famousMountain.getHeight() + 'm'}">산 높이: 1100m ~1200m미만</p>
         <br>
-        <p class="level" th:text="'난이도: ' + ${famousMountain.getDifficulty().getName()}">난이도: 상</p>
+        <p class="level" th:text="'난이도: ' + ${famousMountain.getDifficulty()}">난이도: 상</p>
         <br>
         <p class="weather" th:text="'계절: ' + ${famousMountain.getSeason()}">계절: 봄, 가을</p>
         <br>
@@ -78,7 +78,7 @@
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a701f25bc6276f9a84ae59549e3cfee7"></script>
       <script>
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-          mapOption = { 
+          mapOption = {
               center: new kakao.maps.LatLng(35.5547878, 128.979464), // 지도의 중심좌표
               level: 10 // 지도의 확대 레벨
           };

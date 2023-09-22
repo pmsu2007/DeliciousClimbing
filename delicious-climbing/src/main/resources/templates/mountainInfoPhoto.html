@@ -25,7 +25,7 @@
     <div class="inner">
       <nav th:each="famousMountain : ${famousMountainList}">
         <a href="#" th:onclick="|window.parent.location.href='@{/mountains/{id}(id=${famousMountain.getId()})}'|">
-          <img class = "ungbong" src="/img/응봉산.png" th:text="${famousMountain.getName()}">
+          <img class = "ungbong" src="/img/응봉산.png" th:src="'/img/mountains/'+${famousMountain.getId()}+'.jpg'" th:text="${famousMountain.getName()}">
         </a>
       </nav>
 

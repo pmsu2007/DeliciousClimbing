@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/recommand")
+@RequestMapping("/recommend")
 public class RecommendController {
 
     private final RecommendService recommendService;
@@ -27,7 +27,7 @@ public class RecommendController {
         // 난이도 별표시 해결 -> js로 해야할 듯
         // 주소처리는 나중에 pull 받아서 하기
         List<RecommendMountain> randMountainList = recommendService.findMountainRand();
-
+        System.out.println("randMountainList.get(0).getDetailRegion() = " + randMountainList.get(0).getDetailRegion());
         model.addAttribute("randMountainList",randMountainList);
 
         return "recommend";

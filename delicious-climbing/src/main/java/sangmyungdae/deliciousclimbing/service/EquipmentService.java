@@ -34,24 +34,7 @@ public class EquipmentService {
     public List<Equipment> getPostList(EquipmentSearchDto dto) {
 //        Page<TbEquipment> entities = equipmentRepository.findPageByAddress_CodeAndType(code,type ,pageable);
 //        return Equipment.toDtoList(entities);
-//         if(dto.getLatest().equals("latest")){
-//            // 최신순
-//            List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateDesc();
-//
-//            return findEquipments.stream()
-//                    .map(Equipment::new)
-//                    .collect(Collectors.toList());
-//
-//        } else if(dto.getLatest().equals("oldest")){
-//             // 오래된 순
-//            List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedDateAsc();
-//
-//            return findEquipments.stream()
-//                    .map(Equipment::new)
-//                    .collect(Collectors.toList());
-//
-//        }else
-            if (dto.getEquipmentType() == null && dto.getAdressCode() == null) {
+        if (dto.getEquipmentType() == null && dto.getAdressCode() == null) {
             List<TbEquipment> findEquipments = equipmentRepository.findAll();
             return findEquipments.stream()
                     .map(Equipment::new)
@@ -76,6 +59,17 @@ public class EquipmentService {
         }
 
     }
+    @Transactional
+    public List<Equipment> getLatestPostList(EquipmentSearchDto dto) {
+
+            List<TbEquipment> findEquipments = equipmentRepository.findAllByOrderByCreatedAtDesc();
+            return findEquipments.stream()
+                    .map(Equipment::new)
+                    .collect(Collectors.toList());
+
+    }
+
+
 
     @Transactional  //게시글 상세 조회
     public Equipment getPostDetail(Long postId) {

@@ -17,13 +17,15 @@ public class RecommendMountain {
     private String name;
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
+    private String detailRegion;
 
 
     @Builder
-    public RecommendMountain(TbFamousMountain entity){
+    public RecommendMountain(TbFamousMountain entity,String detailRegion){
         this.id = entity.getId();
         this.name = entity.getName();
         this.difficulty = entity.getDifficulty();
+        this.detailRegion = detailRegion;
     }
 
     public static List<RecommendMountain> toDtoList(List<TbFamousMountain> entities){

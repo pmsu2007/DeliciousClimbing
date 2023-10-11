@@ -18,7 +18,7 @@
             <span class="close"></span>
             <div class="topModal">
                 <div class="modal_mountain">
-                    <div class ="modal_roadView"><img src="@{/img/roadView.png}" alt="roadview"></div>
+                    <div class ="modal_roadView"><img src="/img/roadView.png" alt="roadview"></div>
                     <h1   th:text="${equipment.address.sidoSigungu }">시도</h1>
 <!--                    <h1 class="address_label" th:field="${equipment.address.getSigungu()}">시군구</h1>-->
                 </div>
@@ -35,7 +35,12 @@
                     <div class="stateModal">
                         <div class="modal_profile">
 <!--                            이미지 추가 필요 -->
-                            <div class ="modal_profilePhoto"><img src="/img/profilePhoto.png" alt="profile"></div>
+                            <div class ="modal_profilePhoto" th:if="${equipment.user.imageUrl == null}">
+                                <img src="/img/profile.png" />
+                            </div>
+                            <div class ="modal_profilePhoto" th:unless="${equipment.user.imageUrl == null}">
+                                <img th:src="@{/user/image/{filename}(filename=${equipment.user.imageUrl})}" />
+                            </div>
                             <h2 th:text="${equipment.user.author}">상명 산악회</h2>
                         </div>
                         <!-- <div class="modal_date"><h1>2023년 2월 24일 (금)</h1>

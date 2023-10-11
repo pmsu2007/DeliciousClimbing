@@ -414,6 +414,16 @@ h3 {
 }
 .modal_profilePhoto{
     margin-left: 3%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 70%;
+    object-fit: contain;
+    border: 2px solid #F2F2F2;
+}
+.modal_profilePhoto > img{
+    width: 50px;
+    height: 50px;
 }
 
 .modal_date h1{

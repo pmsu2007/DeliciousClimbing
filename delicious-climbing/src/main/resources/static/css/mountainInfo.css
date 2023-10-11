@@ -56,9 +56,9 @@ section .inner .search .material-icons {
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 section .inner .dropdown {
-  position : absolute;
+  position : relative;
   left: 50%;
-  top: 13%;
+  top: 0%;
 }
 
 .dropbtn_icon {
@@ -124,12 +124,18 @@ section .inner .mountainSort {
 } */
 
 /*   지도   */
-
+section .inner .map_and_lable {
+  position: relative;
+  width: 600px;
+  height: 700px;
+  /* background-color: royalblue; */
+  top:10%;
+}
 section .inner .map {
   position: relative;
   width: 500px;
   height: 600px;
-  top: 10%;
+  top: -5%;
   left: 10%;
 }
 /* iframe 사진들 */
@@ -145,10 +151,10 @@ section .inner .photos {
 /* 각도별 링크 */
 
 
-section .inner .seoul a {
+section .inner .map_and_lable .seoul a {
   position: absolute;
-  top: 35%;
-  left: 36%;
+  top: 9%;
+  left: 33%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -162,14 +168,14 @@ section .inner .seoul a:hover {
 section .inner .seoul .material-icons {
   position: absolute;
   left: 37%;
-  top: 33%;
+  top: 7%;
 }
 
 
 section .inner .gangwon a{
   position: absolute;
-  top: 32%;
-  left: 41.5%;
+  top: 11%;
+  left: 60%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -182,14 +188,14 @@ section .inner .gangwon a:hover {
 
 section .inner .gangwon .material-icons {
   position: absolute;
-  left: 42%;
-  top: 30%;
+  left: 62%;
+  top: 8%;
 }
 
 section .inner .chungbuk a{
   position: absolute;
-  top: 41%;
-  left: 39.2%;
+  top: 24%;
+  left: 45%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -202,14 +208,14 @@ section .inner .chungbuk a:hover {
 
 section .inner .chungbuk .material-icons {
   position: absolute;
-  left: 40%;
-  top: 39%;
+  left: 48%;
+  top: 21%;
 }
 
 section .inner .chungnam a{
   position: absolute;
-  top: 43%;
-  left: 34.5%;
+  top: 31%;
+  left: 28%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -222,14 +228,14 @@ section .inner .chungnam a:hover {
 
 section .inner .chungnam .material-icons {
   position: absolute;
-  left: 35%;
-  top: 41%;
+  left: 31%;
+  top: 29%;
 }
 
 section .inner .jeonbuk a{
   position: absolute;
-  top: 52%;
-  left: 35.5%;
+  top: 44%;
+  left: 30%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -242,14 +248,14 @@ section .inner .jeonbuk a:hover {
 
 section .inner .jeonbuk .material-icons {
   position: absolute;
-  left: 36%;
-  top: 50%;
+  left: 33%;
+  top: 41%;
 }
 
 section .inner .jeonnam a{
   position: absolute;
-  top: 60%;
-  left: 34.5%;
+  top: 55%;
+  left: 25%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -262,14 +268,14 @@ section .inner .jeonnam a:hover {
 
 section .inner .jeonnam .material-icons {
   position: absolute;
-  left: 35%;
-  top: 58%;
+  left: 27%;
+  top: 54%;
 }
 
 section .inner .gyungbuk a{
   position: absolute;
-  top: 47%;
-  left: 43.5%;
+  top: 36%;
+  left: 60%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -282,14 +288,14 @@ section .inner .gyungbuk a:hover{
 
 section .inner .gyungbuk .material-icons {
   position: absolute;
-  left: 44%;
-  top: 45%;
+  left: 63%;
+  top: 34%;
 }
 
 section .inner .gyungnam a{
   position: absolute;
-  top: 57%;
-  left: 42.5%;
+  top: 54%;
+  left: 50%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -302,14 +308,14 @@ section .inner .gyungnam a:hover{
 
 section .inner .gyungnam .material-icons {
   position: absolute;
-  left: 43%;
-  top: 55%;
+  left: 53%;
+  top: 52%;
 }
 
 section .inner .jeju a{
   position: absolute;
-  top: 69%;
-  left: 34.5%;
+  top: 76%;
+  left: 25%;
   text-decoration: none;
   color: #333;
   font-weight: 1000;
@@ -322,6 +328,15 @@ section .inner .jeju a:hover {
 
 section .inner .jeju .material-icons {
   position: absolute;
-  left: 35%;
-  top: 67.5%;
+  left: 27%;
+  top: 73.5%;
+}
+
+section .inner .scroll {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  /* background-color: rgb(154, 246, 15);  */
+  left: 45%;
+  top: -34%;
 }

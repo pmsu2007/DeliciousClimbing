@@ -67,27 +67,33 @@
                 <div id = resultBox1>
                     <img class="ResultImg" id="resultImg1"  th:src="|/img/mountains/${randMountainList[0].id}.jpg|" alt="Mountain">
                     <h4 id="ResultName" th:text="${randMountainList[0].name}">**산</h4>
-                    <h4 id="ResultAddress">서울특별시 종로구</h4> 
-                    <h4 id="ResultdLevel" class="text-center">★★★☆☆</h4>
-                    <h4 id="ResultMore">더보기></h4>
+                    <h4 id="ResultAddress" th:text="${randMountainList[0].getDetailRegion()}">서울특별시 종로구</h4>
+                    <h4 class="ResultdLevel"  >★☆☆☆☆</h4>
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="중"}">★★★☆☆</h4>-->
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="상"}">★★★★★</h4>-->
+                    <h4 id="ResultMore"  th:href="@{/moutains/{mountainId}(mountainId = ${randMountainList[0].id})}">더보기></h4>
                 </div>
                 <div id = resultBox2>
                     <img class="ResultImg"  th:src="|/img/mountains/${randMountainList[1].id}.jpg|" alt="Mountain">
                     <h4 id="ResultName" th:text="${randMountainList[1].name}">**산</h4>
-                    <h4 id="ResultAddress">서울특별시 종로구</h4> 
-                    <h4 id="ResultdLevel" class="text-center">★★★☆☆</h4>
-                    <h4 id="ResultMore">더보기></h4>
+                    <h4 id="ResultAddress" th:text="${randMountainList[1].getDetailRegion()}">서울특별시 종로구</h4>
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="하"}">★☆☆☆☆</h4>-->
+                    <h4 class="ResultdLevel" >★★★☆☆</h4>
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="상"}">★★★★★</h4>-->
+                    <h4 id="ResultMore"  th:href="@{/moutains/{mountainId}(mountainId = ${randMountainList[1].id})}">더보기></h4>
                 </div>
                 <div id = resultBox3>
                     <img class="ResultImg"  th:src="|/img/mountains/${randMountainList[2].id}.jpg|" alt="Mountain">
                     <h4 id="ResultName" th:text="${randMountainList[2].name}">Name</h4>
-                    <h4 id="ResultAddress">서울특별시 종로구</h4> 
-                    <h4 id="ResultdLevel" class="text-center">★★★☆☆</h4>
-                    <h4 id="ResultMore">더보기></h4>
+                    <h4 id="ResultAddress" th:text="${randMountainList[2].getDetailRegion()}" >서울특별시 종로구</h4>
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="하"}">★☆☆☆☆</h4>-->
+                    <h4 class="ResultdLevel" >★★★☆☆</h4>
+<!--                    <h4 class="ResultdLevel" class="text-center" th:if="${randMountainList[0].difficulty=="상"}">★★★★★</h4>-->
+                    <h4 id="ResultMore" th:href="@{/moutains/{mountainId}(mountainId = ${randMountainList[2].id})}">더보기></h4>
                 </div>
             </div>
 <!--            <button id="Restart" type="button" onclick="restart()">다시 검사하기</button>-->
-            <button id="Restart" type="button" th:onclick="location.href = \recommand\main">다시 검사하기</button>
+            <button id="Restart" type="button" th:onclick="|location.href='@{}'|">다시 검사하기</button>
         </article>
 
         <script type="text/javascript" scr="//t1.daumcdn.net/kas/static/ba.min.js" async></script>

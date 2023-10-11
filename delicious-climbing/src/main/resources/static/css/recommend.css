@@ -234,7 +234,7 @@ article{
     margin-top:10px;
     font-size: 15px;
 }
-#ResultLevel{
+.ResultLevel{
     color:yellow;
     font-size: 14px;
 }

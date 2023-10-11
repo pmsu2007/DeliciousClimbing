@@ -421,11 +421,15 @@ h3 {
     object-fit: contain;
     border: 2px solid #F2F2F2;
 }
-.modal_profilePhoto > img{
+
+.user_profile_img{
     width: 50px;
     height: 50px;
-}
 
+    overflow: hidden;
+    border-radius: 70%;
+    object-fit: contain;
+}
 .modal_date h1{
     margin-top: 4%;
     margin-left: 60%;
